@@ -1,0 +1,1 @@
+import LightBox from './components/LightBox.vue'
