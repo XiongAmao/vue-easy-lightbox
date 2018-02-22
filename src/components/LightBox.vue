@@ -1,7 +1,7 @@
 <template>
-  <transition name="fade-in">
+  <transition name="fade">
     <div
-      v-show="visible"
+      v-if="visible"
       class="img-swiper modal"
       @click.self="closeDialog"
     >
@@ -28,24 +28,60 @@
         <div class="btns">
           <div
             v-if="imgList.length !== 1"
-            class="btn-prev"
+            class="btn__prev"
             :class="{disable: imgIndex === 0}"
             @click="prev"
-          >prev</div>
+          >
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-prev"></use>
+            </svg>
+          </div>
+
           <div
             v-if="imgList.length !== 1"
-            class="btn-next"
+            class="btn__next"
             :class="{disable: imgIndex === imgList.length - 1}"
             @click="next"
-          >next</div>
+          >
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-next"></use>
+            </svg>
+          </div>
+
           <div
-            class="btn-close"
+            class="btn__close"
             @click="closeDialog"
-          ><i class="el-icon-close"></i></div>
-          <div class="btns-toolbar">
-              <button @click="zoomIn()">放大</button>
-              <button @click="zoomOut()">缩小</button>
-              <button @click="rotate()">rotate</button>
+          >
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-close"></use>
+            </svg>
+          </div>
+
+          <div class="toolbar-btns">
+            <div
+              class="toobar-btn toolbar-btn__zoomin"
+              @click="zoomIn()"
+            >
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-zoomin"></use>
+              </svg>
+            </div>
+            <div
+              class="toobar-btn toolbar-btn__zoomout"
+              @click="zoomOut()"
+            >
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-zoomout"></use>
+              </svg>
+            </div>
+            <div
+              class="toobar-btn toolbar-btn__rotate"
+              @click="rotate()"
+            >
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-rotate"></use>
+              </svg>
+            </div>
           </div>
         </div>
         <!-- END: btns -->
@@ -60,11 +96,12 @@
 </template>
 
 <script>
+import '../assets/svg/iconfont'
 export default {
   name: 'vue-easy-lightbox',
   props: {
     imgs: {
-      type: [Array, Boolean]
+      type: [Array, String]
     },
     visible: {
       type: Boolean
@@ -142,8 +179,15 @@ export default {
       this.rotateDeg = 0
     },
     closeDialog() {
-      this.reset()
-      this.$emit('dialogClose')
+      this.$emit('hide')
+    },
+    init() {
+      this.imgIndex = 0
+      this.imgTransitionStatus = true
+      this.scale = 1
+      this.rotateDeg = 0
+      this.top = 0
+      this.left = 0
     }
   },
   computed: {
@@ -160,26 +204,39 @@ export default {
     imgStyle: {
       get() {
         return {
-          transform: `translate(-50%, -50%) 
-            scale(${this.scale}) 
+          transform: `translate(-50%, -50%)
+            scale(${this.scale})
             rotate(-${this.rotateDeg}deg)`,
           top: `calc(50% + ${this.top}px)`,
           left: `calc(50% + ${this.left}px)`
         }
+      }
+    },
+  },
+  watch: {
+    visible(visible) {
+      if(visible === true) {
+        this.init()
       }
     }
   }
 }
 </script>
 
-<style .scoped>
-.fade-in-enter-active,
-.fade-in-leave-active {
-  transition: all 0.3s linear;
+<style>
+.icon {
+  width: 1em; height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }
-.fade-in-enter,
-.fade-in-leave-to {
-  opacity: 1;
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s ease;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 .img-swiper {
   position: relative;
@@ -212,9 +269,9 @@ export default {
   position: relative;
 }
 
-.btn-prev,
-.btn-next,
-.btn-close {
+.btn__prev,
+.btn__next,
+.btn__close {
   cursor: pointer;
   position: absolute;
   font-size: 60px;
@@ -222,27 +279,29 @@ export default {
   opacity: 0.6;
   transition: 0.15s linear;
 }
-.btn-prev:hover,
-.btn-next:hover,
-.btn-close:hover {
+.btn__prev:hover,
+.btn__next:hover,
+.btn__close:hover {
   opacity: 1;
 }
-.btn-prev.disable:hover,
-.btn-next.disable:hover,
-.btn-prev.disable,
-.btn-next.disable {
+.btn__prev.disable:hover,
+.btn__next.disable:hover,
+.btn__prev.disable,
+.btn__next.disable {
   cursor: default;
   opacity: 0.2;
 }
-.btn-next {
+.btn__next {
   top: 50%;
   right: 20px;
+  font-size: 40px;
 }
-.btn-prev {
+.btn__prev {
   top: 50%;
   left: 20px;
+  font-size: 40px;
 }
-.btn-close {
+.btn__close {
   top: 10px;
   right: 10px;
   font-size: 40px;
@@ -254,11 +313,29 @@ export default {
   left: 16px;
   color: #000;
 }
-.btns-toolbar {
+.toolbar-btns {
+  user-select: none;
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translate(-50%);
-  font-size: 50px;
+  background: rgba(45, 45, 44, .8);
+  border-radius: 4px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 6px 24px 0;
+}
+.toobar-btn{
+  cursor: pointer;
+  display: inline-block;
+  padding: 6px;
+}
+.toobar-btn .icon{
+  width: 32px;
+  height: 32px;
+  fill: #fff;
+}
+.toobar-btn:hover .icon{
+  fill: #54b4ee;
 }
 </style>
