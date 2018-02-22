@@ -1,12 +1,17 @@
 var path = require('path');
+
+function resolve(relPath) {
+  return path.resolve(__dirname, relPath)
+}
+
 module.exports = {
     dev: {
-        outputPath: path.resolve(__dirname, '../static'),
+        outputPath: resolve('../dist'),
         outputPublicPath: '/',
         port: 8099
     },
     prod: {
-        outputPath: path.resolve(__dirname, '../dist/assets'),
-        outputPublicPath: '/assets/'
+        outputPath: resolve('../dist'),
+        outputPublicPath: '/'
     }
 }

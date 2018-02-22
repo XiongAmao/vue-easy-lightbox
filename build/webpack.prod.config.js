@@ -14,7 +14,9 @@ module.exports = {
   output: {
     path: resolve('../dist'),
     publicPath: '/',
-    filename: 'index.js'
+    filename: 'index.js',
+    library: 'vue-easy-lightbox',
+    libraryTarget: 'umd'
   },
   module: {
     rules: [
@@ -47,11 +49,18 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
+    // new webpack.DefinePlugin({
 
-    }),
+    // }),
     new webpack.NamedModulesPlugin(),
     new FriendlyErrorsPlugin(),
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin({
+      beautify: false,
+      comments: false,
+      compress: {
+        warnings: false,
+        collapse_vars: true,
+      }
+    })
   ]
 }
