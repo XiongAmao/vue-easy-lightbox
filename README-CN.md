@@ -1,41 +1,131 @@
+# Pure JS lightBox component for Vue.js
 
-# 需求
-开发一个lightbox库
-1. 提供按需引入，全局引入
-2. 可以使用webpack-dev-server进行开发
+<a href="https://spdx.org/licenses/MIT.html"><img src="https://img.shields.io/npm/l/vue-pure-lightbox.svg" alt="License"></a>
 
-webpack 打包配置中，入口文件会直接调用，同时将入口文件也做一个`export` 导出，那么就可以做插件的引入了
+[English](https://github.com/XiongAmao/vue-easy-lightbox)
 
-栗子：
+## 安装
+
+### With NPM:
 ```
-import Icon from './IconFont.vue'
-//  引入单文件
-let installed = false
+npm i vue-easy-lightbox --save
+```
 
-const install = {
-    installed: false,
-    install(Vue, options = {}) {
-        if (this.installed) return
-        this.installed = true
-        Vue.component('icon', Icon)
+## Usage
+
+使用 `script` 标签引入
+
+```
+<script src="path/to/vue-easy-lightbox.min.js"></script>
+```
+
+`vue-easy-lightbox`可以使用 `Vue.use()` 方法加载。
+
+```
+import Vue from 'vue'
+import Lightbox from 'vue-easy-lightbox'
+
+Vue.use(Lightbox)
+
+```
+
+```
+<template>
+  <vue-easy-lightbox
+    :visible="visible"
+    :imgs="imgs"
+    @hide="handleHide"
+  ></vue-easy-lightbox>
+</template>
+```
+
+以组件形式使用
+```
+<template>
+  <div>
+    <button @click="showSingle">Show single picture.</button>
+    <button @click="showMultiple">Show a group of pictures.</button>
+    <Lightbox
+      :visible="visible"
+      :imgs="imgs"
+      @hide="handleHide"
+    ></Lightbox>
+  </div>
+</template>
+
+<script>
+import Lightbox from 'vue-easy-lightbox'
+export default {
+  data() {
+    return {
+      imgs: '',  // Img Url , string or Array
+      visible: false
     }
+  },
+  methods: {
+    showSingle() {
+      this.imgs = 'http://via.placeholder.com/350x150'
+      this.show()
+    },
+    showMultiple() {
+      this.imgs = ['http://via.placeholder.com/350x150', 'http://via.placeholder.com/350x150']
+      this.show()
+    },
+    show() {
+      this.visible = true
+    },
+    handleHide() {
+      this.visible = false
+    }
+  }
 }
-
-Icon.install = install.install
-// 为单文件对象赋予一个属install属性，以便可以作为插件引入
-
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(Icon)
-}
-// 调用
-
-module.exports = module.exports.default = Icon
-export default Icon
+</script>
 
 ```
 
-TODO：
-- [ ] ~~import from 到底from了什么~~ 对于vue而言，使用import/export 仍需要babel转成require形式 
-- [x] webpack如何配置入口文件实现按需引入和全局引入
-- [ ] css和其他资源的输出
-- [ ] 开发环境 
+## 配置项
+
+Properties
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>type</th>
+      <th>default</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>visible</td>
+      <td>Boolean</td>
+      <td>required</td>
+      <td>控制组件的显示</td>
+    </tr>
+    <tr>
+      <td>imgs</td>
+      <td>String/Array</td>
+      <td>required</td>
+      <td>图片的url，传入数组则可以轮播显示</td>
+    </tr>
+  </tbody>
+</table>
+
+Event
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hide</td>
+      <td>当点击遮罩或者关闭按钮时，会触发该事件</td>
+    </tr>
+  </tbody>
+</table>
+
+## License
+Just use it. For free. Forever.
