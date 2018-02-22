@@ -5,7 +5,7 @@
   "private": false,
   "author": "Zichao Xiong <onycat@live.cn>",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "dist/vue-easy-lightbox.min.js",
   "scripts": {
     "dev": "node build/dev.js",
     "build": "node build/build.js",
