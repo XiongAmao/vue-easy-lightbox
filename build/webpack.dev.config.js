@@ -9,10 +9,10 @@ function resolve(relPath) {
 
 module.exports = {
   entry: {
-    index: resolve('../src/main.js')
+    index: resolve('../src/demo.js')
   },
   output: {
-    path: resolve('../dist'),
+    path: resolve('../example'),
     publicPath: '/',
     filename: 'index.js'
   },
@@ -51,8 +51,8 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: 'My Vue App',
-      template: 'index.html',
-      inject: 'body'  // 插入到头部
+      template: 'index.html', // dev & demo
+      inject: 'body'  
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),

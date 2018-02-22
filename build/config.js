@@ -3,7 +3,7 @@ module.exports = {
     dev: {
         outputPath: path.resolve(__dirname, '../static'),
         outputPublicPath: '/',
-        port: 8090
+        port: 8099
     },
     prod: {
         outputPath: path.resolve(__dirname, '../dist/assets'),
