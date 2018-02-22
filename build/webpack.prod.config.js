@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: resolve('../dist'),
     publicPath: '/',
-    filename: 'index.js',
+    filename: 'vue-easy-lightbox.min.js',
     library: 'vue-easy-lightbox',
     libraryTarget: 'umd'
   },
