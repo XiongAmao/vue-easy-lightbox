@@ -15,21 +15,20 @@ npm i vue-easy-lightbox --save
 
 使用 `script` 标签引入
 
-```
+```html
 <script src="path/to/vue-easy-lightbox.min.js"></script>
 ```
 
 `vue-easy-lightbox`可以使用 `Vue.use()` 方法加载。
 
-```
+```javascript
 import Vue from 'vue'
 import Lightbox from 'vue-easy-lightbox'
 
 Vue.use(Lightbox)
-
 ```
 
-```
+```html
 <template>
   <vue-easy-lightbox
     :visible="visible"
@@ -40,7 +39,7 @@ Vue.use(Lightbox)
 ```
 
 以组件形式使用
-```
+```html
 <template>
   <div>
     <button @click="showSingle">Show single picture.</button>

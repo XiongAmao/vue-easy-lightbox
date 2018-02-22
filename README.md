@@ -15,19 +15,20 @@ npm i vue-easy-lightbox --save
 
 use `script` tag
 
-```
+```html
 <script src="path/to/vue-easy-lightbox.min.js"></script>
 ```
 
 `vue-easy-lightbox` can be loading all with the Vue.use() method as same as the other vue plugin.
 
-```
+```javascript
 import Vue from 'vue'
 import Lightbox from 'vue-easy-lightbox'
 
 Vue.use(Lightbox)
+```
 
-
+```html
 <template>
   <vue-easy-lightbox
     :visible="visible"
@@ -38,7 +39,7 @@ Vue.use(Lightbox)
 ```
 
 Usage of Component
-```
+```html
 <template>
   <div>
     <button @click="showSingle">Show single picture.</button>
