@@ -1,8 +1,27 @@
 <template>
   <div id="app">
-    <button @click="showSingle">Show single picture.</button>
-    <button @click="showMultiple">Show a group of pictures.</button>
-    <vue-easy-lightbox :visible="visible" :imgs="imgs" @hide="handleHide"></vue-easy-lightbox>
+    <div class="container">
+      <h1> vue-easy-lightbox </h1>
+      <div class="gallery">
+        <div class="pic" @click="showSingle('http://ond8gcwbr.bkt.clouddn.com/18-2-23/91783066.jpg')">
+          <img src="http://ond8gcwbr.bkt.clouddn.com/18-2-23/91783066.jpg" alt="">
+        </div>
+        <div class="pic" @click="showSingle('http://ond8gcwbr.bkt.clouddn.com/18-2-23/30955526.jpg')">
+          <img src="http://ond8gcwbr.bkt.clouddn.com/18-2-23/30955526.jpg" alt="">
+        </div>
+        <div class="pic" @click="showSingle('http://ond8gcwbr.bkt.clouddn.com/18-2-23/97656858.jpg')">
+          <img src="http://ond8gcwbr.bkt.clouddn.com/18-2-23/97656858.jpg" alt="">
+        </div>
+        <div class="pic" @click="showSingle('http://ond8gcwbr.bkt.clouddn.com/18-2-23/83701379.jpg')">
+          <img src="http://ond8gcwbr.bkt.clouddn.com/18-2-23/83701379.jpg" alt="">
+        </div>
+      </div>
+      <div class="btns">
+        <button class="btn" @click="showSingle">single picture</button>
+        <button class="btn" @click="showMultiple">group of pictures</button>
+      </div>
+      <vue-easy-lightbox :visible="visible" :imgs="imgs" @hide="handleHide"></vue-easy-lightbox>
+    </div>
   </div>
 </template>
 
@@ -10,7 +29,7 @@
 export default {
   data() {
     return {
-      imgs: ['https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-243411.png', 'https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-243411.png'],
+      imgs: ['http://ond8gcwbr.bkt.clouddn.com/18-2-23/91783066.jpg', 'http://ond8gcwbr.bkt.clouddn.com/18-2-23/30955526.jpg'],
       visible: false
     }
   },
@@ -18,12 +37,18 @@ export default {
     show() {
       this.visible = true
     },
-    showSingle() {
-      this.imgs = 'https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-243411.png'
+    showSingle(url) {
+
+      this.imgs = 'http://ond8gcwbr.bkt.clouddn.com/18-2-23/91783066.jpg'
       this.show()
     },
     showMultiple() {
-      this.imgs = ['https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-243411.png', 'https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-45604.jpg']
+      this.imgs = [
+        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/91783066.jpg',
+        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/30955526.jpg',
+        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/97656858.jpg',
+        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/83701379.jpg'
+      ]
       this.show()
     },
     handleHide() {
@@ -33,6 +58,56 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  .container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  h1 {
+    color: #50d1c1;
+  }
+  .gallery{
+    width: 80%;
+    max-width: 980px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  .pic{
+    width: calc(50% - 30px);
+    margin: 15px;
+    cursor: pointer;
+  }
+  .pic:hover img{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0);
+  }
+  img{
+    width: 100%;
+    transition: .3s ease;
+  }
+  .btn{
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
+    line-height: 50px;
+    height: 50px;
+    padding: 0 8px;
+    margin-left: 20px;
+    background-color: #50d1c1;
+    border-color: #50d1c1;
+    border-radius: 4px;
+    color: #FFF;
+    transition: .3s;
+  }
+  .btn:active{
+    color: #ccc;
+    background-color: #6AB5AE;
+    border-color: #6AB5AE;
+    outline: none;
+  }
 </style>

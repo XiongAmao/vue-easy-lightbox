@@ -1,0 +1,186 @@
+
+.icon[data-v-1440c6a5] {
+  width: 1em; height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+.fade-enter-active[data-v-1440c6a5],
+.fade-leave-active[data-v-1440c6a5] {
+  transition: all 0.3s ease;
+}
+.fade-enter[data-v-1440c6a5],
+.fade-leave-to[data-v-1440c6a5] {
+  opacity: 0;
+}
+.img-swiper[data-v-1440c6a5] {
+  position: relative;
+}
+.modal[data-v-1440c6a5] {
+  z-index: 9998;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.img-wrapper[data-v-1440c6a5] {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50% -50%);
+          transform: translate(-50% -50%);
+  box-shadow: #555 0px 5px 20px 2px;
+  cursor: move;
+}
+.img-wrapper.transition[data-v-1440c6a5] {
+  transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+}
+.img[data-v-1440c6a5] {
+  max-width: 80vw;
+  max-height: 80vh;
+  vertical-align: middle;
+  position: relative;
+}
+.btn__prev[data-v-1440c6a5],
+.btn__next[data-v-1440c6a5],
+.btn__close[data-v-1440c6a5] {
+  cursor: pointer;
+  position: absolute;
+  font-size: 60px;
+  color: #fff;
+  opacity: 0.6;
+  transition: 0.15s linear;
+}
+.btn__prev[data-v-1440c6a5]:hover,
+.btn__next[data-v-1440c6a5]:hover,
+.btn__close[data-v-1440c6a5]:hover {
+  opacity: 1;
+}
+.btn__prev.disable[data-v-1440c6a5]:hover,
+.btn__next.disable[data-v-1440c6a5]:hover,
+.btn__prev.disable[data-v-1440c6a5],
+.btn__next.disable[data-v-1440c6a5] {
+  cursor: default;
+  opacity: 0.2;
+}
+.btn__next[data-v-1440c6a5] {
+  top: 50%;
+  right: 20px;
+  font-size: 40px;
+}
+.btn__prev[data-v-1440c6a5] {
+  top: 50%;
+  left: 20px;
+  font-size: 40px;
+}
+.btn__close[data-v-1440c6a5] {
+  top: 10px;
+  right: 10px;
+  font-size: 40px;
+}
+.pagination-total[data-v-1440c6a5] {
+  position: absolute;
+  font-size: 16px;
+  top: 16px;
+  left: 16px;
+  color: #000;
+}
+.toolbar-btns[data-v-1440c6a5] {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  background: rgba(45, 45, 44, .8);
+  border-radius: 4px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 6px 24px 0;
+}
+.toobar-btn[data-v-1440c6a5]{
+  cursor: pointer;
+  display: inline-block;
+  padding: 6px;
+}
+.toobar-btn .icon[data-v-1440c6a5]{
+  width: 32px;
+  height: 32px;
+  fill: #fff;
+}
+.toobar-btn:hover .icon[data-v-1440c6a5]{
+  fill: #54b4ee;
+}
+
+.container[data-v-7ba5bd90] {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+h1[data-v-7ba5bd90] {
+  color: #50d1c1;
+}
+.gallery[data-v-7ba5bd90]{
+  width: 80%;
+  max-width: 980px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.pic[data-v-7ba5bd90]{
+  width: calc(50% - 30px);
+  margin: 15px;
+  cursor: pointer;
+}
+.pic:hover img[data-v-7ba5bd90]{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0);
+}
+img[data-v-7ba5bd90]{
+  width: 100%;
+  transition: .3s ease;
+}
+.btn[data-v-7ba5bd90]{
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 20px;
+  line-height: 50px;
+  height: 50px;
+  padding: 0 8px;
+  margin-left: 20px;
+  background-color: #50d1c1;
+  border-color: #50d1c1;
+  border-radius: 4px;
+  color: #FFF;
+  transition: .3s;
+}
+.btn[data-v-7ba5bd90]:active{
+  color: #ccc;
+  background-color: #6AB5AE;
+  border-color: #6AB5AE;
+  outline: none;
+}
