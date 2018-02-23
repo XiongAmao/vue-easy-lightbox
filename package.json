@@ -8,8 +8,9 @@
   "main": "dist/vue-easy-lightbox.min.js",
   "scripts": {
     "dev": "node build/dev.js",
-    "build": "node build/build.js",
-    "test": "build build/test.js"
+    "build:prod": "NODE_ENV=production node build/build.js",
+    "test": "build build/test.js",
+    "build:demo": "NODE_ENV=demo node build/build.js"
   },
   "repository": {
     "type": "git",
@@ -30,12 +31,14 @@
     "babel-preset-stage-2": "^6.24.1",
     "chalk": "^2.3.1",
     "css-loader": "^0.28.9",
+    "extract-text-webpack-plugin": "^3.0.2",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.7.2",
     "opn": "^5.2.0",
     "ora": "^2.0.0",
     "portfinder": "^1.0.13",
+    "postcss-import": "^11.1.0",
     "postcss-loader": "^2.1.0",
     "rimraf": "^2.6.2",
     "sass-loader": "^6.0.6",

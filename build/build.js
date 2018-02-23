@@ -1,8 +1,7 @@
 'use strict'
-process.env.NODE_ENV = 'production'
 
 const webpack = require('webpack')
-const webpackConfig = require('./webpack.prod.config')
+const webpackConfig = require('./webpack.build.config')
 const config = require('./config.js')
 const ora = require('ora')
 const rm = require('rimraf')
@@ -11,7 +10,7 @@ const chalk = require('chalk')
 const spinner = ora('building for prodction...')
 spinner.start()
 
-rm(config.prod.outputPath, err => {
+rm(webpackConfig.output.path, err => {
   if(err) throw err
   webpack(webpackConfig, (err, stats) => {
     spinner.stop()

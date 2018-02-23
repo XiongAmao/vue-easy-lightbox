@@ -1,22 +1,32 @@
+'use strict';
+
 process.env.NODE_ENV = 'dev'
 
-var webpack = require('webpack')
-var webpackDevServer = require('webpack-dev-server')
-var config = require('./config')
-var devConfig = require('./webpack.dev.config')
-var compiler = webpack(devConfig)
-var opn = require('opn')
-var portfinder = require('portfinder')
+const webpack = require('webpack')
+const webpackDevServer = require('webpack-dev-server')
+const config = require('./config')
+const devConfig = require('./webpack.dev.config')
+const opn = require('opn')
+const portfinder = require('portfinder')
 
-var server = new webpackDevServer(compiler, {
+
+const options = {
+  clientLogLevel: 'warning',
   hot: true,
   quiet: true, // necessary for FriendlyErrorsPlugin
   compress: true,
   inline: true,
   overlay: true,
+  host: '0.0.0.0',  // necessary for Node.js API
   publicPath: config.dev.outputPublicPath,
   stats: { colors: true }
-})
+}
+
+webpackDevServer.addDevServerEntrypoints(devConfig, options)
+// https://webpack.js.org/guides/hot-module-replacement/#via-the-node-js-api
+
+const compiler = webpack(devConfig)
+const server = new webpackDevServer(compiler, options)
 
 portfinder.basePort = config.dev.port
 

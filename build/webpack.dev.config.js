@@ -1,13 +1,17 @@
-var path = require('path')
-var webpack = require('webpack')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
+'use strict';
+
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 function resolve(relPath) {
   return path.resolve(__dirname, relPath)
 }
 
 module.exports = {
+  context: resolve('../'),
+  devtool: 'eval-source-map',
   entry: {
     index: resolve('../src/demo.js')
   },
@@ -15,6 +19,13 @@ module.exports = {
     path: resolve('../example'),
     publicPath: '/',
     filename: 'index.js'
+  },
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    }
+    // https://webpack.js.org/configuration/resolve/#resolve-extensions
   },
   module: {
     rules: [
@@ -38,24 +49,48 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          loaders: {
-            // css: ['vue-style-loader', 'css-loader', 'postcss-loader']
-          }
+          loaders: [
+            'vue-style-loader',
+            {
+              loader: 'css-loader',
+              options: { sourceMap: true }
+            }
+          ]
         }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'vue-style-loader',
+          { loader: 'css-loader' },
+          { loader: 'postcss-loader' }
+        ]
       }
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
-
-    }),
+    new webpack.DefinePlugin({}),
     new HtmlWebpackPlugin({
       title: 'My Vue App',
       template: 'index.html', // dev & demo
-      inject: 'body'  
+      filename: 'index.html',
+      inject: true
     }),
     new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new FriendlyErrorsPlugin()
-  ]
+  ],
+  node: {
+    // prevent webpack from injecting useless setImmediate polyfill because Vue
+    // source contains it (although only uses it if it's native).
+    setImmediate: false,
+    // prevent webpack from injecting mocks to Node native modules
+    // that does not make sense for the client
+    dgram: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty'
+  }
 }

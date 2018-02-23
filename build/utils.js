@@ -1,5 +1,5 @@
 
-var isProd = process.env.NODE_ENV === "prod"
+var isProd = process.env.NODE_ENV === "production"
 
 var cssLang = [{
     name: 'css',
