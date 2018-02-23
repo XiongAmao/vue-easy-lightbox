@@ -30,7 +30,9 @@ const buildWebpackConfig = {
       process.env.NODE_ENV === 'production'
         ? config.prod.outputPath
         : config.demo.outputPath,
-    publicPath: '/',
+    publicPath: process.env.NODE_ENV === 'production'
+    ? config.prod.outputPublicPath
+    : config.demo.outputPublicPath,
     filename:
       process.env.NODE_ENV === 'production'
         ? config.prod.filename

@@ -25,6 +25,7 @@ module.exports = {
   demo: {
     entry: resolve('../src/demo.js'),
     outputPath: resolve('../example'),
+    outputPbulicPath: '/example',
     filename: 'js/[name].js',
     vueLoaderOptions: {
       loaders: {
