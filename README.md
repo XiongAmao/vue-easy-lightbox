@@ -6,6 +6,8 @@
 
 [中文文档](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README-CN.md)
 
+## [DEMO](https://xiongamao.github.io/vue-easy-lightbox/example/index.html)
+
 ## Installation
 
 ### With NPM:
