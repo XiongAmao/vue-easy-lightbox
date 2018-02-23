@@ -41,7 +41,6 @@ const buildWebpackConfig = {
       {
         test: /\.js$/,
         use: 'babel-loader',
-        exclude: /node_modules/,
         include: [resolve('../src')]
       },
       {
