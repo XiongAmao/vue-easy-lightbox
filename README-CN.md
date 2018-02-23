@@ -1,4 +1,6 @@
-# Pure JS lightBox component for Vue.js
+# vue-easy-lightbox
+
+> 纯Vue组件构建的图片阅览插件， 提供了旋转、放大、拖拽功能。
 
 <a href="https://spdx.org/licenses/MIT.html"><img src="https://img.shields.io/npm/l/vue-pure-lightbox.svg" alt="License"></a>
 
