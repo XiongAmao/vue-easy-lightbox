@@ -2,7 +2,8 @@
 
 >A pure JS lightbox component for Vue.js . You can drag / view / rotate pictures.
 
-<a href="https://spdx.org/licenses/MIT.html"><img src="https://img.shields.io/npm/l/vue-pure-lightbox.svg" alt="License"></a>
+[![npm](https://img.shields.io/npm/v/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
+[![npm](https://img.shields.io/npm/l/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
 
 [中文文档](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README-CN.md)
 

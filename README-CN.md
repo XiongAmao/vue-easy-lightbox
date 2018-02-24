@@ -2,7 +2,8 @@
 
 > 纯Vue组件构建的图片阅览插件， 提供了旋转、放大、拖拽功能。
 
-<a href="https://spdx.org/licenses/MIT.html"><img src="https://img.shields.io/npm/l/vue-pure-lightbox.svg" alt="License"></a>
+[![npm](https://img.shields.io/npm/v/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
+[![npm](https://img.shields.io/npm/l/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
 
 [English](https://github.com/XiongAmao/vue-easy-lightbox)
 
