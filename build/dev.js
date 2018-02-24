@@ -33,11 +33,12 @@ portfinder.basePort = config.dev.port
 portfinder.getPort(function(err, port) {
   if (err) throw err
 
-  server.listen(config.dev.port, '0.0.0.0')
-  var url = `http://localhost:${config.dev.port}/`
+  server.listen(port, '0.0.0.0')
+
+  var url = `http://localhost:${port}/`
 
   server.middleware.waitUntilValid(function() {
-    console.log(`> Listening at ${url}`)
+    console.log(`> Your application is running here: ${url}`)
     opn(`${url}`)
   })
 })

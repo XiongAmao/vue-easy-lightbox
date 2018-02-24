@@ -11,7 +11,7 @@ module.exports = {
   dev: {
     outputPath: resolve('../dist'),
     outputPublicPath: '/',
-    port: 8099
+    port: 8080
   },
   prod: {
     entry: resolve('../src/main.js'),

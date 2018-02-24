@@ -48,21 +48,15 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          loaders: [
-            'vue-style-loader',
-            {
-              loader: 'css-loader',
-              options: { sourceMap: true }
-            }
-          ]
+          loaders: {
+            css: 'vue-style-loader?sourceMap!css-loader?sourceMap'
+          }
         }
       },
       {
         test: /\.css$/,
         use: [
-          'vue-style-loader',
-          { loader: 'css-loader' },
-          { loader: 'postcss-loader' }
+          'vue-style-loader!css-loader!postcss-loader',
         ]
       }
     ]
