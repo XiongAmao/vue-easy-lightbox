@@ -52,6 +52,7 @@ Usage of Component
     <Lightbox
       :visible="visible"
       :imgs="imgs"
+      :index="index"
       @hide="handleHide"
     ></Lightbox>
   </div>
@@ -63,7 +64,8 @@ export default {
   data() {
     return {
       imgs: '',  // Img Url , string or Array
-      visible: false
+      visible: false,
+      index: 0   // default
     }
   },
   methods: {
@@ -73,6 +75,7 @@ export default {
     },
     showMultiple() {
       this.imgs = ['http://via.placeholder.com/350x150', 'http://via.placeholder.com/350x150']
+      this.index = 1  // index of imgList
       this.show()
     },
     show() {
@@ -111,6 +114,12 @@ Properties
       <td>String/Array</td>
       <td>required</td>
       <td>Image's Url</td>
+    </tr>
+    <tr>
+      <td>index</td>
+      <td>Number</td>
+      <td>0</td>
+      <td>Index of imgList</td>
     </tr>
   </tbody>
 </table>

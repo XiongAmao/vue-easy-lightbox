@@ -3,24 +3,25 @@
     <div class="container">
       <h1> vue-easy-lightbox </h1>
       <div class="gallery">
-        <div class="pic" @click="showSingle('http://ond8gcwbr.bkt.clouddn.com/18-2-23/91783066.jpg')">
+        <div class="pic" @click="show(0)">
           <img src="http://ond8gcwbr.bkt.clouddn.com/18-2-23/91783066.jpg" alt="">
         </div>
-        <div class="pic" @click="showSingle('http://ond8gcwbr.bkt.clouddn.com/18-2-23/30955526.jpg')">
+        <div class="pic" @click="show(1)">
           <img src="http://ond8gcwbr.bkt.clouddn.com/18-2-23/30955526.jpg" alt="">
         </div>
-        <div class="pic" @click="showSingle('http://ond8gcwbr.bkt.clouddn.com/18-2-23/97656858.jpg')">
+        <div class="pic" @click="show(2)">
           <img src="http://ond8gcwbr.bkt.clouddn.com/18-2-23/97656858.jpg" alt="">
         </div>
-        <div class="pic" @click="showSingle('http://ond8gcwbr.bkt.clouddn.com/18-2-23/83701379.jpg')">
+        <div class="pic" @click="show(3)">
           <img src="http://ond8gcwbr.bkt.clouddn.com/18-2-23/83701379.jpg" alt="">
         </div>
       </div>
-      <div class="btns">
-        <button class="btn" @click="showSingle">single picture</button>
-        <button class="btn" @click="showMultiple">group of pictures</button>
-      </div>
-      <vue-easy-lightbox :visible="visible" :imgs="imgs" @hide="handleHide"></vue-easy-lightbox>
+
+      <vue-easy-lightbox
+        :visible="visible"
+        :index="index"
+        :imgs="imgs"
+        @hide="handleHide"></vue-easy-lightbox>
     </div>
   </div>
 </template>
@@ -29,27 +30,20 @@
 export default {
   data() {
     return {
-      imgs: ['http://ond8gcwbr.bkt.clouddn.com/18-2-23/91783066.jpg', 'http://ond8gcwbr.bkt.clouddn.com/18-2-23/30955526.jpg'],
+      imgs: [
+        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/91783066.jpg',
+        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/30955526.jpg',
+        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/97656858.jpg',
+        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/83701379.jpg',
+        'http://via.placeholder.com/50x50'
+      ],
       visible: false
     }
   },
   methods: {
-    show() {
+    show(index) {
+      this.index = index
       this.visible = true
-    },
-    showSingle(url) {
-
-      this.imgs = 'http://ond8gcwbr.bkt.clouddn.com/18-2-23/91783066.jpg'
-      this.show()
-    },
-    showMultiple() {
-      this.imgs = [
-        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/91783066.jpg',
-        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/30955526.jpg',
-        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/97656858.jpg',
-        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/83701379.jpg'
-      ]
-      this.show()
     },
     handleHide() {
       this.visible = false
@@ -83,6 +77,7 @@ export default {
   }
   .pic:hover img{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0);
+    transform: scale(1.01)
   }
   img{
     width: 100%;

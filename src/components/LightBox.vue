@@ -105,6 +105,10 @@ export default {
     },
     visible: {
       type: Boolean
+    },
+    index: {
+      type: Number,
+      default: 0
     }
   },
   components: {},
@@ -182,7 +186,7 @@ export default {
       this.$emit('hide')
     },
     init() {
-      this.imgIndex = 0
+      this.imgIndex = this.index
       this.imgTransitionStatus = true
       this.scale = 1
       this.rotateDeg = 0
