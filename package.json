@@ -1,6 +1,6 @@
 {
   "name": "vue-easy-lightbox",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Very lightweight, JavaScript-only, lightbox plugin for Vue.js",
   "private": false,
   "author": "Zichao Xiong <onycat@live.cn>",
@@ -8,6 +8,7 @@
   "main": "dist/vue-easy-lightbox.min.js",
   "scripts": {
     "dev": "node build/dev.js",
+    "build": "npm run build:prod && npm run build:demo",
     "build:prod": "NODE_ENV=production node build/build.js",
     "test": "build build/test.js",
     "build:demo": "NODE_ENV=demo node build/build.js"
