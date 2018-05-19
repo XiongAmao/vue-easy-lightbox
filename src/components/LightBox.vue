@@ -156,7 +156,8 @@ export default {
       this.scale += 0.25
     },
     zoomOut() {
-      this.scale -= 0.25
+      if(this.scale!==0)
+        this.scale -= 0.25
     },
     rotate() {
       this.rotateDeg += 90
