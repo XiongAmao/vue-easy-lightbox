@@ -1,15 +1,15 @@
-import VueEasyLightbox from './components/Lightbox.vue'
+import Lightbox from './components/Lightbox.vue'
 
-const Lightbox = {
-  installed: false,
-  install (Vue, opt = {}) {
-    if (Lightbox.installed) return
+Lightbox.installed = false
 
-    Vue.component('vue-easy-lightbox', VueEasyLightbox)
+Lightbox.install = function (Vue) {
+  if (Lightbox.installed) return
 
-    Lightbox.installed = true
-  }
+  Vue.component('vue-easy-lightbox', Lightbox)
+
+  Lightbox.installed = true
 }
+
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(Lightbox)
