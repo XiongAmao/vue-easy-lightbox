@@ -11,9 +11,10 @@
 
 ## Installation
 
-### With NPM:
-```
-npm i vue-easy-lightbox --save
+### With NPM
+
+```shell
+$ npm install --save vue-easy-lightbox
 ```
 
 ## Usage
@@ -44,6 +45,7 @@ Vue.use(Lightbox)
 ```
 
 Usage of Component
+
 ```html
 <template>
   <div>
@@ -141,4 +143,5 @@ Event
 </table>
 
 ## License
-Just use it. For free. Forever.
+
+[MIT](http://opensource.org/licenses/MIT)
