@@ -1,0 +1,13 @@
+# 忽略目录
+examples/
+public/
+
+# ignore files
+vue.config.js
+babel.config.js
+.gitignore
+.eslintrc.js
+.eslintignore
+.editorconfig
+.browserslistrc
+postcss.config.js

@@ -5,13 +5,12 @@
   "private": false,
   "author": "Zichao Xiong <onycat@live.cn>",
   "license": "MIT",
-  "main": "dist/vue-easy-lightbox.min.js",
+  "main": "dist/vue-easy-lightbox.common.js ",
   "scripts": {
-    "dev": "node build/dev.js",
-    "build": "npm run build:prod && npm run build:demo",
-    "build:prod": "NODE_ENV=production node build/build.js",
-    "test": "build build/test.js",
-    "build:demo": "NODE_ENV=demo node build/build.js"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --dest build",
+    "lint": "vue-cli-service lint",
+    "lib": "vue-cli-service build --target lib --name vue-easy-lightbox --dest dist ./src/index.js && rm ./dist/demo.html"
   },
   "repository": {
     "type": "git",
@@ -22,33 +21,18 @@
   },
   "homepage": "https://github.com/XiongAmao/vue-easy-lightbox#readme",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "vue": "^2.5.13"
+    "vue": "^2.5.17"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "chalk": "^2.3.1",
-    "css-loader": "^0.28.9",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "friendly-errors-webpack-plugin": "^1.6.1",
-    "html-webpack-plugin": "^2.30.1",
-    "node-sass": "^4.7.2",
-    "opn": "^5.2.0",
-    "ora": "^2.0.0",
-    "portfinder": "^1.0.13",
-    "postcss-import": "^11.1.0",
-    "postcss-loader": "^2.1.0",
-    "rimraf": "^2.6.2",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.20.1",
-    "uglifyjs-webpack-plugin": "^1.2.0",
-    "vue-loader": "^14.1.1",
-    "vue-template-compiler": "^2.5.13",
-    "webpack": "^3.11.0",
-    "webpack-dev-server": "^2.11.1",
-    "webpack-merge": "^4.1.1"
+    "@vue/cli-plugin-babel": "^3.0.5",
+    "@vue/cli-plugin-eslint": "^3.0.5",
+    "@vue/cli-service": "^3.0.5",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0-0",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1",
+    "vue-template-compiler": "^2.5.17"
   }
 }

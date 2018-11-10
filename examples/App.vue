@@ -3,17 +3,13 @@
     <div class="container">
       <h1> vue-easy-lightbox </h1>
       <div class="gallery">
-        <div class="pic" @click="show(0)">
-          <img src="http://ond8gcwbr.bkt.clouddn.com/18-2-23/91783066.jpg" alt="">
-        </div>
-        <div class="pic" @click="show(1)">
-          <img src="http://ond8gcwbr.bkt.clouddn.com/18-2-23/30955526.jpg" alt="">
-        </div>
-        <div class="pic" @click="show(2)">
-          <img src="http://ond8gcwbr.bkt.clouddn.com/18-2-23/97656858.jpg" alt="">
-        </div>
-        <div class="pic" @click="show(3)">
-          <img src="http://ond8gcwbr.bkt.clouddn.com/18-2-23/83701379.jpg" alt="">
+        <div
+          v-for="(src, index) in imgs"
+          :key="index"
+          class="pic"
+          @click="() => show(index)"
+        >
+          <img :src="src">
         </div>
       </div>
 
@@ -21,35 +17,37 @@
         :visible="visible"
         :index="index"
         :imgs="imgs"
-        @hide="handleHide"></vue-easy-lightbox>
+        @hide="handleHide"
+      ></vue-easy-lightbox>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      imgs: [
-        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/91783066.jpg',
-        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/30955526.jpg',
-        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/97656858.jpg',
-        'http://ond8gcwbr.bkt.clouddn.com/18-2-23/83701379.jpg',
-        'http://via.placeholder.com/50x50'
-      ],
-      visible: false
-    }
-  },
-  methods: {
-    show(index) {
-      this.index = index
-      this.visible = true
+  export default {
+    data () {
+      return {
+        imgs: [
+          'https://i.loli.net/2018/11/10/5be6852cdb002.jpeg',
+          'https://i.loli.net/2018/11/10/5be6852ce6965.jpeg',
+          'https://i.loli.net/2018/11/10/5be6852dec46e.jpeg',
+          'https://i.loli.net/2018/11/10/5be6852e1366d.jpeg',
+          'https://i.loli.net/2018/11/10/5be6852e33f19.jpeg'
+        ],
+        visible: false,
+        index: 0 // default
+      }
     },
-    handleHide() {
-      this.visible = false
+    methods: {
+      show (index) {
+        this.index = index
+        this.visible = true
+      },
+      handleHide () {
+        this.visible = false
+      }
     }
   }
-}
 </script>
 
 <style scoped>
