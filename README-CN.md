@@ -7,7 +7,7 @@
 
 [English](https://github.com/XiongAmao/vue-easy-lightbox)
 
-## [DEMO](https://xiongamao.github.io/vue-easy-lightbox/example/index.html)
+## [DEMO](https://xiongamao.github.io/vue-easy-lightbox/)
 
 ## 安装
 

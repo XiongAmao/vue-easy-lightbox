@@ -1,6 +1,7 @@
-const path = require('path')
-
 module.exports = {
+  baseUrl: process.env.NODE_ENV === 'production'
+    ? '/vue-easy-lightbox/'
+    : '/',
   pages: {
     index: {
       entry: 'examples/main.js',
