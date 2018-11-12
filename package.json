@@ -8,10 +8,11 @@
   "main": "dist/vue-easy-lightbox.common.js ",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --dest build",
     "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name vue-easy-lightbox --dest dist ./src/index.js && rm ./dist/demo.html",
-    "deploy": "npm run build && node deploy.js"
+    "build:demo": "vue-cli-service build --dest build",
+    "build:prod": "vue-cli-service build --target lib --name vue-easy-lightbox --dest dist ./src/index.js && rm ./dist/demo.html",
+    "deploy:demo": "bin/deploy-demo.sh",
+    "deploy:prod": "npm run build:prod"
   },
   "repository": {
     "type": "git",
@@ -32,7 +33,6 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
-    "gh-pages": "^2.0.1",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.17"

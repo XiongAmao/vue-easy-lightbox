@@ -15,7 +15,6 @@ module.exports = {
   css: {
     extract: false
   },
-  // outputDir: path.resolve('./build'),
   productionSourceMap: false,
   configureWebpack: {
     output: {
