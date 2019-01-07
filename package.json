@@ -10,9 +10,8 @@
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
     "build:demo": "vue-cli-service build --dest build",
-    "build:prod": "vue-cli-service build --target lib --name vue-easy-lightbox --dest dist ./src/index.js && rm ./dist/demo.html",
-    "deploy:demo": "bin/deploy-demo.sh",
-    "deploy:prod": "npm run build:prod"
+    "build:prod": "vue-cli-service build --mode prod --target lib --name vue-easy-lightbox --dest dist ./src/index.js && rm ./dist/demo.html",
+    "deploy:demo": "bin/deploy-demo.sh"
   },
   "repository": {
     "type": "git",

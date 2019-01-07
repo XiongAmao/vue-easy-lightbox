@@ -12,4 +12,6 @@ babel.config.js
 .eslintignore
 .editorconfig
 .browserslistrc
+.env
+.env.prod
 postcss.config.js
