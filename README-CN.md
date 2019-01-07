@@ -9,20 +9,67 @@
 
 ## [DEMO](https://xiongamao.github.io/vue-easy-lightbox/)
 
-## 安装
+## 安装 & 使用
 
-### With NPM
+### 使用 `script` 标签引入
+
+引入压缩后的构建版本`dist/vue-easy-lightbox.umd.min.js`, 它会为你注册全局组件。
+
+```html
+<script src="path/to/vue-easy-lightbox.umd.min.js"></script>
+```
+
+例子：
+
+```html
+<div id="app">
+  <div class="">
+    <div
+      v-for="(src, index) in imgs"
+      :key="index"
+      class="pic"
+      @click="() => showImg(index)"
+    >
+      <img :src="src">
+    </div>
+  </div>
+  <vue-easy-lightbox
+    :visible="visible"
+    :imgs="imgs"
+    @hide="handleHide"
+  ></vue-easy-lightbox>
+</div>
+
+<script src="path/to/vue.js"></script>
+<script src="path/to/vue-easy-lightbox.umd.min.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      visible: false,
+      imgs: [
+        'https://via.placeholder.com/450.png/',
+        'https://via.placeholder.com/300.png/'
+        'https://via.placeholder.com/150.png/'
+      ]
+    },
+    methods: {
+      showImg (index) {
+        this.index = index
+        this.visible = true
+      },
+      handleHide () {
+        this.visible = false
+      }
+    }
+  })
+</script>
+```
+
+### 通过 NPM包 安装
 
 ```shell
 $ npm install --save vue-easy-lightbox
-```
-
-## Usage
-
-使用 `script` 标签引入
-
-```html
-<script src="path/to/vue-easy-lightbox.min.js"></script>
 ```
 
 `vue-easy-lightbox`可以使用 `Vue.use()` 方法加载。
@@ -51,18 +98,32 @@ Vue.use(Lightbox)
   <div>
     <button @click="showSingle">Show single picture.</button>
     <button @click="showMultiple">Show a group of pictures.</button>
-    <Lightbox
+    <VueEasyLightbox
       :visible="visible"
       :imgs="imgs"
       :index="index"
       @hide="handleHide"
-    ></Lightbox>
+    ></VueEasyLightbox>
+
+    <!-- Component name: 'vue-easy-lightbox' -->
+    <!--
+      <vue-easy-lightbox
+        :visible="visible"
+        :imgs="imgs"
+        :index="index"
+        @hide="handleHide"
+      ></vue-easy-lightbox>
+     -->
   </div>
 </template>
 
 <script>
-import Lightbox from 'vue-easy-lightbox'
+import VueEasyLightbox from 'vue-easy-lightbox'
+
 export default {
+  components: {
+    VueEasyLightbox
+  },
   data() {
     return {
       imgs: '',  // Img Url , string or Array
@@ -89,8 +150,6 @@ export default {
   }
 }
 </script>
-
-```
 
 ## 配置项
 

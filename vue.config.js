@@ -1,19 +1,16 @@
 module.exports = {
   baseUrl: process.env.NODE_ENV === 'production'
-    ? '/vue-easy-lightbox/'
+    ? '/vue-easy-lightbox/' // demo
     : '/',
   pages: {
     index: {
       entry: 'examples/main.js',
       template: 'public/index.html',
       filename: 'index.html'
-    },
-    lib: {
-      entry: 'src/index.js'
     }
   },
   css: {
-    extract: false
+    extract: false // inline-css
   },
   productionSourceMap: false,
   configureWebpack: {

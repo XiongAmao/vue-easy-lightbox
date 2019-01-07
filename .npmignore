@@ -1,6 +1,8 @@
-# 忽略目录
+# ignore directory
 examples/
 public/
+bin/
+build/
 
 # ignore files
 vue.config.js

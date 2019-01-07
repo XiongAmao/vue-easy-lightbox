@@ -1,13 +1,13 @@
-import vueEasyLightbox from './index.vue'
+import VueEasyLightbox from './vue-easy-lightbox.vue'
 
-vueEasyLightbox.install = function (Vue) {
-  if (vueEasyLightbox.installed) return
+VueEasyLightbox.install = function (Vue) {
+  if (VueEasyLightbox.installed) return
 
-  Vue.component(vueEasyLightbox.name, vueEasyLightbox)
+  Vue.component(VueEasyLightbox.name, VueEasyLightbox)
 }
 
 if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(vueEasyLightbox)
+  window.Vue.use(VueEasyLightbox)
 }
 
-export default vueEasyLightbox
+export default VueEasyLightbox
