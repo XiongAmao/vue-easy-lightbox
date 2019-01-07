@@ -150,6 +150,7 @@ export default {
   }
 }
 </script>
+```
 
 ## 配置项
 
