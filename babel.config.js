@@ -1,5 +1,11 @@
-module.exports = {
+const useBuiltIns = process.env['BABEL_USEBUILTINS'] === 'usage' ? 'usage' : false
+
+const config = {
   presets: [
-    '@vue/app'
+    ['@vue/app', {
+      useBuiltIns
+    }]
   ]
 }
+
+module.exports = config

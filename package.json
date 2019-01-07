@@ -10,9 +10,8 @@
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
     "build:demo": "vue-cli-service build --dest build",
-    "build:prod": "vue-cli-service build --target lib --name vue-easy-lightbox --dest dist ./src/index.js && rm ./dist/demo.html",
-    "deploy:demo": "bin/deploy-demo.sh",
-    "deploy:prod": "npm run build:prod"
+    "build:prod": "vue-cli-service build --mode prod --target lib --name vue-easy-lightbox --dest dist ./src/index.js && rm ./dist/demo.html",
+    "deploy:demo": "bin/deploy-demo.sh"
   },
   "repository": {
     "type": "git",
@@ -23,18 +22,18 @@
   },
   "homepage": "https://github.com/XiongAmao/vue-easy-lightbox#readme",
   "dependencies": {
-    "vue": "^2.5.17"
+    "vue": "^2.5.21"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.5",
-    "@vue/cli-plugin-eslint": "^3.0.5",
-    "@vue/cli-service": "^3.0.5",
+    "@vue/cli-plugin-babel": "^3.2.2",
+    "@vue/cli-plugin-eslint": "^3.2.2",
+    "@vue/cli-service": "^3.2.3",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0-0",
-    "node-sass": "^4.9.0",
+    "eslint": "^5.11.1",
+    "eslint-plugin-vue": "^5.1.0",
+    "node-sass": "^4.11.0",
     "sass-loader": "^7.0.1",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.21"
   }
 }

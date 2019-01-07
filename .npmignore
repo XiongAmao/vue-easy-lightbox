@@ -1,6 +1,8 @@
-# 忽略目录
+# ignore directory
 examples/
 public/
+bin/
+build/
 
 # ignore files
 vue.config.js
@@ -10,4 +12,6 @@ babel.config.js
 .eslintignore
 .editorconfig
 .browserslistrc
+.env
+.env.prod
 postcss.config.js

@@ -195,6 +195,7 @@
         this.rotateDeg = 0
         this.top = 0
         this.left = 0
+        this.isDraging = false
       }
     },
     computed: {

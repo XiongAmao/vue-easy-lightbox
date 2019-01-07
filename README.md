@@ -11,18 +11,65 @@
 
 ## Installation
 
+### use `script` tag
+
+Grab the minified version under `dist/vue-easy-lightbox.umd.min.js`. It will register components globally.
+
+```html
+<script src="path/to/vue-easy-lightbox.umd.min.js"></script>
+```
+
+example:
+
+```html
+<div id="app">
+  <div class="">
+    <div
+      v-for="(src, index) in imgs"
+      :key="index"
+      class="pic"
+      @click="() => showImg(index)"
+    >
+      <img :src="src">
+    </div>
+  </div>
+  <vue-easy-lightbox
+    :visible="visible"
+    :imgs="imgs"
+    @hide="handleHide"
+  ></vue-easy-lightbox>
+</div>
+
+<script src="path/to/vue.js"></script>
+<script src="path/to/vue-easy-lightbox.umd.min.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      visible: false,
+      imgs: [
+        'https://via.placeholder.com/450.png/',
+        'https://via.placeholder.com/300.png/'
+        'https://via.placeholder.com/150.png/'
+      ]
+    },
+    methods: {
+      showImg (index) {
+        this.index = index
+        this.visible = true
+      },
+      handleHide () {
+        this.visible = false
+      }
+    }
+  })
+</script>
+```
+
 ### With NPM
 
 ```shell
 $ npm install --save vue-easy-lightbox
-```
-
-## Usage
-
-use `script` tag
-
-```html
-<script src="path/to/vue-easy-lightbox.min.js"></script>
 ```
 
 `vue-easy-lightbox` can be loading all with the Vue.use() method as same as the other vue plugin.
@@ -51,18 +98,32 @@ Usage of Component
   <div>
     <button @click="showSingle">Show single picture.</button>
     <button @click="showMultiple">Show a group of pictures.</button>
-    <Lightbox
+    <VueEasyLightbox
       :visible="visible"
       :imgs="imgs"
       :index="index"
       @hide="handleHide"
-    ></Lightbox>
+    ></VueEasyLightbox>
+
+    <!-- Component name: 'vue-easy-lightbox' -->
+    <!--
+      <vue-easy-lightbox
+        :visible="visible"
+        :imgs="imgs"
+        :index="index"
+        @hide="handleHide"
+      ></vue-easy-lightbox>
+     -->
   </div>
 </template>
 
 <script>
-import Lightbox from 'vue-easy-lightbox'
+import VueEasyLightbox from 'vue-easy-lightbox'
+
 export default {
+  components: {
+    VueEasyLightbox
+  },
   data() {
     return {
       imgs: '',  // Img Url , string or Array
@@ -109,19 +170,19 @@ Properties
       <td>visible</td>
       <td>Boolean</td>
       <td>required</td>
-      <td>Control lightbox display</td>
+      <td>控制组件的显示</td>
     </tr>
     <tr>
       <td>imgs</td>
       <td>String/Array</td>
       <td>required</td>
-      <td>Image's Url</td>
+      <td>图片的url，传入数组则可以轮播显示</td>
     </tr>
     <tr>
       <td>index</td>
       <td>Number</td>
       <td>0</td>
-      <td>Index of imgList</td>
+      <td>打开图片组时，展示的图片位置</td>
     </tr>
   </tbody>
 </table>
