@@ -1,6 +1,6 @@
 {
   "name": "vue-easy-lightbox",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Very lightweight, JavaScript-only, lightbox plugin for Vue.js",
   "private": false,
   "author": "Zichao Xiong <onycat@live.cn>",
@@ -10,7 +10,9 @@
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
     "build:demo": "vue-cli-service build --dest build",
-    "build:prod": "vue-cli-service build --mode prod --target lib --name vue-easy-lightbox --dest dist ./src/index.js && rm ./dist/demo.html",
+    "build:no-babel": "vue-cli-service build --mode nobabel --target lib --name vue-easy-lightbox --dest .temp/no-babel ./src/index.js",
+    "build:with-babel": "vue-cli-service build --target lib --name vue-easy-lightbox --dest .temp/babel ./src/index.js",
+    "build:prod": "bin/build.sh",
     "deploy:demo": "bin/deploy-demo.sh"
   },
   "repository": {

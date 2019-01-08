@@ -3,6 +3,10 @@
 # abort on errors
 set -e
 
+# remove babel cache
+rm -r ./node_modules/.cache/babel-loader/
+
+
 # build
 npm run build:demo
 
