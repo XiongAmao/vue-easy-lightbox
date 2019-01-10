@@ -170,19 +170,19 @@ Properties
       <td>visible</td>
       <td>Boolean</td>
       <td>required</td>
-      <td>控制组件的显示</td>
+      <td>Control lightbox display</td>
     </tr>
     <tr>
       <td>imgs</td>
       <td>String/Array</td>
       <td>required</td>
-      <td>图片的url，传入数组则可以轮播显示</td>
+      <td>Image's Url</td>
     </tr>
     <tr>
       <td>index</td>
       <td>Number</td>
       <td>0</td>
-      <td>打开图片组时，展示的图片位置</td>
+      <td>Index of imgList</td>
     </tr>
   </tbody>
 </table>
