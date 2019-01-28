@@ -1,3 +1,7 @@
+## [0.3.10]
+
+- Fix missing comma in README [#6](https://github.com/XiongAmao/vue-easy-lightbox/issues/6).
+
 ## [0.3.9]
 
 - Fix README's error.

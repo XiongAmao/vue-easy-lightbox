@@ -49,7 +49,7 @@
       visible: false,
       imgs: [
         'https://via.placeholder.com/450.png/',
-        'https://via.placeholder.com/300.png/'
+        'https://via.placeholder.com/300.png/',
         'https://via.placeholder.com/150.png/'
       ]
     },
