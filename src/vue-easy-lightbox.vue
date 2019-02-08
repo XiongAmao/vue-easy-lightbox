@@ -275,7 +275,6 @@
   }
   .img {
     max-width: 80vw;
-    max-height: 80vh;
     vertical-align: middle;
     position: relative;
   }
