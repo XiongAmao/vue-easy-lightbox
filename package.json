@@ -13,7 +13,8 @@
     "build:no-babel": "vue-cli-service build --mode nobabel --target lib --name vue-easy-lightbox --dest .temp/no-babel ./src/index.js",
     "build:with-babel": "vue-cli-service build --target lib --name vue-easy-lightbox --dest .temp/babel ./src/index.js",
     "build:prod": "bin/build.sh",
-    "deploy:demo": "bin/deploy-demo.sh"
+    "deploy:demo": "bin/deploy-demo.sh",
+    "rollup": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,11 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.2",
     "node-sass": "^4.12.0",
+    "rollup": "^1.16.3",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-css-only": "^1.0.0",
+    "rollup-plugin-vue": "^5.0.1",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.6.10"
   }
