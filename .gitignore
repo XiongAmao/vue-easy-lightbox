@@ -64,3 +64,4 @@ typings/
 /build/
 .test
 test-dist
+.temp
