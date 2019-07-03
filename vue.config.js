@@ -9,9 +9,6 @@ module.exports = {
       filename: 'index.html'
     }
   },
-  css: {
-    extract: false // inline-css
-  },
   productionSourceMap: false,
   configureWebpack: {
     output: {
