@@ -14,12 +14,9 @@
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
     "clean": "rimraf ./dist",
+    "build": "npm run clean && rollup -c build-scripts/rollup.config.js",
     "build:demo": "vue-cli-service build --dest build",
-    "build:no-babel": "vue-cli-service build --mode nobabel --target lib --name vue-easy-lightbox --dest .temp/no-babel ./src/index.js",
-    "build:with-babel": "vue-cli-service build --target lib --name vue-easy-lightbox --dest .temp/babel ./src/index.js",
-    "build:prod": "bin/build.sh",
-    "deploy:demo": "bin/deploy-demo.sh",
-    "rollup": "rollup -c build-scripts/rollup.config.js"
+    "deploy:demo": "bin/deploy-demo.sh"
   },
   "repository": {
     "type": "git",

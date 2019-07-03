@@ -3,6 +3,8 @@ examples/
 public/
 bin/
 build/
+test-dist/
+build-scripts/
 
 # ignore files
 vue.config.js
