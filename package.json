@@ -5,8 +5,11 @@
   "private": false,
   "author": "Zichao Xiong <onycat@live.cn>",
   "license": "MIT",
-  "main": "dist/vue-easy-lightbox.common.js",
-  "module": "dist/vue-easy-lightbox.esm.js",
+  "main": "dist/vue-easy-lightbox.es5.common.min.js",
+  "module": "dist/vue-easy-lightbox.es5.esm.min.js",
+  "browser": {
+    "./sfc": "src/vue-easy-lightbox.vue"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",

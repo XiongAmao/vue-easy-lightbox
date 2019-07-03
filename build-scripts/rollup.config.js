@@ -8,7 +8,7 @@ import { terserOptions } from './rollup.terser.config'
 
 process.env.NODE_ENV = 'production'
 
-const distPath = 'test-dist'
+const distPath = 'dist'
 const libraryName = 'vue-easy-lightbox'
 
 export default [
@@ -43,7 +43,7 @@ export default [
     input: 'src/index.js',
     output: {
       format: 'cjs',
-      file: `${distPath}/${libraryName}.es5.cjs.min.js`
+      file: `${distPath}/${libraryName}.es5.common.min.js`
     },
     plugins: [
       vue(),
@@ -57,7 +57,7 @@ export default [
     input: 'src/index.js',
     output: {
       format: 'cjs',
-      file: `${distPath}/${libraryName}.cjs.min.js`
+      file: `${distPath}/${libraryName}.cjs.common.min.js`
     },
     plugins: [
       vue(),
