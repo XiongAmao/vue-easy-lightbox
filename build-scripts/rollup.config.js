@@ -4,6 +4,9 @@ import resolve from 'rollup-plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
 import { terser } from 'rollup-plugin-terser'
 import { babelConfig } from './rollup.babel.config'
+import { terserOptions } from './rollup.terser.config'
+
+process.env.NODE_ENV = 'production'
 
 const distPath = 'test-dist'
 const libraryName = 'vue-easy-lightbox'
@@ -20,7 +23,7 @@ export default [
       babel(babelConfig),
       resolve(),
       commonJs(),
-      terser()
+      terser(terserOptions)
     ]
   },
   {
@@ -33,7 +36,7 @@ export default [
       vue(),
       resolve(),
       commonJs(),
-      terser()
+      terser(terserOptions)
     ]
   },
   {
@@ -47,7 +50,7 @@ export default [
       babel(babelConfig),
       resolve(),
       commonJs(),
-      terser()
+      terser(terserOptions)
     ]
   },
   {
@@ -60,7 +63,7 @@ export default [
       vue(),
       resolve(),
       commonJs(),
-      terser()
+      terser(terserOptions)
     ]
   },
   {
@@ -75,7 +78,7 @@ export default [
       babel(babelConfig),
       resolve(),
       commonJs(),
-      terser()
+      terser(terserOptions)
     ]
   },
   {
@@ -89,7 +92,7 @@ export default [
       vue(),
       resolve(),
       commonJs(),
-      terser()
+      terser(terserOptions)
     ]
   }
 ]
