@@ -12,7 +12,6 @@
         <img
           :class="`${prefixCls}-img`"
           :src="visibleImgSrc"
-          alt=""
           draggable="false"
           @mousedown="handleMouseDown($event)"
           @mouseup="handleMouseUp($event)"
@@ -28,12 +27,7 @@
           :class="{disable: imgIndex === 0}"
           @click="prev"
         >
-          <svg
-            class="icon"
-            aria-hidden="true"
-          >
-            <use xlink:href="#icon-prev"></use>
-          </svg>
+          <svg-icon type="prev" />
         </div>
 
         <div
@@ -42,24 +36,14 @@
           :class="{disable: imgIndex === imgList.length - 1}"
           @click="next"
         >
-          <svg
-            class="icon"
-            aria-hidden="true"
-          >
-            <use xlink:href="#icon-next"></use>
-          </svg>
+          <svg-icon type="next" />
         </div>
 
         <div
           class="btn__close"
           @click="closeDialog"
         >
-          <svg
-            class="icon"
-            aria-hidden="true"
-          >
-            <use xlink:href="#icon-close"></use>
-          </svg>
+          <svg-icon type="close" />
         </div>
 
         <div :class="`${prefixCls}-toolbar-btns`">
@@ -68,12 +52,7 @@
             class="toobar-btn toolbar-btn__zoomin"
             @click="zoomIn()"
           >
-            <svg
-              class="icon"
-              aria-hidden="true"
-            >
-              <use xlink:href="#icon-zoomin"></use>
-            </svg>
+            <svg-icon type="zoomin" />
           </div>
 
           <!-- zoom-out -->
@@ -81,12 +60,7 @@
             class="toobar-btn toolbar-btn__zoomout"
             @click="zoomOut()"
           >
-            <svg
-              class="icon"
-              aria-hidden="true"
-            >
-              <use xlink:href="#icon-zoomout"></use>
-            </svg>
+            <svg-icon type="zoomout" />
           </div>
 
           <!-- rotate -->
@@ -94,12 +68,7 @@
             class="toobar-btn toolbar-btn__rotate"
             @click="rotate()"
           >
-            <svg
-              class="icon"
-              aria-hidden="true"
-            >
-              <use xlink:href="#icon-rotate"></use>
-            </svg>
+            <svg-icon type="rotate" />
           </div>
         </div>
       </div>
@@ -115,9 +84,13 @@
 
 <script>
   import './assets/svg/iconfont'
+  import SvgIcon from './components/svg-icon.vue'
 
   export default {
     name: 'vue-easy-lightbox',
+    components: {
+      SvgIcon
+    },
     props: {
       imgs: {
         type: [Array, String]
@@ -242,8 +215,8 @@
         get() {
           return {
             transform: `translate(-50%, -50%)
-              scale(${this.scale})
-              rotate(-${this.rotateDeg}deg)`,
+                scale(${this.scale})
+                rotate(-${this.rotateDeg}deg)`,
             top: `calc(50% + ${this.top}px)`,
             left: `calc(50% + ${this.left}px)`
           }
@@ -261,16 +234,7 @@
 </script>
 
 <style scoped lang="scss">
-  $prefix-cls: vel-;
-
-  /* TODO: use another class */
-  .icon {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-  }
+  $prefix-cls: vel;
 
   .fade-enter-active,
   .fade-leave-active {
@@ -282,12 +246,12 @@
   }
 
   /* container */
-  .#{$prefix-cls}img-swiper {
+  .#{$prefix-cls}-img-swiper {
     position: relative;
     display: block;
   }
 
-  .#{$prefix-cls}modal {
+  .#{$prefix-cls}-modal {
     z-index: 9998;
     position: fixed;
     top: 0;
@@ -298,7 +262,7 @@
     background: rgba(0, 0, 0, 0.5);
   }
 
-  .#{$prefix-cls}img-wrapper {
+  .#{$prefix-cls}-img-wrapper {
     margin: 0;
     position: absolute;
     top: 50%;
@@ -308,11 +272,11 @@
     cursor: move;
   }
 
-  .#{$prefix-cls}img-wrapper.transition {
+  .#{$prefix-cls}-img-wrapper.transition {
     transition: transform 0.3s ease-in-out;
   }
 
-  .#{$prefix-cls}img {
+  .#{$prefix-cls}-img {
     max-width: 80vw;
     max-height: 80vh;
     vertical-align: middle;
@@ -320,7 +284,7 @@
   }
 
   /* prev/next/close btns */
-  .#{$prefix-cls}btns-wrapper {
+  .#{$prefix-cls}-btns-wrapper {
     .btn__prev,
     .btn__next,
     .btn__close {
@@ -360,7 +324,7 @@
     }
   }
 
-  .#{$prefix-cls}pagination-total {
+  .#{$prefix-cls}-pagination-total {
     position: absolute;
     font-size: 16px;
     top: 16px;
@@ -368,7 +332,7 @@
     color: #000;
   }
 
-  .#{$prefix-cls}toolbar-btns {
+  .#{$prefix-cls}-toolbar-btns {
     user-select: none;
     position: absolute;
     bottom: 0;
