@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <transition :name="`${prefixCls}-fade`">
     <div
       v-if="visible"
       :class="[`${prefixCls}-img-modal`, `${prefixCls}-modal`]"
@@ -236,12 +236,12 @@
 <style scoped lang="scss">
   $prefix-cls: vel;
 
-  .fade-enter-active,
-  .fade-leave-active {
+  .#{$prefix-cls}-fade-enter-active,
+  .#{$prefix-cls}-fade-leave-active {
     transition: all 0.3s ease;
   }
-  .fade-enter,
-  .fade-leave-to {
+  .#{$prefix-cls}-fade-enter,
+  .#{$prefix-cls}-fade-leave-to {
     opacity: 0;
   }
 
