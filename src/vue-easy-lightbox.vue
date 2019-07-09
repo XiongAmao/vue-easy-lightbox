@@ -347,15 +347,14 @@
     .toobar-btn {
       cursor: pointer;
       display: inline-block;
-      padding: 6px;
+      padding: 2px 4px;
     }
-    .toobar-btn .icon {
-      width: 32px;
-      height: 32px;
-      fill: #fff;
+    .toobar-btn {
+      font-size: 32px;
+      color: #fff;
     }
-    .toobar-btn:hover .icon {
-      fill: #54b4ee;
+    .toobar-btn:hover {
+      color: #54b4ee;
     }
   }
 </style>
