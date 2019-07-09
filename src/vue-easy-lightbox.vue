@@ -270,6 +270,7 @@
     transform: translate(-50% -50%);
     box-shadow: #555 0px 5px 20px 2px;
     cursor: move;
+    background-color: rgba(0, 0, 0, 0.7);
   }
 
   .#{$prefix-cls}-img-wrapper.transition {
