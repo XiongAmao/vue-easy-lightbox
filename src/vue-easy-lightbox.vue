@@ -21,56 +21,80 @@
 
       <!-- btns -->
       <div :class="`${prefixCls}-btns-wrapper`">
-        <div
-          v-if="imgList.length !== 1"
-          class="btn__prev"
-          :class="{disable: imgIndex === 0}"
-          @click="prev"
+        <slot
+          name="prev-btn"
+          :onClick="onPrevClick"
         >
-          <svg-icon type="prev" />
-        </div>
+          <div
+            v-if="imgList.length !== 1"
+            class="btn__prev"
+            :class="{disable: imgIndex === 0}"
+            @click="onPrevClick"
+          >
+            <svg-icon type="prev" />
+          </div>
+        </slot>
 
-        <div
-          v-if="imgList.length !== 1"
-          class="btn__next"
-          :class="{disable: imgIndex === imgList.length - 1}"
-          @click="next"
+        <slot
+          name="next-btn"
+          :onClick="onNextClick"
         >
-          <svg-icon type="next" />
-        </div>
+          <div
+            v-if="imgList.length !== 1"
+            class="btn__next"
+            :class="{disable: imgIndex === imgList.length - 1}"
+            @click="onNextClick"
+          >
+            <svg-icon type="next" />
+          </div>
+        </slot>
 
-        <div
-          class="btn__close"
-          @click="closeDialog"
+        <slot
+          name="close-btn"
+          :onClick="closeDialog"
         >
-          <svg-icon type="close" />
-        </div>
-
-        <div :class="`${prefixCls}-toolbar-btns`">
-          <!-- zoom-in -->
           <div
-            class="toobar-btn toolbar-btn__zoomin"
-            @click="zoomIn()"
+            class="btn__close"
+            @click="closeDialog"
           >
-            <svg-icon type="zoomin" />
+            <svg-icon type="close" />
           </div>
+        </slot>
 
-          <!-- zoom-out -->
-          <div
-            class="toobar-btn toolbar-btn__zoomout"
-            @click="zoomOut()"
-          >
-            <svg-icon type="zoomout" />
-          </div>
+        <slot
+          name="toolbar"
+          :handlers="{
+            zoomIn,
+            zoomOut,
+            rotate
+          }"
+        >
+          <div :class="`${prefixCls}-toolbar-btns`">
+            <!-- zoom-in -->
+            <div
+              class="toobar-btn toolbar-btn__zoomin"
+              @click="zoomIn"
+            >
+              <svg-icon type="zoomin" />
+            </div>
 
-          <!-- rotate -->
-          <div
-            class="toobar-btn toolbar-btn__rotate"
-            @click="rotate()"
-          >
-            <svg-icon type="rotate" />
+            <!-- zoom-out -->
+            <div
+              class="toobar-btn toolbar-btn__zoomout"
+              @click="zoomOut"
+            >
+              <svg-icon type="zoomout" />
+            </div>
+
+            <!-- rotate -->
+            <div
+              class="toobar-btn toolbar-btn__rotate"
+              @click="rotate"
+            >
+              <svg-icon type="rotate" />
+            </div>
           </div>
-        </div>
+        </slot>
       </div>
 
       <!-- total -->
@@ -155,7 +179,7 @@
       rotate() {
         this.rotateDeg += 90
       },
-      next() {
+      onNextClick() {
         if (this.imgIndex === this.imgList.length - 1) return
         this.reset()
         this.imgIndex += 1
@@ -163,7 +187,7 @@
           this.imgTransitionStatus = !this.imgTransitionStatus
         }, 0)
       },
-      prev() {
+      onPrevClick() {
         if (this.imgIndex === 0) return
         this.reset()
         this.imgIndex -= 1
@@ -215,8 +239,8 @@
         get() {
           return {
             transform: `translate(-50%, -50%)
-                scale(${this.scale})
-                rotate(-${this.rotateDeg}deg)`,
+                          scale(${this.scale})
+                          rotate(-${this.rotateDeg}deg)`,
             top: `calc(50% + ${this.top}px)`,
             left: `calc(50% + ${this.left}px)`
           }
