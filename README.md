@@ -113,7 +113,7 @@ Usage of Component
         :index="index"
         @hide="handleHide"
       ></vue-easy-lightbox>
-     -->
+    -->
   </div>
 </template>
 

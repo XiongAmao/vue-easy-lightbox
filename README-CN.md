@@ -113,7 +113,7 @@ Vue.use(Lightbox)
         :index="index"
         @hide="handleHide"
       ></vue-easy-lightbox>
-     -->
+    -->
   </div>
 </template>
 
@@ -198,6 +198,47 @@ Event
     <tr>
       <td>hide</td>
       <td>当点击遮罩或者关闭按钮时，会触发该事件</td>
+    </tr>
+  </tbody>
+</table>
+
+Slot & Scoped Slot
+<table>
+  <thead>
+    <tr>
+      <th>slot name</th>
+      <th>scoped slot props</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>prev-btn</td>
+      <td>{ onClick: function }</td>
+      <td>当点击时显示上一页</td>
+    </tr>
+    <tr>
+      <td>next-btn</td>
+      <td>{ onClick: function }</td>
+      <td>当点击时显示下一页</td>
+    </tr>
+    <tr>
+      <td>close-btn</td>
+      <td>{ onClick: function }</td>
+      <td>当点击时关闭弹窗</td>
+    </tr>
+    <tr>
+      <td>toolbar</td>
+      <td>
+        {
+          toolbarMethods: {
+            zoomIn: function,
+            zoomOut: function,
+            rotate: function
+          }
+        }
+      </td>
+      <td>放大、缩小、旋转</td>
     </tr>
   </tbody>
 </table>
