@@ -63,7 +63,7 @@
 
         <slot
           name="toolbar"
-          :handlers="{
+          :toolbarMethods="{
             zoomIn,
             zoomOut,
             rotate
