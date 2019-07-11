@@ -69,31 +69,12 @@
             rotate
           }"
         >
-          <div :class="`${prefixCls}-toolbar-btns`">
-            <!-- zoom-in -->
-            <div
-              class="toobar-btn toolbar-btn__zoomin"
-              @click="zoomIn"
-            >
-              <svg-icon type="zoomin" />
-            </div>
-
-            <!-- zoom-out -->
-            <div
-              class="toobar-btn toolbar-btn__zoomout"
-              @click="zoomOut"
-            >
-              <svg-icon type="zoomout" />
-            </div>
-
-            <!-- rotate -->
-            <div
-              class="toobar-btn toolbar-btn__rotate"
-              @click="rotate"
-            >
-              <svg-icon type="rotate" />
-            </div>
-          </div>
+          <toolbar
+            :prefix-cls="prefixCls"
+            :zoomIn="zoomIn"
+            :zoomOut="zoomOut"
+            :rotate="rotate"
+          />
         </slot>
       </div>
 
@@ -109,11 +90,14 @@
 <script>
   import './assets/svg/iconfont'
   import SvgIcon from './components/svg-icon.vue'
+  import Toolbar from './components/toobar.vue'
+  import { prefixCls } from './constant'
 
   export default {
     name: 'vue-easy-lightbox',
     components: {
-      SvgIcon
+      SvgIcon,
+      Toolbar
     },
     props: {
       imgs: {
@@ -129,7 +113,7 @@
     },
     data() {
       return {
-        prefixCls: 'vel',
+        prefixCls,
         scale: 1,
         rotateDeg: 0,
         imgIndex: 0,
@@ -238,9 +222,10 @@
       imgStyle: {
         get() {
           return {
-            transform: `translate(-50%, -50%)
-                          scale(${this.scale})
-                          rotate(-${this.rotateDeg}deg)`,
+            transform: `
+              translate(-50%, -50%)
+              scale(${this.scale})
+              rotate(-${this.rotateDeg}deg)`,
             top: `calc(50% + ${this.top}px)`,
             left: `calc(50% + ${this.left}px)`
           }
@@ -258,7 +243,7 @@
 </script>
 
 <style scoped lang="scss">
-  $prefix-cls: vel;
+  @import './assets/styles/variables.scss';
 
   .#{$prefix-cls}-fade-enter-active,
   .#{$prefix-cls}-fade-leave-active {
@@ -355,31 +340,5 @@
     top: 16px;
     left: 16px;
     color: #000;
-  }
-
-  .#{$prefix-cls}-toolbar-btns {
-    user-select: none;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%);
-    background: rgba(45, 45, 44, 0.8);
-    border-radius: 4px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    padding: 6px 24px 0;
-
-    .toobar-btn {
-      cursor: pointer;
-      display: inline-block;
-      padding: 2px 4px;
-    }
-    .toobar-btn {
-      font-size: 32px;
-      color: #fff;
-    }
-    .toobar-btn:hover {
-      color: #54b4ee;
-    }
   }
 </style>
