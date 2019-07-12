@@ -57,7 +57,7 @@ export default [
     input: 'src/index.js',
     output: {
       format: 'cjs',
-      file: `${distPath}/${libraryName}.cjs.common.min.js`
+      file: `${distPath}/${libraryName}.common.min.js`
     },
     plugins: [
       vue(),
