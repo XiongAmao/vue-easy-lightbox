@@ -23,7 +23,7 @@
       <div :class="`${prefixCls}-btns-wrapper`">
         <slot
           name="prev-btn"
-          :onClick="onPrevClick"
+          :prev="onPrevClick"
         >
           <div
             v-if="imgList.length !== 1"
@@ -37,7 +37,7 @@
 
         <slot
           name="next-btn"
-          :onClick="onNextClick"
+          :next="onNextClick"
         >
           <div
             v-if="imgList.length !== 1"
@@ -51,7 +51,7 @@
 
         <slot
           name="close-btn"
-          :onClick="closeDialog"
+          :close="closeDialog"
         >
           <div
             class="btn__close"
