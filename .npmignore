@@ -5,6 +5,7 @@ bin/
 build/
 test-dist/
 build-scripts/
+.temp
 
 # ignore files
 vue.config.js
