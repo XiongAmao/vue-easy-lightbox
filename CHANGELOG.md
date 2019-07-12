@@ -1,3 +1,10 @@
+# Changelog
+
+## [0.4.0]
+
+- Support custom btns and toolbar.
+- Smaller Builds.
+
 ## [0.3.11]
 
 - Fix Bootstrap support [#10](https://github.com/XiongAmao/vue-easy-lightbox/issues/10)
