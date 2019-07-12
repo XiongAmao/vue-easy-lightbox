@@ -11,6 +11,37 @@
 
 ## Installation
 
+### Different Builds
+`ES5` build is converted by `Babel`. If you need to compile it yourself, you can use a non`ES5` build.
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>ES5(default in package.json)</th>
+      <th>ES6</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>UMD(for browsers)</td>
+      <td>vue-easy-lightbox.es5.umd.min.js</td>
+      <td>vue-easy-lightbox.umd.min.js</td>
+    </tr>
+    <tr>
+      <td>CommonJS</td>
+      <td>vue-easy-lightbox.es5.common.min.js (pkg.main)</td>
+      <td>vue-easy-lightbox.common.min.js</td>
+    </tr>
+    <tr>
+      <td>ES Module(for bundlers)</td>
+      <td>vue-easy-lightbox.es5.esm.min.js (pkg.module)</td>
+      <td>vue-easy-lightbox.esm.min.js</td>
+    </tr>
+  </tbody>
+</table>
+
+
 ### use `script` tag
 
 Grab the minified version under `dist/vue-easy-lightbox.umd.min.js`. It will register components globally.

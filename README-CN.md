@@ -11,6 +11,36 @@
 
 ## 安装 & 使用
 
+### 不同构建版本的区别
+`ES5` 构建是`Babel`编译后的版本。如果你需要自己编译，可以使用非`ES5`的版本。
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>ES5(default in package.json)</th>
+      <th>ES6</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>UMD(for browsers)</td>
+      <td>vue-easy-lightbox.es5.umd.min.js</td>
+      <td>vue-easy-lightbox.umd.min.js</td>
+    </tr>
+    <tr>
+      <td>CommonJS</td>
+      <td>vue-easy-lightbox.es5.common.min.js (pkg.main)</td>
+      <td>vue-easy-lightbox.common.min.js</td>
+    </tr>
+    <tr>
+      <td>ES Module(for bundlers)</td>
+      <td>vue-easy-lightbox.es5.esm.min.js (pkg.module)</td>
+      <td>vue-easy-lightbox.esm.min.js</td>
+    </tr>
+  </tbody>
+</table>
+
 ### 使用 `script` 标签引入
 
 引入压缩后的构建版本`dist/vue-easy-lightbox.umd.min.js`, 它会为你注册全局组件。
