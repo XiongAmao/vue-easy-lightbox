@@ -1,6 +1,6 @@
 # vue-easy-lightbox
 
->A pure JS lightbox component for Vue.js . You can drag / view / rotate pictures.
+>A lightbox component for Vue.js 2+. You can drag / view / rotate pictures.
 
 [![npm](https://img.shields.io/npm/v/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
 [![npm](https://img.shields.io/npm/l/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
@@ -98,22 +98,14 @@ Usage of Component
   <div>
     <button @click="showSingle">Show single picture.</button>
     <button @click="showMultiple">Show a group of pictures.</button>
-    <VueEasyLightbox
+
+    <!-- default name -->
+    <vue-easy-lightbox
       :visible="visible"
       :imgs="imgs"
       :index="index"
       @hide="handleHide"
-    ></VueEasyLightbox>
-
-    <!-- Component name: 'vue-easy-lightbox' -->
-    <!--
-      <vue-easy-lightbox
-        :visible="visible"
-        :imgs="imgs"
-        :index="index"
-        @hide="handleHide"
-      ></vue-easy-lightbox>
-    -->
+    ></vue-easy-lightbox>
   </div>
 </template>
 
@@ -152,6 +144,57 @@ export default {
 </script>
 
 ```
+
+### Use vue slot custom buttons or toolbar
+
+```html
+<vue-easy-lightbox
+  ...
+>
+  <!-- v-slot in vue@2.6.0+ -->
+  <template v-slot:prev-btn="{ prev }">
+    <button @click="prev">show the prev</button>
+  </template>
+
+  <template v-slot:next-btn="{ next }">
+    <button @click="next">show the next</button>
+  </template>
+
+  <template v-slot:next-btn="{ close }">
+    <button @click="close">close lightbox</button>
+  </template>
+
+  <template v-slot:toolbar="{ toolbarMethods }">
+    <button @click="toolbarMethods.zoomIn">zoom in</button>
+    <button @click="toolbarMethods.zoomOut">zoom out</button>
+    <button @click="toolbarMethods.rotate">rotate</button>
+  </template>
+</vue-easy-lightbox>
+
+
+<!-- Deprecated in 2.6.0+ -->
+<vue-easy-lightbox>
+  <template slot="prev-btn" slot-scope="props">
+    <button @click="props.prev">show the prev</button>
+  </template>
+
+  <template slot="next-btn" slot-scope="props">
+    <button @click="props.next">show the next</button>
+  </template>
+
+  <template slot="close-btn" slot-scope="props">
+    <button @click="props.close">close lightbox</button>
+  </template>
+
+  <template slot="toolbar" slot-scope="props">
+    <button @click="props.toolbarMethods.zoomIn">zoom in</button>
+    <button @click="props.toolbarMethods.zoomOut">zoom out</button>
+    <button @click="props.toolbarMethods.rotate">rotate</button>
+  </template>
+</vue-easy-lightbox>
+```
+
+Reference: [Slots-Vue.js](https://cn.vuejs.org/v2/guide/components-slots.html)
 
 ## Options
 
@@ -199,6 +242,50 @@ Event
     <tr>
       <td>hide</td>
       <td>When you click modal mask or close Btn, component will emit this event</td>
+    </tr>
+  </tbody>
+</table>
+
+Slot & Scoped Slot
+<table>
+  <thead>
+    <tr>
+      <th>slot name</th>
+      <th>slot props</th>
+      <th>type</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>prev-btn</td>
+      <td>prev</td>
+      <td>Function</td>
+      <td>show the prev img</td>
+    </tr>
+    <tr>
+      <td>next-btn</td>
+      <td>next</td>
+      <td>Function</td>
+      <td>show the next img</td>
+    </tr>
+    <tr>
+      <td>close-btn</td>
+      <td>close</td>
+      <td>Function</td>
+      <td>close modal</td>
+    </tr>
+    <tr>
+      <td>toolbar</td>
+      <td>
+          toolbarMethods: {
+            zoomIn,
+            zoomOut,
+            rotate
+          }
+      </td>
+      <td>{ Function }</td>
+      <td>zoom in, zoom out, rotate</td>
     </tr>
   </tbody>
 </table>
