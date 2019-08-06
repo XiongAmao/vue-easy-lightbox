@@ -11,7 +11,7 @@ process.env.NODE_ENV = 'production'
 const distPath = 'dist'
 const libraryName = 'vue-easy-lightbox'
 
-export default [
+const configs = [
   {
     input: 'src/index.js',
     output: {
@@ -79,7 +79,10 @@ export default [
       resolve(),
       commonJs(),
       terser(terserOptions)
-    ]
+    ],
+    globals: {
+      vue: 'Vue'
+    }
   },
   {
     input: 'src/index.js',
@@ -93,6 +96,15 @@ export default [
       resolve(),
       commonJs(),
       terser(terserOptions)
-    ]
+    ],
+    globals: {
+      vue: 'Vue'
+    }
   }
 ]
+
+configs.forEach(config => {
+  config.external = ['vue']
+})
+
+export default configs
