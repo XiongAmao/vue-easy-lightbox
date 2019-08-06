@@ -71,7 +71,10 @@ const configs = [
     output: {
       format: 'umd',
       file: `${distPath}/${libraryName}.es5.umd.min.js`,
-      name: libraryName
+      name: libraryName,
+      globals: {
+        vue: 'Vue'
+      }
     },
     plugins: [
       vue(),
@@ -79,27 +82,24 @@ const configs = [
       resolve(),
       commonJs(),
       terser(terserOptions)
-    ],
-    globals: {
-      vue: 'Vue'
-    }
+    ]
   },
   {
     input: 'src/index.js',
     output: {
       format: 'umd',
       file: `${distPath}/${libraryName}.umd.min.js`,
-      name: libraryName
+      name: libraryName,
+      globals: {
+        vue: 'Vue'
+      }
     },
     plugins: [
       vue(),
       resolve(),
       commonJs(),
       terser(terserOptions)
-    ],
-    globals: {
-      vue: 'Vue'
-    }
+    ]
   }
 ]
 
