@@ -258,6 +258,12 @@ Properties
       <td>0</td>
       <td>Index of imgList</td>
     </tr>
+    <tr>
+      <td>escDisabled</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>By default, press the esc key to close Modal during presentation.</td>
+    </tr>
   </tbody>
 </table>
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.5.0]
+
+- Fix dist files does not match to package.json.
+- Support press the escape key to close modal.
+
 ## [0.4.1]
 
 - Support custom btns and toolbar.

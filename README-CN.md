@@ -255,6 +255,12 @@ Properties
       <td>0</td>
       <td>打开图片组时，展示的图片位置</td>
     </tr>
+    <tr>
+      <td>escDisabled</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>默认情况下，展示时按下esc键关闭Modal</td>
+    </tr>
   </tbody>
 </table>
 
