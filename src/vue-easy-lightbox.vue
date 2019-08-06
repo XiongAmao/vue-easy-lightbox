@@ -110,6 +110,10 @@
       index: {
         type: Number,
         default: 0
+      },
+      escDisabled: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -234,10 +238,10 @@
         get() {
           return {
             transform: `
-                translate(-50%, -50%)
-                scale(${this.scale})
-                rotate(-${this.rotateDeg}deg)
-              `,
+                    translate(-50%, -50%)
+                    scale(${this.scale})
+                    rotate(-${this.rotateDeg}deg)
+                  `,
             top: `calc(50% + ${this.top}px)`,
             left: `calc(50% + ${this.left}px)`
           }
@@ -252,10 +256,14 @@
       }
     },
     mounted() {
-      on(document, 'keydown', this.escapePressHandler)
+      if (!this.escDisabled) {
+        on(document, 'keydown', this.escapePressHandler)
+      }
     },
     beforeDestroy() {
-      off(document, 'keydown', this.escapePressHandler)
+      if (!this.escDisabled) {
+        off(document, 'keydown', this.escapePressHandler)
+      }
     }
   }
 </script>
