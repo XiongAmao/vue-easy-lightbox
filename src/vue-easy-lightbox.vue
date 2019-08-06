@@ -234,10 +234,10 @@
         get() {
           return {
             transform: `
-              translate(-50%, -50%)
-              scale(${this.scale})
-              rotate(-${this.rotateDeg}deg)
-            `,
+                translate(-50%, -50%)
+                scale(${this.scale})
+                rotate(-${this.rotateDeg}deg)
+              `,
             top: `calc(50% + ${this.top}px)`,
             left: `calc(50% + ${this.left}px)`
           }
@@ -295,7 +295,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50% -50%);
-    box-shadow: #555 0px 5px 20px 2px;
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 5px 20px 2px;
     cursor: move;
     background-color: rgba(0, 0, 0, 0.7);
   }
