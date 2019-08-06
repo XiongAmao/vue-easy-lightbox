@@ -92,6 +92,7 @@
   import SvgIcon from './components/svg-icon.vue'
   import Toolbar from './components/toobar.vue'
   import { prefixCls } from './constant'
+  import { on, off } from './utils/index'
 
   export default {
     name: 'vue-easy-lightbox',
@@ -130,6 +131,8 @@
         if (btn === 0) return true
         return false
       },
+
+      // events handler
       handleMouseDown(e) {
         if (!this.checkBtn(e.button)) return
         this.lastX = e.clientX
@@ -152,6 +155,13 @@
         }
         e.stopPropagation()
       },
+      escapePressHandler(e) {
+        if (e.key === 'Escape' && this.visible) {
+          this.closeDialog()
+        }
+      },
+
+      // action handler
       zoomIn(e) {
         this.scale += 0.25
       },
@@ -179,13 +189,14 @@
           this.imgTransitionStatus = !this.imgTransitionStatus
         }, 0)
       },
+      closeDialog() {
+        this.$emit('hide')
+      },
+
       reset() {
         this.imgTransitionStatus = !this.imgTransitionStatus
         this.scale = 1
         this.rotateDeg = 0
-      },
-      closeDialog() {
-        this.$emit('hide')
       },
       init() {
         this.imgIndex = this.index
@@ -225,7 +236,8 @@
             transform: `
               translate(-50%, -50%)
               scale(${this.scale})
-              rotate(-${this.rotateDeg}deg)`,
+              rotate(-${this.rotateDeg}deg)
+            `,
             top: `calc(50% + ${this.top}px)`,
             left: `calc(50% + ${this.left}px)`
           }
@@ -238,6 +250,12 @@
           this.init()
         }
       }
+    },
+    mounted() {
+      on(document, 'keydown', this.escapePressHandler)
+    },
+    beforeDestroy() {
+      off(document, 'keydown', this.escapePressHandler)
     }
   }
 </script>
