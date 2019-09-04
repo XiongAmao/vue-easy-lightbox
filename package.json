@@ -32,8 +32,10 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-eslint": "^3.11.0",
+    "@vue/cli-plugin-typescript": "^3.11.0",
     "@vue/cli-service": "^3.11.0",
     "@vue/eslint-config-standard": "^4.0.0",
+    "@vue/eslint-config-typescript": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.2",
@@ -46,8 +48,11 @@
     "rollup-plugin-css-only": "^1.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.0",
+    "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-vue": "^5.0.1",
     "sass-loader": "^8.0.0",
+    "tslib": "^1.10.0",
+    "typescript": "^3.6.2",
     "vue-template-compiler": "^2.6.10"
   }
 }
