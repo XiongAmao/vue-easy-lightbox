@@ -30,14 +30,14 @@
     "vue": "^2.6.10"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.8.0",
-    "@vue/cli-plugin-eslint": "^3.8.0",
-    "@vue/cli-service": "^3.8.4",
+    "@vue/cli-plugin-babel": "^3.11.0",
+    "@vue/cli-plugin-eslint": "^3.11.0",
+    "@vue/cli-service": "^3.11.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.2",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
     "rimraf": "^2.6.3",
     "rollup": "^1.16.3",
@@ -47,7 +47,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.0",
     "rollup-plugin-vue": "^5.0.1",
-    "sass-loader": "^7.0.1",
+    "sass-loader": "^8.0.0",
     "vue-template-compiler": "^2.6.10"
   }
 }
