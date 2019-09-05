@@ -16,7 +16,8 @@
     "clean": "rimraf ./dist",
     "build": "npm run clean && rollup -c build-scripts/rollup.config.js",
     "build:demo": "vue-cli-service build --dest build",
-    "deploy:demo": "bin/deploy-demo.sh"
+    "deploy:demo": "bin/deploy-demo.sh",
+    "test-ts-build": "rollup -c build-scripts/rollup.ts.config.js"
   },
   "repository": {
     "type": "git",
