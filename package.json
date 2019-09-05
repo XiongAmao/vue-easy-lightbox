@@ -27,7 +27,9 @@
   },
   "homepage": "https://github.com/XiongAmao/vue-easy-lightbox#readme",
   "dependencies": {
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "vue-class-component": "^7.1.0",
+    "vue-property-decorator": "^8.2.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
