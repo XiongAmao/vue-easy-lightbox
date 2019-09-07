@@ -12,18 +12,18 @@ const configs = [
     input: 'src/index.ts',
     output: {
       format: 'umd',
-      file: `.temp/${libraryName}.ts.js`,
+      file: `test-dist/${libraryName}.ts.js`,
       name: libraryName,
       globals: {
         vue: 'Vue'
       }
     },
     plugins: [
+      typescript(),
       vue(),
       babel(babelConfig),
       resolve(),
-      commonJs(),
-      typescript(),
+      commonJs()
     ],
     external: ['vue']
   }

@@ -1,17 +1,6 @@
 import VueEasyLightbox from './vue-easy-lightbox.vue'
 import Vue from 'vue'
-
-declare global {
-  interface Window {
-    Vue: typeof Vue
-  }
-}
-declare module 'vue/types/vue' {
-  interface VueConstructor {
-    install: Install
-  }
-}
-type Install = (vue: typeof Vue) => void
+import { Install } from './types/index'
 
 const install: Install = (
   vue: typeof Vue
