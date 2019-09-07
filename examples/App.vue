@@ -4,10 +4,10 @@
       <h1> vue-easy-lightbox </h1>
       <div class="gallery">
         <div
-          v-for="(src, index) in imgs"
-          :key="index"
+          v-for="(src, idx) in imgs"
+          :key="idx"
           class="pic"
-          @click="() => show(index)"
+          @click="() => show(idx)"
         >
           <img :src="src">
         </div>
@@ -18,7 +18,7 @@
         :index="index"
         :imgs="imgs"
         @hide="handleHide"
-      ></vue-easy-lightbox>
+      />
     </div>
   </div>
 </template>
