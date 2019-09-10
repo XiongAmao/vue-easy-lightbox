@@ -26,3 +26,5 @@ export declare class VueEasyLightbox extends Vue {
    */
   escDisabled?: boolean
 }
+
+export default VueEasyLightbox
