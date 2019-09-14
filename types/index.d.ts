@@ -1,7 +1,6 @@
 import Vue from 'vue'
 
-export function install (vue: typeof Vue): void
-declare class VueEasyLightbox extends Vue {
+export declare class VueEasyLightbox extends Vue {
   /**
    * Image's Url
    * @requires
@@ -25,6 +24,9 @@ declare class VueEasyLightbox extends Vue {
    * @default false
    */
   escDisabled?: boolean
+
+  /** Install component into Vue */
+  static install (vue: typeof Vue): void
 }
 
 export default VueEasyLightbox
