@@ -50,7 +50,8 @@ module.exports = {
         math: 'always'
       }
     ],
-    'vue/multiline-html-element-content-newline': 'off'
+    'vue/multiline-html-element-content-newline': 'off',
+    'vue/name-property-casing': 'off'
   },
   extends: [
     'eslint:recommended',

@@ -1,6 +1,7 @@
+/* eslint-disable */
 import Vue from 'vue'
 
-export const isServer = Vue.prototype.$isServer
+export const isServer = Vue.prototype.$isServer as boolean
 
 // TODO: prepare for mobile touch event
 export let supportsPassive = false
@@ -13,11 +14,11 @@ if (!isServer) {
         supportsPassive = true
       }
     })
-    window.addEventListener('test-passive', null, options)
+    window.addEventListener('test-passive', () => {}, options)
   } catch (e) {}
 }
 
-export const on = (target, event, handler, passive = false) => {
+export const on = (target: Element, event: string, handler: any, passive = false) => {
   if (!isServer) {
     target.addEventListener(
       event,
@@ -27,7 +28,7 @@ export const on = (target, event, handler, passive = false) => {
   }
 }
 
-export const off = (target, event, handler) => {
+export const off = (target: Element, event: string, handler: any) => {
   if (!isServer) {
     target.removeEventListener(event, handler)
   }
