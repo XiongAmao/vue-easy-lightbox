@@ -26,13 +26,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+  import Vue from 'vue'
   import SvgIcon from './svg-icon.vue'
   import { prefixCls } from '../constant'
 
   const voidFn = () => {}
 
-  export default {
+  export default Vue.extend({
     components: {
       SvgIcon
     },
@@ -55,7 +56,7 @@
         prefixCls
       }
     }
-  }
+  })
 </script>
 
 <style scoped lang="scss">

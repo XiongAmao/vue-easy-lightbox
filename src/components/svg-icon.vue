@@ -7,11 +7,14 @@
   </svg>
 </template>
 
-<script>
-  export default {
+<script lang="ts">
+  import Vue from 'vue'
+
+  export default Vue.extend({
     props: {
       type: {
-        type: String
+        type: String,
+        default: ''
       }
     },
     data() {
@@ -19,11 +22,11 @@
         prefixCls: 'vel'
       }
     }
-  }
+  })
 </script>
 
 <style scoped lang="scss">
-  $prefix-cls: vel;
+  @import '../assets/styles/variables.scss';
 
   .#{$prefix-cls}-icon {
     width: 1em;
