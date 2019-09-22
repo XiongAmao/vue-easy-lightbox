@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import VueEasyLightbox from '../src/index.js'
+import VueEasyLightbox from '../src/index.ts'
 
 Vue.use(VueEasyLightbox)
 

@@ -18,7 +18,12 @@ if (!isServer) {
   } catch (e) {}
 }
 
-export const on = (target: Element, event: string, handler: any, passive = false) => {
+export const on = (
+  target: Element | Document,
+  event: string,
+  handler: any,
+  passive = false
+) => {
   if (!isServer) {
     target.addEventListener(
       event,
@@ -28,7 +33,11 @@ export const on = (target: Element, event: string, handler: any, passive = false
   }
 }
 
-export const off = (target: Element, event: string, handler: any) => {
+export const off = (
+  target: Element | Document,
+  event: string,
+  handler: any
+) => {
   if (!isServer) {
     target.removeEventListener(event, handler)
   }

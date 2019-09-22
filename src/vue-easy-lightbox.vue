@@ -28,7 +28,7 @@
           <div
             v-if="imgList.length !== 1"
             class="btn__prev"
-            :class="{disable: imgIndex === 0}"
+            :class="{ disable: imgIndex === 0 }"
             @click="onPrevClick"
           >
             <svg-icon type="prev" />
@@ -42,7 +42,7 @@
           <div
             v-if="imgList.length !== 1"
             class="btn__next"
-            :class="{disable: imgIndex === imgList.length - 1}"
+            :class="{ disable: imgIndex === imgList.length - 1 }"
             @click="onNextClick"
           >
             <svg-icon type="next" />
@@ -87,179 +87,163 @@
   </transition>
 </template>
 
-<script>
+<script lang="ts">
+  import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
   import './assets/svg/iconfont'
   import SvgIcon from './components/svg-icon.vue'
   import Toolbar from './components/toobar.vue'
   import { prefixCls } from './constant'
   import { on, off } from './utils/index'
 
-  export default {
+  @Component({
     name: 'vue-easy-lightbox',
     components: {
       SvgIcon,
       Toolbar
-    },
-    props: {
-      imgs: {
-        type: [Array, String]
-      },
-      visible: {
-        type: Boolean
-      },
-      index: {
-        type: Number,
-        default: 0
-      },
-      escDisabled: {
-        type: Boolean,
-        default: false
-      }
-    },
-    data() {
-      return {
-        prefixCls,
-        scale: 1,
-        rotateDeg: 0,
-        imgIndex: 0,
-        imgTransitionStatus: true,
-        top: 0,
-        left: 0,
-        lastX: 0,
-        lastY: 0,
-        isDraging: false
-      }
-    },
-    methods: {
-      checkBtn(btn) {
-        if (btn === 0) return true
-        return false
-      },
+    }
+  })
+  export default class VueEasyLightbox extends Vue {
+    @Prop({ type: [Array, String], default: () => '' }) readonly imgs!:
+      | string
+      | string[]
 
-      // events handler
-      handleMouseDown(e) {
-        if (!this.checkBtn(e.button)) return
+    @Prop({ type: Boolean, default: false }) readonly visible!: boolean
+    @Prop({ type: Number, default: 0 }) readonly index!: number
+    @Prop({ type: Boolean, default: false }) readonly escDisabled!: boolean
+
+    prefixCls = prefixCls
+    scale = 1
+    rotateDeg = 0
+    imgIndex = 0
+    imgTransitionStatus = true
+    top = 0
+    left = 0
+    lastX = 0
+    lastY = 0
+    isDraging = false
+
+    get imgWrapperClasses() {
+      return [
+        `${this.prefixCls}-img-wrapper`,
+        {
+          transition: this.imgTransitionStatus
+        }
+      ]
+    }
+    get imgList() {
+      if (Array.isArray(this.imgs)) {
+        return this.imgs
+      }
+      return [this.imgs]
+    }
+    get visibleImgSrc() {
+      return this.imgList[this.imgIndex]
+    }
+    get imgTotal() {
+      return this.imgList.length || 0
+    }
+    get imgStyle() {
+      const { scale, top, left, rotateDeg } = this
+      return {
+        transform: `translate(-50%, -50%) scale(${scale}) rotate(-${rotateDeg}deg)`,
+        top: `calc(50% + ${top}px)`,
+        left: `calc(50% + ${left}px)`
+      }
+    }
+
+    checkMouseEventPropButton(button: number) {
+      // mouse left btn click
+      if (button === 0) return true
+      return false
+    }
+
+    // events handler
+    handleMouseDown(e: MouseEvent) {
+      if (!this.checkMouseEventPropButton(e.button)) return
+      this.lastX = e.clientX
+      this.lastY = e.clientY
+      this.isDraging = true
+      e.stopPropagation()
+    }
+    handleMouseUp(e: MouseEvent) {
+      if (!this.checkMouseEventPropButton(e.button)) return
+      this.isDraging = false
+      this.lastX = this.lastY = 0
+    }
+    handleMouseMove(e: MouseEvent) {
+      if (!this.checkMouseEventPropButton(e.button)) return
+      if (this.isDraging) {
+        this.top = this.top - this.lastY + e.clientY
+        this.left = this.left - this.lastX + e.clientX
         this.lastX = e.clientX
         this.lastY = e.clientY
-        this.isDraging = true
-        e.stopPropagation()
-      },
-      handleMouseUp(e) {
-        if (!this.checkBtn(e.button)) return
-        this.isDraging = false
-        this.lastX = this.lastY = 0
-      },
-      handleMouseMove(e) {
-        if (!this.checkBtn(e.button)) return
-        if (this.isDraging) {
-          this.top = this.top - this.lastY + e.clientY
-          this.left = this.left - this.lastX + e.clientX
-          this.lastX = e.clientX
-          this.lastY = e.clientY
-        }
-        e.stopPropagation()
-      },
-      escapePressHandler(e) {
-        if (e.key === 'Escape' && this.visible) {
-          this.closeDialog()
-        }
-      },
+      }
+      e.stopPropagation()
+    }
+    escapePressHandler(e: KeyboardEvent) {
+      if (e.key === 'Escape' && this.visible) {
+        this.closeDialog()
+      }
+    }
 
-      // action handler
-      zoomIn(e) {
-        this.scale += 0.25
-      },
-      zoomOut() {
-        if (this.scale !== 0) {
-          this.scale -= 0.25
-        }
-      },
-      rotate() {
-        this.rotateDeg += 90
-      },
-      onNextClick() {
-        if (this.imgIndex === this.imgList.length - 1) return
-        this.reset()
-        this.imgIndex += 1
-        setTimeout(() => {
-          this.imgTransitionStatus = !this.imgTransitionStatus
-        }, 0)
-      },
-      onPrevClick() {
-        if (this.imgIndex === 0) return
-        this.reset()
-        this.imgIndex -= 1
-        setTimeout(() => {
-          this.imgTransitionStatus = !this.imgTransitionStatus
-        }, 0)
-      },
-      closeDialog() {
-        this.$emit('hide')
-      },
-
-      reset() {
+    // action handler
+    zoomIn() {
+      this.scale += 0.25
+    }
+    zoomOut() {
+      if (this.scale !== 0) {
+        this.scale -= 0.25
+      }
+    }
+    rotate() {
+      this.rotateDeg += 90
+    }
+    onNextClick() {
+      if (this.imgIndex === this.imgList.length - 1) return
+      this.reset()
+      this.imgIndex += 1
+      setTimeout(() => {
         this.imgTransitionStatus = !this.imgTransitionStatus
-        this.scale = 1
-        this.rotateDeg = 0
-      },
-      init() {
-        this.imgIndex = this.index
-        this.imgTransitionStatus = true
-        this.scale = 1
-        this.rotateDeg = 0
-        this.top = 0
-        this.left = 0
-        this.isDraging = false
-      }
-    },
-    computed: {
-      imgWrapperClasses() {
-        return [
-          `${this.prefixCls}-img-wrapper`,
-          {
-            transition: this.imgTransitionStatus
-          }
-        ]
-      },
-      imgList() {
-        if (Array.isArray(this.imgs)) {
-          return this.imgs
-        } else {
-          return [this.imgs]
-        }
-      },
-      visibleImgSrc() {
-        return this.imgList[this.imgIndex]
-      },
-      imgTotal() {
-        return this.imgList.length || 0
-      },
-      imgStyle: {
-        get() {
-          return {
-            transform: `
-                    translate(-50%, -50%)
-                    scale(${this.scale})
-                    rotate(-${this.rotateDeg}deg)
-                  `,
-            top: `calc(50% + ${this.top}px)`,
-            left: `calc(50% + ${this.left}px)`
-          }
-        }
-      }
-    },
-    watch: {
-      visible(visible) {
-        if (visible === true) {
-          this.init()
-        }
-      }
-    },
+      }, 0)
+    }
+    onPrevClick() {
+      if (this.imgIndex === 0) return
+      this.reset()
+      this.imgIndex -= 1
+      setTimeout(() => {
+        this.imgTransitionStatus = !this.imgTransitionStatus
+      }, 0)
+    }
+    closeDialog() {
+      this.$emit('hide')
+    }
+
+    reset() {
+      this.imgTransitionStatus = !this.imgTransitionStatus
+      this.scale = 1
+      this.rotateDeg = 0
+    }
+    init() {
+      this.imgIndex = this.index
+      this.imgTransitionStatus = true
+      this.scale = 1
+      this.rotateDeg = 0
+      this.top = 0
+      this.left = 0
+      this.isDraging = false
+    }
+
+    @Watch('visible', { immediate: true, deep: true })
+    onVisibleChanged(visible: boolean) {
+      if (this.visible) this.init()
+    }
+
+    // life cycle
     mounted() {
       if (!this.escDisabled) {
         on(document, 'keydown', this.escapePressHandler)
       }
-    },
+    }
     beforeDestroy() {
       if (!this.escDisabled) {
         off(document, 'keydown', this.escapePressHandler)
