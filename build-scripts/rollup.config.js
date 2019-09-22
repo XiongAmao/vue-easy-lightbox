@@ -2,109 +2,65 @@ import vue from 'rollup-plugin-vue'
 import commonJs from 'rollup-plugin-commonjs'
 import resolve from 'rollup-plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
+import typescript from 'rollup-plugin-typescript'
+import replace from 'rollup-plugin-replace'
 import { terser } from 'rollup-plugin-terser'
 import { babelConfig } from './rollup.babel.config'
 import { terserOptions } from './rollup.terser.config'
 
 process.env.NODE_ENV = 'production'
 
-const distPath = 'dist'
+const distPath = 'test-dist'
 const libraryName = 'vue-easy-lightbox'
+const entryPath = 'src/index.ts'
 
-const configs = [
-  {
-    input: 'src/index.js',
-    output: {
-      format: 'esm',
-      file: `${distPath}/${libraryName}.es5.esm.min.js`
-    },
-    plugins: [
-      vue(),
-      babel(babelConfig),
-      resolve(),
-      commonJs(),
-      terser(terserOptions)
-    ]
-  },
-  {
-    input: 'src/index.js',
-    output: {
-      format: 'esm',
-      file: `${distPath}/${libraryName}.esm.min.js`
-    },
-    plugins: [
-      vue(),
-      resolve(),
-      commonJs(),
-      terser(terserOptions)
-    ]
-  },
-  {
-    input: 'src/index.js',
-    output: {
-      format: 'cjs',
-      file: `${distPath}/${libraryName}.es5.common.min.js`
-    },
-    plugins: [
-      vue(),
-      babel(babelConfig),
-      resolve(),
-      commonJs(),
-      terser(terserOptions)
-    ]
-  },
-  {
-    input: 'src/index.js',
-    output: {
-      format: 'cjs',
-      file: `${distPath}/${libraryName}.common.min.js`
-    },
-    plugins: [
-      vue(),
-      resolve(),
-      commonJs(),
-      terser(terserOptions)
-    ]
-  },
-  {
-    input: 'src/index.js',
-    output: {
-      format: 'umd',
-      file: `${distPath}/${libraryName}.es5.umd.min.js`,
-      name: libraryName,
-      globals: {
-        vue: 'Vue'
-      }
-    },
-    plugins: [
-      vue(),
-      babel(babelConfig),
-      resolve(),
-      commonJs(),
-      terser(terserOptions)
-    ]
-  },
-  {
-    input: 'src/index.js',
-    output: {
-      format: 'umd',
-      file: `${distPath}/${libraryName}.umd.min.js`,
-      name: libraryName,
-      globals: {
-        vue: 'Vue'
-      }
-    },
-    plugins: [
-      vue(),
-      resolve(),
-      commonJs(),
-      terser(terserOptions)
-    ]
-  }
+const builds = [
+  `es5.esm.min.js`,
+  `esm.min.js`,
+  `es5.common.min.js`,
+  `common.min.js`,
+  `es5.umd.min.js`,
+  `umd.min.js`
 ]
 
-configs.forEach(config => {
-  config.external = ['vue']
+const getFormat = (build) => {
+  if (/esm/.test(build)) return 'esm'
+  if (/common/.test(build)) return 'cjs'
+  if (/umd/.test(build)) return 'umd'
+  throw new Error('Unexpected format name.')
+}
+
+const configs = builds.map((build) => {
+  const format = getFormat(build)
+  const config = {
+    input: entryPath,
+    output: {
+      file: `${distPath}/${libraryName}.${build}`,
+      format
+    },
+    plugins: [
+      typescript(),
+      vue(),
+      replace({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }),
+      resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
+      }),
+      commonJs(),
+      terser(terserOptions)
+    ],
+    external: ['vue']
+  }
+  if (config.output.format === 'umd') {
+    config.output.name = libraryName
+    config.output.globals = { vue: 'Vue' }
+  }
+  if (/es5/.test(build)) {
+    config.plugins.splice(2, 0, babel(babelConfig))
+  }
+
+  return config
 })
 
 export default configs

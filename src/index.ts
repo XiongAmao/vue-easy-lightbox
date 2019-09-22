@@ -5,7 +5,9 @@ import { Install } from './types/index'
 const install: Install = (
   vue: typeof Vue
 ) => {
-  vue.component(VueEasyLightbox.name, VueEasyLightbox)
+  // Terser plugin break VueEasylightbox.name, I didn't find solution yet.
+  // So use constants here.
+  vue.component('vue-easy-lightbox', VueEasyLightbox)
 }
 
 VueEasyLightbox.install = install

@@ -21,5 +21,6 @@ export const babelConfig = {
       }
     ]
   ],
-  exclude: 'node_modules/**'
+  exclude: 'node_modules/**',
+  extensions: ['.js', '.jsx', '.ts', '.tsx']
 }
