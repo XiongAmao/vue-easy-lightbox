@@ -10,7 +10,7 @@ import { terserOptions } from './rollup.terser.config'
 
 process.env.NODE_ENV = 'production'
 
-const distPath = 'test-dist'
+const distPath = 'dist'
 const libraryName = 'vue-easy-lightbox'
 const entryPath = 'src/index.ts'
 
