@@ -70,7 +70,7 @@
           }"
         >
           <toolbar
-            :prefix-cls="prefixCls"
+            :prefixCls="prefixCls"
             :zoomIn="zoomIn"
             :zoomOut="zoomOut"
             :rotate="rotate"
