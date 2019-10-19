@@ -199,20 +199,10 @@
       this.rotateDeg += 90
     }
     onNextClick() {
-      if (this.imgIndex === this.imgList.length - 1) return
-      this.reset()
-      this.imgIndex += 1
-      setTimeout(() => {
-        this.imgTransitionStatus = !this.imgTransitionStatus
-      }, 0)
+      this.onIndexChange(this.imgIndex + 1)
     }
     onPrevClick() {
-      if (this.imgIndex === 0) return
-      this.reset()
-      this.imgIndex -= 1
-      setTimeout(() => {
-        this.imgTransitionStatus = !this.imgTransitionStatus
-      }, 0)
+      this.onIndexChange(this.imgIndex - 1)
     }
     closeDialog() {
       this.$emit('hide')
@@ -233,9 +223,20 @@
       this.isDraging = false
     }
 
-    @Watch('visible', { immediate: true, deep: true })
+    @Watch('visible', { immediate: true })
     onVisibleChanged(visible: boolean) {
       if (this.visible) this.init()
+    }
+
+    @Watch('index')
+    onIndexChange(index: number) {
+      if (!this.visible) return
+      if (index > this.imgList.length - 1 || index < 0) return
+      this.reset()
+      this.imgIndex = index
+      setTimeout(() => {
+        this.imgTransitionStatus = !this.imgTransitionStatus
+      }, 0)
     }
 
     // life cycle
