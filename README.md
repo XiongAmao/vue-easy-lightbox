@@ -67,6 +67,7 @@ example:
   <vue-easy-lightbox
     :visible="visible"
     :imgs="imgs"
+    :index="index"
     @hide="handleHide"
   ></vue-easy-lightbox>
 </div>
@@ -78,6 +79,7 @@ example:
     el: '#app',
     data: {
       visible: false,
+      index: 0,   // default: 0
       imgs: [
         'https://via.placeholder.com/450.png/',
         'https://via.placeholder.com/300.png/',
@@ -117,6 +119,7 @@ Vue.use(Lightbox)
   <vue-easy-lightbox
     :visible="visible"
     :imgs="imgs"
+    :index="index"
     @hide="handleHide"
   ></vue-easy-lightbox>
 </template>
@@ -151,7 +154,7 @@ export default {
     return {
       imgs: '',  // Img Url , string or Array
       visible: false,
-      index: 0   // default
+      index: 0   // default: 0
     }
   },
   methods: {

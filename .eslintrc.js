@@ -51,7 +51,8 @@ module.exports = {
       }
     ],
     'vue/multiline-html-element-content-newline': 'off',
-    'vue/name-property-casing': 'off'
+    'vue/name-property-casing': 'off',
+    'vue/attribute-hyphenation': ['error', 'never']
   },
   extends: [
     'eslint:recommended',
