@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.6.0]
+
+- Fix changing index can't change img in display [#18](https://github.com/XiongAmao/vue-easy-lightbox/issues/18).
+- Support TypeScript.
+
 ## [0.5.0]
 
 - Fix dist files does not match to package.json.
