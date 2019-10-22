@@ -29,7 +29,7 @@ export declare class VueEasyLightbox extends Vue {
    * Can move images with left click
    * @default false
    */
-  move?: boolean
+  moveDisabled?: boolean
 
   /** Install component into Vue */
   static install (vue: typeof Vue): void

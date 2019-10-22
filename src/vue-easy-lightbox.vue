@@ -110,7 +110,7 @@
     @Prop({ type: Boolean, default: false }) readonly visible!: boolean
     @Prop({ type: Number, default: 0 }) readonly index!: number
     @Prop({ type: Boolean, default: false }) readonly escDisabled!: boolean
-    @Prop({ type: Boolean, default: false }) readonly move!: boolean
+    @Prop({ type: Boolean, default: false }) readonly moveDisabled!: boolean
 
     prefixCls = prefixCls
     scale = 1
@@ -144,18 +144,18 @@
       return this.imgList.length || 0
     }
     get imgStyle() {
-      const { scale, top, left, rotateDeg, move } = this
+      const { scale, top, left, rotateDeg, moveDisabled } = this
       return {
         transform: `translate(-50%, -50%) scale(${scale}) rotate(-${rotateDeg}deg)`,
         top: `calc(50% + ${top}px)`,
         left: `calc(50% + ${left}px)`,
-        cursor: move ? 'move' : 'default'
+        cursor: moveDisabled ? 'move' : 'default'
       }
     }
 
     checkMouseEventPropButton(button: number) {
       // mouse left btn click
-      if (!this.move) return false
+      if (!this.moveDisabled) return false
       if (button === 0) return true
       return false
     }
