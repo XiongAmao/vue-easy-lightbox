@@ -17,6 +17,7 @@
         :visible="visible"
         :index="index"
         :imgs="imgs"
+        :moveDisabled="false"
         @hide="handleHide"
       />
     </div>

@@ -5,13 +5,13 @@ export declare class VueEasyLightbox extends Vue {
    * Image's Url
    * @requires
    */
-  imgs: string[] | string;
+  imgs: string[] | string
 
   /**
    * Control lightbox display
    * @default false
    */
-  visible?: boolean;
+  visible?: boolean
 
   /**
    * Index of imgList
@@ -24,6 +24,12 @@ export declare class VueEasyLightbox extends Vue {
    * @default false
    */
   escDisabled?: boolean
+
+  /**
+   * Can move images with left click
+   * @default false
+   */
+  moveDisabled?: boolean
 
   /** Install component into Vue */
   static install (vue: typeof Vue): void
