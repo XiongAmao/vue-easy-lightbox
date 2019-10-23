@@ -26,7 +26,7 @@ export declare class VueEasyLightbox extends Vue {
   escDisabled?: boolean
 
   /**
-   * Can move images with left click
+   * Disable image movement.
    * @default false
    */
   moveDisabled?: boolean
