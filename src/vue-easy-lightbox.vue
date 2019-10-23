@@ -149,15 +149,15 @@
         transform: `translate(-50%, -50%) scale(${scale}) rotate(-${rotateDeg}deg)`,
         top: `calc(50% + ${top}px)`,
         left: `calc(50% + ${left}px)`,
-        cursor: moveDisabled ? 'move' : 'default'
+        cursor: moveDisabled ? 'default' : 'move'
       }
     }
 
     checkMouseEventPropButton(button: number) {
+      if (this.moveDisabled) return false
+
       // mouse left btn click
-      if (!this.moveDisabled) return false
-      if (button === 0) return true
-      return false
+      return button === 0
     }
 
     // events handler
