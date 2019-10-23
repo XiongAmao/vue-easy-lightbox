@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.7.0]
+
+- New props: `moveDisabled` with default value `false` to disable image movement.
+
 ## [0.6.0]
 
 - Fix changing index can't change img in display [#18](https://github.com/XiongAmao/vue-easy-lightbox/issues/18).
