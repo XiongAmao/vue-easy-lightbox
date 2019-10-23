@@ -133,8 +133,10 @@ Usage of Component
     <button @click="showSingle">Show single picture.</button>
     <button @click="showMultiple">Show a group of pictures.</button>
 
-    <!-- default name -->
+    <!-- all props & events -->
     <vue-easy-lightbox
+      escDisabled
+      moveDisabled
       :visible="visible"
       :imgs="imgs"
       :index="index"
@@ -262,10 +264,16 @@ Properties
       <td>Index of imgList</td>
     </tr>
     <tr>
-      <td>escDisabled</td>
+      <td>escDisabled (esc-disabled)</td>
       <td>Boolean</td>
       <td>false</td>
       <td>By default, press the esc key to close Modal during presentation.</td>
+    </tr>
+    <tr>
+      <td>moveDisabled (move-disabled)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Pass true to disable image movement.</td>
     </tr>
   </tbody>
 </table>

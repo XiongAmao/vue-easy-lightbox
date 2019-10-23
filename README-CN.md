@@ -132,8 +132,10 @@ Vue.use(Lightbox)
     <button @click="showSingle">Show single picture.</button>
     <button @click="showMultiple">Show a group of pictures.</button>
 
-    <!-- default name -->
+    <!-- all props & events -->
     <vue-easy-lightbox
+      escDisabled
+      moveDisabled
       :visible="visible"
       :imgs="imgs"
       :index="index"
@@ -259,10 +261,16 @@ Properties
       <td>打开图片组时，展示的图片位置</td>
     </tr>
     <tr>
-      <td>escDisabled</td>
+      <td>escDisabled (esc-disabled)</td>
       <td>Boolean</td>
       <td>false</td>
       <td>默认情况下，展示时按下esc键关闭Modal</td>
+    </tr>
+    <tr>
+      <td>moveDisabled (move-disabled)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>传true时，禁用拖动图片功能</td>
     </tr>
   </tbody>
 </table>
