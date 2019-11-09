@@ -10,13 +10,20 @@
         :style="imgStyle"
       >
         <img
+          v-if="!loadError"
           :class="`${prefixCls}-img`"
           :src="visibleImgSrc"
           draggable="false"
+          @error="handleImgError"
           @mousedown="handleMouseDown($event)"
           @mouseup="handleMouseUp($event)"
           @mousemove="handleMouseMove($event)"
         >
+        <div
+          v-else
+        >
+          img can't load
+        </div>
       </div>
 
       <!-- btns -->
@@ -122,6 +129,7 @@
     lastX = 0
     lastY = 0
     isDraging = false
+    loadError = false
 
     get imgWrapperClasses() {
       return [
@@ -144,12 +152,12 @@
       return this.imgList.length || 0
     }
     get imgStyle() {
-      const { scale, top, left, rotateDeg, moveDisabled } = this
+      const { scale, top, left, rotateDeg, moveDisabled, loadError } = this
       return {
         transform: `translate(-50%, -50%) scale(${scale}) rotate(-${rotateDeg}deg)`,
         top: `calc(50% + ${top}px)`,
         left: `calc(50% + ${left}px)`,
-        cursor: moveDisabled ? 'default' : 'move'
+        cursor: moveDisabled || loadError ? 'default' : 'move'
       }
     }
 
@@ -188,6 +196,10 @@
         this.closeDialog()
       }
     }
+    handleImgError(e: Event) {
+      this.loadError = true
+      this.imgTransitionStatus = false
+    }
 
     // action handler
     zoomIn() {
@@ -215,6 +227,7 @@
       this.imgTransitionStatus = !this.imgTransitionStatus
       this.scale = 1
       this.rotateDeg = 0
+      this.loadError = false
     }
     init() {
       this.imgIndex = this.index
@@ -224,6 +237,7 @@
       this.top = 0
       this.left = 0
       this.isDraging = false
+      this.loadError = false
     }
 
     @Watch('visible', { immediate: true })
