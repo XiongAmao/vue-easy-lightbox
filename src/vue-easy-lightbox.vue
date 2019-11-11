@@ -5,26 +5,51 @@
       :class="[`${prefixCls}-img-modal`, `${prefixCls}-modal`]"
       @click.self="closeDialog"
     >
-      <div
-        :class="imgWrapperClasses"
-        :style="imgStyle"
+      <transition
+        :name="`${prefixCls}-fade`"
+        mode="out-in"
       >
-        <img
-          v-if="!loadError"
-          :class="`${prefixCls}-img`"
-          :src="visibleImgSrc"
-          draggable="false"
-          @error="handleImgError"
-          @mousedown="handleMouseDown($event)"
-          @mouseup="handleMouseUp($event)"
-          @mousemove="handleMouseMove($event)"
+        <!-- loading-slot -->
+        <slot
+          v-if="loading"
+          name="loading"
         >
+          <img-loading />
+        </slot>
+
+        <!-- error-slot -->
+        <slot
+          v-if="loadError"
+          name="onerror"
+        >
+          <img-on-error />
+        </slot>
+
+        <!-- img-wrapper -->
         <div
-          v-else
+          v-if="!loading && !loadError"
+          :class="`${prefixCls}-img-wrapper`"
+          :style="imgWrapperStyle"
         >
-          img can't load
+          <img
+            :class="`${prefixCls}-img`"
+            :src="visibleImgSrc"
+            :style="imgStyle"
+            draggable="false"
+            @mousedown="handleMouseDown($event)"
+            @mouseup="handleMouseUp($event)"
+            @mousemove="handleMouseMove($event)"
+          >
         </div>
-      </div>
+      </transition>
+
+      <!-- use for load -->
+      <img
+        style="display:none;"
+        :src="visibleImgSrc"
+        @error="handleImgError"
+        @load="handleImgLoad"
+      >
 
       <!-- btns -->
       <div :class="`${prefixCls}-btns-wrapper`">
@@ -99,6 +124,8 @@
   import './assets/svg/iconfont'
   import SvgIcon from './components/svg-icon.vue'
   import Toolbar from './components/toobar.vue'
+  import ImgLoading from './components/img-loading.vue'
+  import ImgOnError from './components/img-on-error.vue'
   import { prefixCls } from './constant'
   import { on, off } from './utils/index'
 
@@ -106,7 +133,9 @@
     name: 'vue-easy-lightbox',
     components: {
       SvgIcon,
-      Toolbar
+      Toolbar,
+      ImgLoading,
+      ImgOnError
     }
   })
   export default class VueEasyLightbox extends Vue {
@@ -123,22 +152,14 @@
     scale = 1
     rotateDeg = 0
     imgIndex = 0
-    imgTransitionStatus = true
     top = 0
     left = 0
     lastX = 0
     lastY = 0
     isDraging = false
+    loading = false
     loadError = false
 
-    get imgWrapperClasses() {
-      return [
-        `${this.prefixCls}-img-wrapper`,
-        {
-          transition: this.imgTransitionStatus
-        }
-      ]
-    }
     get imgList() {
       if (Array.isArray(this.imgs)) {
         return this.imgs
@@ -151,13 +172,19 @@
     get imgTotal() {
       return this.imgList.length || 0
     }
-    get imgStyle() {
+    get imgWrapperStyle() {
       const { scale, top, left, rotateDeg, moveDisabled, loadError } = this
       return {
-        transform: `translate(-50%, -50%) scale(${scale}) rotate(-${rotateDeg}deg)`,
+        transform: `translate(-50%, -50%) scale(${scale})`,
         top: `calc(50% + ${top}px)`,
         left: `calc(50% + ${left}px)`,
         cursor: moveDisabled || loadError ? 'default' : 'move'
+      }
+    }
+    get imgStyle() {
+      const { rotateDeg } = this
+      return {
+        transform: `rotate(-${rotateDeg}deg)`
       }
     }
 
@@ -196,9 +223,13 @@
         this.closeDialog()
       }
     }
+    handleImgLoad(e: Event) {
+      this.loading = false
+    }
     handleImgError(e: Event) {
+      this.loading = false
       this.loadError = true
-      this.imgTransitionStatus = false
+      this.$emit('on-error', e)
     }
 
     // action handler
@@ -224,20 +255,17 @@
     }
 
     reset() {
-      this.imgTransitionStatus = !this.imgTransitionStatus
-      this.scale = 1
-      this.rotateDeg = 0
-      this.loadError = false
-    }
-    init() {
-      this.imgIndex = this.index
-      this.imgTransitionStatus = true
       this.scale = 1
       this.rotateDeg = 0
       this.top = 0
       this.left = 0
       this.isDraging = false
+      this.loading = true
       this.loadError = false
+    }
+    init() {
+      this.imgIndex = this.index
+      this.reset()
     }
 
     @Watch('visible', { immediate: true })
@@ -251,9 +279,6 @@
       if (index > this.imgList.length - 1 || index < 0) return
       this.reset()
       this.imgIndex = index
-      setTimeout(() => {
-        this.imgTransitionStatus = !this.imgTransitionStatus
-      }, 0)
     }
 
     // life cycle
@@ -305,12 +330,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50% -50%);
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 5px 20px 2px;
-    background-color: rgba(0, 0, 0, 0.7);
-  }
-
-  .#{$prefix-cls}-img-wrapper.transition {
-    transition: transform 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
   }
 
   .#{$prefix-cls}-img {
@@ -318,6 +338,9 @@
     max-height: 80vh;
     vertical-align: middle;
     position: relative;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 5px 20px 2px;
+    background-color: rgba(0, 0, 0, 0.7);
   }
 
   /* prev/next/close btns */
@@ -346,11 +369,13 @@
     }
     .btn__next {
       top: 50%;
+      transform: translateY(-50%);
       right: 20px;
       font-size: 40px;
     }
     .btn__prev {
       top: 50%;
+      transform: translateY(-50%);
       left: 20px;
       font-size: 40px;
     }

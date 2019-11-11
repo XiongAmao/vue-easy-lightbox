@@ -1,0 +1,53 @@
+<template>
+  <div :class="`${prefixCls}-loading`">
+    <div class="ring"></div>
+  </div>
+</template>
+
+<script lang="ts">
+  import Vue from 'vue'
+  import { prefixCls } from '../constant'
+
+  export default Vue.extend({
+    data() {
+      return {
+        prefixCls
+      }
+    }
+  })
+</script>
+
+<style lang="scss" scoped>
+  @import '../assets/styles/variables.scss';
+
+  .#{$prefix-cls}-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .ring {
+      display: inline-block;
+      width: 64px;
+      height: 64px;
+    }
+    .ring:after {
+      content: ' ';
+      display: block;
+      width: 46px;
+      height: 46px;
+      margin: 1px;
+      border-radius: 50%;
+      border: 5px solid rgba(255, 255, 255, 0.7);
+      border-color: rgba(255, 255, 255, 0.7) transparent rgba(255, 255, 255, 0.7) transparent;
+      animation: ring 1.2s linear infinite;
+    }
+    @keyframes ring {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+</style>
