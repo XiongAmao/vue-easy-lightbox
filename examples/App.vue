@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <github-conner />
     <div class="container">
       <h1> vue-easy-lightbox </h1>
       <div class="gallery">
@@ -9,6 +10,9 @@
           class="pic"
           @click="() => show(idx)"
         >
+          <div v-if="idx === 5">
+            This is error image url.
+          </div>
           <img :src="src">
         </div>
       </div>
@@ -25,8 +29,13 @@
 </template>
 
 <script>
+  import GithubConner from './github-conner.vue'
+
   export default {
-    data () {
+    components: {
+      GithubConner
+    },
+    data() {
       return {
         imgs: [
           'https://i.loli.net/2018/11/10/5be6852cdb002.jpeg',
@@ -41,11 +50,11 @@
       }
     },
     methods: {
-      show (index) {
+      show(index) {
         this.index = index
         this.visible = true
       },
-      handleHide () {
+      handleHide() {
         this.visible = false
       }
     }
@@ -63,27 +72,27 @@
   h1 {
     color: #50d1c1;
   }
-  .gallery{
+  .gallery {
     width: 80%;
     max-width: 980px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
   }
-  .pic{
+  .pic {
     width: calc(50% - 30px);
     margin: 15px;
     cursor: pointer;
   }
-  .pic:hover img{
+  .pic:hover img {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0);
-    transform: scale(1.01)
+    transform: scale(1.01);
   }
-  img{
+  img {
     width: 100%;
-    transition: .3s ease;
+    transition: 0.3s ease;
   }
-  .btn{
+  .btn {
     cursor: pointer;
     outline: none;
     text-decoration: none;
@@ -96,13 +105,13 @@
     background-color: #50d1c1;
     border-color: #50d1c1;
     border-radius: 4px;
-    color: #FFF;
-    transition: .3s;
+    color: #fff;
+    transition: 0.3s;
   }
-  .btn:active{
+  .btn:active {
     color: #ccc;
-    background-color: #6AB5AE;
-    border-color: #6AB5AE;
+    background-color: #6ab5ae;
+    border-color: #6ab5ae;
     outline: none;
   }
 </style>
