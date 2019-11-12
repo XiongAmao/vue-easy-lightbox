@@ -35,7 +35,7 @@
 
     .icon {
       font-size: 80px;
-      color: #333;
+      color: #aaa;
     }
   }
 </style>
