@@ -234,14 +234,14 @@ Reference: [Slots-Vue.js](https://cn.vuejs.org/v2/guide/components-slots.html)
 
 ## Options
 
-Properties
+Props
 <table>
   <thead>
     <tr>
-      <th>name</th>
-      <th>type</th>
-      <th>default</th>
-      <th>description</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
     </tr>
   </thead>
   <tbody>
@@ -282,14 +282,21 @@ Event
 <table>
   <thead>
     <tr>
-      <th>name</th>
-      <th>description</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Return Value</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>hide</td>
       <td>When you click modal mask or close Btn, component will emit this event</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>on-error</td>
+      <td>Image loading error</td>
+      <td>event (event.target is not the image to be displayed)</td>
     </tr>
   </tbody>
 </table>
@@ -298,10 +305,10 @@ Slot & Scoped Slot
 <table>
   <thead>
     <tr>
-      <th>slot name</th>
-      <th>slot props</th>
-      <th>type</th>
-      <th>description</th>
+      <th>Slot Name</th>
+      <th>Slot Props</th>
+      <th>Slot Props Type</th>
+      <th>Description</th>
     </tr>
   </thead>
   <tbody>
@@ -309,19 +316,19 @@ Slot & Scoped Slot
       <td>prev-btn</td>
       <td>prev</td>
       <td>Function</td>
-      <td>show the prev img</td>
+      <td>Show the prev img</td>
     </tr>
     <tr>
       <td>next-btn</td>
       <td>next</td>
       <td>Function</td>
-      <td>show the next img</td>
+      <td>Show the next img</td>
     </tr>
     <tr>
       <td>close-btn</td>
       <td>close</td>
       <td>Function</td>
-      <td>close modal</td>
+      <td>Close modal</td>
     </tr>
     <tr>
       <td>toolbar</td>
@@ -333,7 +340,19 @@ Slot & Scoped Slot
           }
       </td>
       <td>{ Function }</td>
-      <td>zoom in, zoom out, rotate</td>
+      <td>Zoom in, zoom out, rotate</td>
+    </tr>
+    <tr>
+      <td>loading</td>
+      <td>-</td>
+      <td>-</td>
+      <td>Loading icon</td>
+    </tr>
+    <tr>
+      <td>onerror</td>
+      <td>-</td>
+      <td>-</td>
+      <td>Error Placeholder</td>
     </tr>
   </tbody>
 </table>

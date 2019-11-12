@@ -231,14 +231,14 @@ export default {
 
 ## 配置项
 
-Properties
+Props
 <table>
   <thead>
     <tr>
-      <th>name</th>
-      <th>type</th>
-      <th>default</th>
-      <th>description</th>
+      <th>属性</th>
+      <th>类型</th>
+      <th>默认值</th>
+      <th>说明</th>
     </tr>
   </thead>
   <tbody>
@@ -279,14 +279,21 @@ Event
 <table>
   <thead>
     <tr>
-      <th>name</th>
-      <th>description</th>
+      <th>事件名</th>
+      <th>说明</th>
+      <th>返回值</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>hide</td>
       <td>当点击遮罩或者关闭按钮时，会触发该事件</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>on-error</td>
+      <td>图片加载错误，触发error事件</td>
+      <td>event (event.target 不是实际展示的图片)</td>
     </tr>
   </tbody>
 </table>
@@ -295,10 +302,10 @@ Slot & Scoped Slot
 <table>
   <thead>
     <tr>
-      <th>slot name</th>
+      <th>名称</th>
       <th>slot props</th>
-      <th>type</th>
-      <th>description</th>
+      <th>slot props 类型</th>
+      <th>说明</th>
     </tr>
   </thead>
   <tbody>
@@ -331,6 +338,18 @@ Slot & Scoped Slot
       </td>
       <td>{ Function }</td>
       <td>放大、缩小、旋转</td>
+    </tr>
+    <tr>
+      <td>loading</td>
+      <td>-</td>
+      <td>-</td>
+      <td>加载图标</td>
+    </tr>
+    <tr>
+      <td>onerror</td>
+      <td>-</td>
+      <td>-</td>
+      <td>图片加载错误占位图</td>
     </tr>
   </tbody>
 </table>
