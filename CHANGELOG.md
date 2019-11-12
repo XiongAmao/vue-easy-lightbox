@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.0]
+
+- Add loading & onerror placeholders.
+- New Slot: `loading` & `onerror` for custom loading or error placeholders.
+- New Event: `on-error` , image `onerror` event triggers.
+
 ## [0.7.0]
 
 - New props: `moveDisabled` with default value `false` to disable image movement.
