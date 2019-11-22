@@ -254,6 +254,7 @@
       this.$emit('hide')
     }
 
+    // reset
     reset() {
       this.scale = 1
       this.rotateDeg = 0
@@ -266,8 +267,10 @@
     init() {
       this.imgIndex = this.index
       this.reset()
+      // this.loading = true
     }
 
+    // watch
     @Watch('visible', { immediate: true })
     onVisibleChanged(visible: boolean) {
       if (this.visible) this.init()
@@ -279,6 +282,13 @@
       if (index > this.imgList.length - 1 || index < 0) return
       this.reset()
       this.imgIndex = index
+
+      // same url
+      if (this.imgList[this.imgIndex] === this.imgList[index]) {
+        this.$nextTick(() => {
+          this.loading = false
+        })
+      }
     }
 
     // life cycle
