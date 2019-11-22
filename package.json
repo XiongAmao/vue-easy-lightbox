@@ -1,6 +1,6 @@
 {
   "name": "vue-easy-lightbox",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Very lightweight, JavaScript-only, lightbox plugin for Vue.js",
   "private": false,
   "author": "Zichao Xiong <onycat@live.cn>",

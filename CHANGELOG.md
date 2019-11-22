@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.8.1]
+- Fix images does not load if they are the same url. [#26](https://github.com/XiongAmao/vue-easy-lightbox/issues/26)
+
 ## [0.8.0]
 
 - Add loading & onerror placeholders.
