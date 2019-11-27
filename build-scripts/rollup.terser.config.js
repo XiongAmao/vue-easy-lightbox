@@ -1,3 +1,6 @@
 export const terserOptions = {
-  sourcemap: false
+  sourcemap: false,
+  output: {
+    comments: false
+  }
 }
