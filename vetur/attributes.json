@@ -1,0 +1,30 @@
+{
+  "vue-easy-lightbox/visible": {
+    "description": "Control lightbox display, required",
+    "type": "*boolean*"
+  },
+  "vue-easy-lightbox/imgs": {
+    "description": "Image's url or url[]",
+    "type": "string | string[]"
+  },
+  "vue-easy-lightbox/index": {
+    "description": "Index of imgList, default: 0",
+    "type": "number"
+  },
+  "vue-easy-lightbox/esc-disabled": {
+    "description": "By default, press the esc key to close Modal during presentation, default: false",
+    "type": "boolean"
+  },
+  "vue-easy-lightbox/move-disabled": {
+    "description": "Pass true to disable image movement, default: false",
+    "type": "boolean"
+  },
+  "vue-easy-lightbox/hide": {
+    "description": "When you click modal mask or close Btn, component will emit this event",
+    "type": "event"
+  },
+  "vue-easy-lightbox/on-error": {
+    "description": "Image loading error",
+    "type": "event"
+  }
+}

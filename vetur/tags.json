@@ -1,0 +1,15 @@
+{
+  "vue-easy-lightbox": {
+    "description": "API",
+    "attributes": [
+      "visible",
+      "imgs",
+      "index",
+      "esc-disabled",
+      "move-disabled",
+      "hide",
+      "on-error"
+    ],
+    "defaults": ["visible", "imgs"]
+  }
+}
