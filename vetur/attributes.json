@@ -1,11 +1,11 @@
 {
   "vue-easy-lightbox/visible": {
     "description": "Control lightbox display, required",
-    "type": "*boolean*"
+    "type": "boolean"
   },
   "vue-easy-lightbox/imgs": {
     "description": "Image's url or url[]",
-    "type": "string | string[]"
+    "type": "string|string[]"
   },
   "vue-easy-lightbox/index": {
     "description": "Index of imgList, default: 0",
