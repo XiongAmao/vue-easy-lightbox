@@ -1,6 +1,6 @@
 # vue-easy-lightbox
 
->A lightbox component for Vue.js 2+. You can drag / view / rotate pictures.
+> A Vue.js image lightbox component with Zoom / Drag / Rotate / Switch .
 
 [![npm](https://img.shields.io/npm/v/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
 [![npm](https://img.shields.io/npm/l/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)

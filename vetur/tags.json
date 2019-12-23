@@ -1,6 +1,6 @@
 {
   "vue-easy-lightbox": {
-    "description": "Vue.js 2+ lightbox component. You can drag / view / rotate the picture.",
+    "description": "Vue.js 2+ image lightbox component. You can drag / view / rotate the picture.",
     "attributes": [
       "visible",
       "imgs",
