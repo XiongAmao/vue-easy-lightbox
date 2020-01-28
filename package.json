@@ -1,6 +1,6 @@
 {
   "name": "vue-easy-lightbox",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "A Vue.js image lightbox component with Zoom / Drag / Rotate / Switch",
   "private": false,
   "author": "Zichao Xiong <onycat@live.cn>",
@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/XiongAmao/vue-easy-lightbox#readme",
   "peerDependencies": {
-    "vue": "2.5.22"
+    "vue": "^2.5.22"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",

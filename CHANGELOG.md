@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.9.1]
+
+- Fix peerDependencies lock.
+
 ## [0.9.0]
 - Add vetur support.
 
