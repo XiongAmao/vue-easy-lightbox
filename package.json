@@ -16,8 +16,8 @@
     "lint": "vue-cli-service lint",
     "clean": "rimraf ./dist",
     "build": "npm run clean && rollup -c build-scripts/rollup.config.js",
-    "build:demo": "vue-cli-service build --dest build",
-    "deploy:demo": "bin/deploy-demo.sh",
+    "build:gh-page": "vue-cli-service build --dest dist-gh-page",
+    "deploy:gh-page": "bin/deploy-gh-page.sh",
     "test:types": "tsc -p ./types/test/tsconfig.json"
   },
   "repository": {

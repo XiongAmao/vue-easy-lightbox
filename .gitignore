@@ -64,4 +64,5 @@ typings/
 /build/
 .test
 test-dist
+dist-gh-page
 .temp
