@@ -160,6 +160,8 @@
     loading = false
     loadError = false
 
+    isTicking = false
+
     get imgList() {
       if (Array.isArray(this.imgs)) {
         return this.imgs
@@ -173,12 +175,21 @@
       return this.imgList.length || 0
     }
     get imgWrapperStyle() {
-      const { scale, top, left, rotateDeg, moveDisabled, loadError } = this
+      const {
+        scale,
+        top,
+        left,
+        rotateDeg,
+        moveDisabled,
+        loadError,
+        isDraging
+      } = this
       return {
         transform: `translate(-50%, -50%) scale(${scale})`,
         top: `calc(50% + ${top}px)`,
         left: `calc(50% + ${left}px)`,
-        cursor: moveDisabled || loadError ? 'default' : 'move'
+        cursor: moveDisabled || loadError ? 'default' : 'move',
+        transition: isDraging ? 'none' : ''
       }
     }
     get imgStyle() {
@@ -210,11 +221,15 @@
     }
     handleMouseMove(e: MouseEvent) {
       if (!this.checkMouseEventPropButton(e.button)) return
-      if (this.isDraging) {
-        this.top = this.top - this.lastY + e.clientY
-        this.left = this.left - this.lastX + e.clientX
-        this.lastX = e.clientX
-        this.lastY = e.clientY
+      if (this.isDraging && !this.isTicking) {
+        this.isTicking = true
+        requestAnimationFrame(() => {
+          this.top = this.top - this.lastY + e.clientY
+          this.left = this.left - this.lastX + e.clientX
+          this.lastX = e.clientX
+          this.lastY = e.clientY
+          this.isTicking = false
+        })
       }
       e.stopPropagation()
     }
