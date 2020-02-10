@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.9.2]
+
+- Fix drag animation slow.
+
 ## [0.9.1]
 
 - Fix peerDependencies lock.
