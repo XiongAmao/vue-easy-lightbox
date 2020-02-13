@@ -43,7 +43,7 @@
           'https://i.loli.net/2018/11/10/5be6852dec46e.jpeg',
           'https://i.loli.net/2018/11/10/5be6852e1366d.jpeg',
           'https://i.loli.net/2018/11/10/5be6852e33f19.jpeg',
-          'https://i.loli.net/asdf.jpeg'
+          'https://example.com/asdf.jpeg'
         ],
         visible: false,
         index: 0 // default
