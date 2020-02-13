@@ -45,6 +45,7 @@
 
       <!-- use for load -->
       <img
+        ref="loadImg"
         style="display:none;"
         :src="visibleImgSrc"
         @error="handleImgError"
@@ -98,14 +99,17 @@
           :toolbarMethods="{
             zoomIn,
             zoomOut,
-            rotate
+            rotate: rotateLeft,
+            rotateLeft,
+            rotateRight
           }"
         >
           <toolbar
             :prefixCls="prefixCls"
             :zoomIn="zoomIn"
             :zoomOut="zoomOut"
-            :rotate="rotate"
+            :rotateLeft="rotateLeft"
+            :rotateRight="rotateRight"
           />
         </slot>
       </div>
@@ -159,8 +163,11 @@
     isDraging = false
     loading = false
     loadError = false
-
     isTicking = false
+    imgBaseInfo = {
+      width: 0,
+      height: 0
+    }
 
     get imgList() {
       if (Array.isArray(this.imgs)) {
@@ -185,7 +192,7 @@
         isDraging
       } = this
       return {
-        transform: `translate(-50%, -50%) scale(${scale})`,
+        transform: `translate(-50%, -50%) scale(${scale}) rotate(${rotateDeg}deg)`,
         top: `calc(50% + ${top}px)`,
         left: `calc(50% + ${left}px)`,
         cursor: moveDisabled || loadError ? 'default' : 'move',
@@ -195,7 +202,7 @@
     get imgStyle() {
       const { rotateDeg } = this
       return {
-        transform: `rotate(-${rotateDeg}deg)`
+        // transform: `rotate(-${rotateDeg}deg)`
       }
     }
 
@@ -238,7 +245,15 @@
         this.closeDialog()
       }
     }
-    handleImgLoad(e: Event) {
+    handleImgLoad(e: HTMLMediaElementEventMap) {
+      const imgElement = this.$refs.loadImg as HTMLImageElement | undefined
+      if (imgElement) {
+        const { naturalWidth, naturalHeight } = imgElement
+        this.imgBaseInfo = {
+          width: naturalWidth,
+          height: naturalHeight
+        }
+      }
       this.loading = false
     }
     handleImgError(e: Event) {
@@ -256,9 +271,13 @@
         this.scale -= 0.25
       }
     }
-    rotate() {
+    rotateLeft() {
+      this.rotateDeg -= 90
+    }
+    rotateRight() {
       this.rotateDeg += 90
     }
+
     onNextClick() {
       this.onIndexChange(this.imgIndex + 1)
     }
@@ -395,19 +414,19 @@
     .btn__next {
       top: 50%;
       transform: translateY(-50%);
-      right: 20px;
-      font-size: 40px;
+      right: 12px;
+      font-size: 32px;
     }
     .btn__prev {
       top: 50%;
       transform: translateY(-50%);
-      left: 20px;
-      font-size: 40px;
+      left: 12px;
+      font-size: 32px;
     }
     .btn__close {
       top: 10px;
       right: 10px;
-      font-size: 40px;
+      font-size: 32px;
     }
   }
 
