@@ -1,5 +1,5 @@
 # iconfont 静态资源文件
-/src/assets/svg/
+/src/assets/svg/*
 /dist
 
 /.temp
