@@ -19,7 +19,7 @@ if (!isServer) {
 }
 
 export const on = (
-  target: Element | Document,
+  target: Element | Document | Window,
   event: string,
   handler: any,
   passive = false

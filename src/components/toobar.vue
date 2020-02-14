@@ -18,8 +18,8 @@
 
     <!-- resize -->
     <div
-      class="toobar-btn toolbar-btn__rotate"
-      @click="rotateLeft"
+      class="toobar-btn toolbar-btn__resize"
+      @click="resize"
     >
       <svg-icon type="resize" />
     </div>
@@ -66,6 +66,10 @@
         default: voidFn
       },
       rotateRight: {
+        type: Function,
+        default: voidFn
+      },
+      resize: {
         type: Function,
         default: voidFn
       }

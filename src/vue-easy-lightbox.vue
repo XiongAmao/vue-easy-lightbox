@@ -101,7 +101,8 @@
             zoomOut,
             rotate: rotateLeft,
             rotateLeft,
-            rotateRight
+            rotateRight,
+            resize
           }"
         >
           <toolbar
@@ -110,6 +111,7 @@
             :zoomOut="zoomOut"
             :rotateLeft="rotateLeft"
             :rotateRight="rotateRight"
+            :resize="resize"
           />
         </slot>
       </div>
@@ -223,8 +225,9 @@
     }
     handleMouseUp(e: MouseEvent) {
       if (!this.checkMouseEventPropButton(e.button)) return
-      this.isDraging = false
-      this.lastX = this.lastY = 0
+      requestAnimationFrame(() => {
+        this.isDraging = false
+      })
     }
     handleMouseMove(e: MouseEvent) {
       if (!this.checkMouseEventPropButton(e.button)) return
@@ -240,11 +243,16 @@
       }
       e.stopPropagation()
     }
-    escapePressHandler(e: KeyboardEvent) {
+    handleEscapePress(e: KeyboardEvent) {
       if (e.key === 'Escape' && this.visible) {
         this.closeDialog()
       }
     }
+    handleResize(e: UIEvent) {
+      console.log(e)
+    }
+
+    // load event handler
     handleImgLoad(e: HTMLMediaElementEventMap) {
       const imgElement = this.$refs.loadImg as HTMLImageElement | undefined
       if (imgElement) {
@@ -276,6 +284,11 @@
     }
     rotateRight() {
       this.rotateDeg += 90
+    }
+    resize() {
+      this.scale = 1
+      this.top = 0
+      this.left = 0
     }
 
     onNextClick() {
@@ -328,12 +341,13 @@
     // life cycle
     mounted() {
       if (!this.escDisabled) {
-        on(document, 'keydown', this.escapePressHandler)
+        on(document, 'keydown', this.handleEscapePress)
+        on(window, 'resize', this.handleResize)
       }
     }
     beforeDestroy() {
       if (!this.escDisabled) {
-        off(document, 'keydown', this.escapePressHandler)
+        off(document, 'keydown', this.handleEscapePress)
       }
     }
   }
@@ -375,6 +389,7 @@
     left: 50%;
     transform: translate(-50% -50%);
     transition: 0.3s ease-in-out;
+    will-change: transform opacity;
   }
 
   .#{$prefix-cls}-img {
