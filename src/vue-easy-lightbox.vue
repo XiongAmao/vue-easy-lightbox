@@ -431,6 +431,11 @@
     transition: transform 0.3s ease-in-out;
     box-shadow: rgba(0, 0, 0, 0.7) 0px 5px 20px 2px;
     background-color: rgba(0, 0, 0, 0.7);
+
+    @media (max-width: 750px) {
+      max-width: 85vw;
+      max-height: 95vh;
+    }
   }
 
   /* prev/next/close btns */
@@ -477,10 +482,10 @@
         font-size: 24px;
       }
       .btn__next {
-        right: 6px;
+        right: 4px;
       }
       .btn__prev {
-        left: 6px;
+        left: 4px;
       }
     }
   }
