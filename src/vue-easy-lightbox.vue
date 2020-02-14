@@ -247,7 +247,7 @@
       }
     }
 
-    checkMouseEventPropButton(button: number) {
+    checkMoveable(button: number = 0) {
       if (this.moveDisabled) return false
 
       // mouse left btn click
@@ -256,20 +256,20 @@
 
     // mouse events handler
     handleMouseDown(e: MouseEvent) {
-      if (!this.checkMouseEventPropButton(e.button)) return
+      if (!this.checkMoveable(e.button)) return
       this.lastX = e.clientX
       this.lastY = e.clientY
       this.isDraging = true
       e.stopPropagation()
     }
     handleMouseUp(e: MouseEvent) {
-      if (!this.checkMouseEventPropButton(e.button)) return
+      if (!this.checkMoveable(e.button)) return
       requestAnimationFrame(() => {
         this.isDraging = false
       })
     }
     handleMouseMove(e: MouseEvent) {
-      if (!this.checkMouseEventPropButton(e.button)) return
+      if (!this.checkMoveable(e.button)) return
       if (this.isDraging && !this.isTicking) {
         this.isTicking = true
         requestAnimationFrame(() => {
@@ -299,7 +299,7 @@
     handleTouchMove(e: TouchEvent) {
       if (this.isTicking) return
       const { touches } = e
-      if (!this.isGesturing && this.isDraging) {
+      if (this.checkMoveable() && !this.isGesturing && this.isDraging) {
         this.isTicking = true
         requestAnimationFrame(() => {
           if (!touches[0]) return
@@ -340,15 +340,8 @@
 
     // key press events handler
     handleKeyPress(e: KeyboardEvent) {
-      if (!this.visible) return
-      if (!this.escDisabled && e.key === 'Escape') {
+      if (!this.escDisabled && e.key === 'Escape' && this.visible) {
         this.closeDialog()
-      }
-      if (e.key === 'ArrowLeft') {
-        this.onPrevClick()
-      }
-      if (e.key === 'ArrowRight') {
-        this.onNextClick()
       }
     }
 
