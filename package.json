@@ -57,6 +57,7 @@
     "tslib": "^1.10.0",
     "typescript": "^3.7.2",
     "vue": "^2.6.10",
+    "vue-cli-plugin-eruda": "^1.1.1",
     "vue-property-decorator": "^8.3.0",
     "vue-template-compiler": "^2.6.10"
   },

@@ -1,7 +1,8 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/vue-easy-lightbox/' // demo
-    : '/',
+  publicPath:
+    process.env.NODE_ENV === 'production'
+      ? '/vue-easy-lightbox/' // demo
+      : '/',
   pages: {
     index: {
       entry: 'examples/main.js',
@@ -14,5 +15,8 @@ module.exports = {
     output: {
       libraryExport: 'default'
     }
+  },
+  pluginOptions: {
+    eruda: { plugins: ['touches'] }
   }
 }
