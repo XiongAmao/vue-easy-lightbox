@@ -115,12 +115,6 @@
           />
         </slot>
       </div>
-
-      <!-- total -->
-      <div
-        v-if="imgList.length !== 1"
-        :class="`${prefixCls}-pagination-total`"
-      >{{ imgIndex + 1 }}/{{ imgTotal }}</div>
     </div>
   </transition>
 </template>
@@ -407,49 +401,49 @@
     .btn__prev,
     .btn__next,
     .btn__close {
-      cursor: pointer;
       position: absolute;
-      font-size: 60px;
-      color: #fff;
-      opacity: 0.6;
-      transition: 0.15s linear;
-    }
-    .btn__prev:hover,
-    .btn__next:hover,
-    .btn__close:hover {
-      opacity: 1;
-    }
-    .btn__prev.disable:hover,
-    .btn__next.disable:hover,
-    .btn__prev.disable,
-    .btn__next.disable {
-      cursor: default;
-      opacity: 0.2;
-    }
-    .btn__next {
       top: 50%;
       transform: translateY(-50%);
-      right: 12px;
+      cursor: pointer;
+      opacity: 0.6;
       font-size: 32px;
+      color: #fff;
+      transition: 0.15s linear;
+
+      &:hover {
+        opacity: 1;
+      }
+      &.disalbe,
+      &.disable:hover {
+        cursor: default;
+        opacity: 0.2;
+      }
+    }
+
+    .btn__next {
+      right: 12px;
     }
     .btn__prev {
-      top: 50%;
-      transform: translateY(-50%);
       left: 12px;
-      font-size: 32px;
     }
     .btn__close {
-      top: 10px;
+      top: 24px;
       right: 10px;
-      font-size: 32px;
     }
-  }
 
-  .#{$prefix-cls}-pagination-total {
-    position: absolute;
-    font-size: 16px;
-    top: 16px;
-    left: 16px;
-    color: #000;
+    @media (max-width: 750px) {
+      .btn__next, .btn__prev {
+        font-size: 20px;
+      }
+      .btn__close {
+        font-size: 24px;
+      }
+      .btn__next {
+        right: 6px;
+      }
+      .btn__prev {
+        left: 6px;
+      }
+    }
   }
 </style>
