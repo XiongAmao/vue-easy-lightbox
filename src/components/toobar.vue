@@ -16,12 +16,27 @@
       <svg-icon type="zoomout" />
     </div>
 
+    <!-- resize -->
+    <div
+      class="toobar-btn toolbar-btn__resize"
+      @click="resize"
+    >
+      <svg-icon type="resize" />
+    </div>
+
     <!-- rotate -->
     <div
       class="toobar-btn toolbar-btn__rotate"
-      @click="rotate"
+      @click="rotateLeft"
     >
-      <svg-icon type="rotate" />
+      <svg-icon type="rotate-left" />
+    </div>
+
+    <div
+      class="toobar-btn toolbar-btn__rotate"
+      @click="rotateRight"
+    >
+      <svg-icon type="rotate-right" />
     </div>
   </div>
 </template>
@@ -46,7 +61,15 @@
         type: Function,
         default: voidFn
       },
-      rotate: {
+      rotateLeft: {
+        type: Function,
+        default: voidFn
+      },
+      rotateRight: {
+        type: Function,
+        default: voidFn
+      },
+      resize: {
         type: Function,
         default: voidFn
       }
@@ -65,26 +88,30 @@
   .#{$prefix-cls}-toolbar {
     user-select: none;
     position: absolute;
-    bottom: 0;
+    overflow: hidden;
+    bottom: 8px;
     left: 50%;
     transform: translate(-50%);
-    background: rgba(45, 45, 44, 0.8);
+    opacity: 0.9;
+    display: flex;
+    background-color: rgb(45, 45, 45);
     border-radius: 4px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    padding: 6px 24px 0;
+    padding: 0;
 
     .toobar-btn {
+      flex-shrink: 0;
       cursor: pointer;
-      display: inline-block;
-      padding: 2px 4px;
-    }
-    .toobar-btn {
-      font-size: 32px;
+      padding: 6px 10px;
+      font-size: 20px;
       color: #fff;
-    }
-    .toobar-btn:hover {
-      color: #54b4ee;
+      background-color: #2D2D2D;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+
+      &:hover,
+      &:active {
+        background-color: rgb(61, 61, 61);
+      }
     }
   }
 </style>

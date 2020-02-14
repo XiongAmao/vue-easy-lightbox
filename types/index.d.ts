@@ -1,11 +1,16 @@
 import Vue from 'vue'
 
+export interface ImgObject {
+  url: string
+  title: string
+}
+
 export declare class VueEasyLightbox extends Vue {
   /**
    * Image's Url
    * @requires
    */
-  imgs: string[] | string
+  imgs: string[] | string | ImgObject | ImgObject[]
 
   /**
    * Control lightbox display

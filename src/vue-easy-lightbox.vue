@@ -32,6 +32,7 @@
           :style="imgWrapperStyle"
         >
           <img
+            ref="realImg"
             :class="`${prefixCls}-img`"
             :src="visibleImgSrc"
             :style="imgStyle"
@@ -39,6 +40,10 @@
             @mousedown="handleMouseDown($event)"
             @mouseup="handleMouseUp($event)"
             @mousemove="handleMouseMove($event)"
+            @touchstart="handleTouchStart($event)"
+            @touchmove="handleTouchMove($event)"
+            @touchend="handleTouchEnd($event)"
+            @load="handleRealImgLoad"
           >
         </div>
       </transition>
@@ -48,7 +53,7 @@
         style="display:none;"
         :src="visibleImgSrc"
         @error="handleImgError"
-        @load="handleImgLoad"
+        @load="handleTestImgLoad"
       >
 
       <!-- btns -->
@@ -94,27 +99,35 @@
         </slot>
 
         <slot
+          v-if="imgTitle && !titleDisabled && !loading && !loadError"
+          name="title"
+        >
+          <img-title>
+            {{ imgTitle }}
+          </img-title>
+        </slot>
+
+        <slot
           name="toolbar"
           :toolbarMethods="{
             zoomIn,
             zoomOut,
-            rotate
+            rotate: rotateLeft,
+            rotateLeft,
+            rotateRight,
+            resize
           }"
         >
           <toolbar
             :prefixCls="prefixCls"
             :zoomIn="zoomIn"
             :zoomOut="zoomOut"
-            :rotate="rotate"
+            :rotateLeft="rotateLeft"
+            :rotateRight="rotateRight"
+            :resize="resize"
           />
         </slot>
       </div>
-
-      <!-- total -->
-      <div
-        v-if="imgList.length !== 1"
-        :class="`${prefixCls}-pagination-total`"
-      >{{ imgIndex + 1 }}/{{ imgTotal }}</div>
     </div>
   </transition>
 </template>
@@ -126,8 +139,18 @@
   import Toolbar from './components/toobar.vue'
   import ImgLoading from './components/img-loading.vue'
   import ImgOnError from './components/img-on-error.vue'
+  import ImgTitle from './components/img-title.vue'
   import { prefixCls } from './constant'
-  import { on, off } from './utils/index'
+  import { on, off, isArray, isObject, isString, notEmpty } from './utils/index'
+
+  interface Img {
+    src?: string
+    title?: string
+  }
+
+  function isImg(arg: Img): arg is Img {
+    return isObject(arg) && isString(arg.src)
+  }
 
   @Component({
     name: 'vue-easy-lightbox',
@@ -135,18 +158,21 @@
       SvgIcon,
       Toolbar,
       ImgLoading,
-      ImgOnError
+      ImgOnError,
+      ImgTitle
     }
   })
   export default class VueEasyLightbox extends Vue {
     @Prop({ type: [Array, String], default: () => '' }) readonly imgs!:
       | string
-      | string[]
+      | Img
+      | (Img | string)[]
 
     @Prop({ type: Boolean, default: false }) readonly visible!: boolean
     @Prop({ type: Number, default: 0 }) readonly index!: number
     @Prop({ type: Boolean, default: false }) readonly escDisabled!: boolean
     @Prop({ type: Boolean, default: false }) readonly moveDisabled!: boolean
+    @Prop({ type: Boolean, default: false }) readonly titleDisabled!: boolean
 
     prefixCls = prefixCls
     scale = 1
@@ -159,17 +185,38 @@
     isDraging = false
     loading = false
     loadError = false
-
     isTicking = false
+    isGesturing = false
+    imgBaseInfo = {
+      width: 0,
+      height: 0,
+      maxScale: 1
+    }
+    touches: TouchList | [] = []
 
     get imgList() {
-      if (Array.isArray(this.imgs)) {
+      if (isArray(this.imgs)) {
         return this.imgs
+          .map((img) => {
+            if (typeof img === 'string') {
+              return { src: img }
+            } else if (isImg(img)) {
+              return img
+            }
+            return undefined
+          })
+          .filter(notEmpty)
       }
-      return [this.imgs]
+      if (isString(this.imgs)) {
+        return [{ src: this.imgs }]
+      }
+      return []
     }
     get visibleImgSrc() {
-      return this.imgList[this.imgIndex]
+      return this.imgList[this.imgIndex].src
+    }
+    get imgTitle() {
+      return this.imgList[this.imgIndex].title
     }
     get imgTotal() {
       return this.imgList.length || 0
@@ -182,45 +229,47 @@
         rotateDeg,
         moveDisabled,
         loadError,
-        isDraging
+        isDraging,
+        isGesturing
       } = this
       return {
-        transform: `translate(-50%, -50%) scale(${scale})`,
+        transform: `translate(-50%, -50%) scale(${scale}) rotate(${rotateDeg}deg)`,
         top: `calc(50% + ${top}px)`,
         left: `calc(50% + ${left}px)`,
         cursor: moveDisabled || loadError ? 'default' : 'move',
-        transition: isDraging ? 'none' : ''
+        transition: isDraging || isGesturing ? 'none' : ''
       }
     }
     get imgStyle() {
       const { rotateDeg } = this
       return {
-        transform: `rotate(-${rotateDeg}deg)`
+        // transform: `rotate(-${rotateDeg}deg)`
       }
     }
 
-    checkMouseEventPropButton(button: number) {
+    checkMoveable(button: number = 0) {
       if (this.moveDisabled) return false
 
       // mouse left btn click
       return button === 0
     }
 
-    // events handler
+    // mouse events handler
     handleMouseDown(e: MouseEvent) {
-      if (!this.checkMouseEventPropButton(e.button)) return
+      if (!this.checkMoveable(e.button)) return
       this.lastX = e.clientX
       this.lastY = e.clientY
       this.isDraging = true
       e.stopPropagation()
     }
     handleMouseUp(e: MouseEvent) {
-      if (!this.checkMouseEventPropButton(e.button)) return
-      this.isDraging = false
-      this.lastX = this.lastY = 0
+      if (!this.checkMoveable(e.button)) return
+      requestAnimationFrame(() => {
+        this.isDraging = false
+      })
     }
     handleMouseMove(e: MouseEvent) {
-      if (!this.checkMouseEventPropButton(e.button)) return
+      if (!this.checkMoveable(e.button)) return
       if (this.isDraging && !this.isTicking) {
         this.isTicking = true
         requestAnimationFrame(() => {
@@ -233,13 +282,80 @@
       }
       e.stopPropagation()
     }
-    escapePressHandler(e: KeyboardEvent) {
-      if (e.key === 'Escape' && this.visible) {
+
+    // touch events handler
+    handleTouchStart(e: TouchEvent) {
+      const { touches } = e
+      if (touches.length > 1) {
+        this.isGesturing = true
+        this.touches = touches
+      } else {
+        this.lastX = touches[0].clientX
+        this.lastY = touches[0].clientY
+        this.isDraging = true
+      }
+      e.stopPropagation()
+    }
+    handleTouchMove(e: TouchEvent) {
+      if (this.isTicking) return
+      const { touches } = e
+      if (this.checkMoveable() && !this.isGesturing && this.isDraging) {
+        this.isTicking = true
+        requestAnimationFrame(() => {
+          if (!touches[0]) return
+          const lastX = touches[0].clientX
+          const lastY = touches[0].clientY
+          this.top = this.top - this.lastY + lastY
+          this.left = this.left - this.lastX + lastX
+          this.lastX = lastX
+          this.lastY = lastY
+          this.isTicking = false
+        })
+      } else if (
+        this.isGesturing &&
+        this.touches.length > 1 &&
+        touches.length > 1
+      ) {
+        this.isTicking = true
+        requestAnimationFrame(() => {
+          const scale =
+            (this.getDistance(this.touches[0], this.touches[1]) -
+              this.getDistance(touches[0], touches[1])) /
+            this.imgBaseInfo.width
+          this.touches = touches
+          const newScale = this.scale - scale * 1.3
+          if (newScale > 0.5 && newScale < this.imgBaseInfo.maxScale * 1.5) {
+            this.scale = newScale
+          }
+          this.isTicking = false
+        })
+      }
+    }
+    handleTouchEnd(e: TouchEvent) {
+      requestAnimationFrame(() => {
+        this.isDraging = false
+        this.isGesturing = false
+      })
+    }
+
+    // key press events handler
+    handleKeyPress(e: KeyboardEvent) {
+      if (!this.escDisabled && e.key === 'Escape' && this.visible) {
         this.closeDialog()
       }
     }
-    handleImgLoad(e: Event) {
+
+    // window resize
+    handleWindowResize(e: UIEvent) {
+      this.getImgSize()
+    }
+
+    // load event handler
+    handleTestImgLoad(e: Event) {
       this.loading = false
+    }
+    handleRealImgLoad(e: Event) {
+      this.getImgSize()
     }
     handleImgError(e: Event) {
       this.loading = false
@@ -247,18 +363,47 @@
       this.$emit('on-error', e)
     }
 
-    // action handler
-    zoomIn() {
-      this.scale += 0.25
-    }
-    zoomOut() {
-      if (this.scale !== 0) {
-        this.scale -= 0.25
+    // common methods
+    getImgSize() {
+      const imgElement = this.$refs.realImg as HTMLImageElement | undefined
+      if (imgElement) {
+        const { width, height, naturalHeight, naturalWidth } = imgElement
+        this.imgBaseInfo.maxScale = naturalWidth / width
+        this.imgBaseInfo.width = width
+        this.imgBaseInfo.height = height
       }
     }
-    rotate() {
+    getDistance(p1: Touch, p2: Touch) {
+      const x = p1.clientX - p2.clientX
+      const y = p1.clientY - p2.clientY
+      return Math.sqrt(x * x + y * y)
+    }
+
+    // action handler
+    zoomIn() {
+      const newScale = this.scale + 0.2
+      if (newScale < this.imgBaseInfo.maxScale * 3) {
+        this.scale = newScale
+      }
+    }
+    zoomOut() {
+      const newScale = this.scale - 0.2
+      if (newScale > 0.1) {
+        this.scale = newScale
+      }
+    }
+    rotateLeft() {
+      this.rotateDeg -= 90
+    }
+    rotateRight() {
       this.rotateDeg += 90
     }
+    resize() {
+      this.scale = 1
+      this.top = 0
+      this.left = 0
+    }
+
     onNextClick() {
       this.onIndexChange(this.imgIndex + 1)
     }
@@ -308,14 +453,12 @@
 
     // life cycle
     mounted() {
-      if (!this.escDisabled) {
-        on(document, 'keydown', this.escapePressHandler)
-      }
+      on(document, 'keydown', this.handleKeyPress)
+      on(window, 'resize', this.handleWindowResize)
     }
     beforeDestroy() {
-      if (!this.escDisabled) {
-        off(document, 'keydown', this.escapePressHandler)
-      }
+      off(document, 'keydown', this.handleKeyPress)
+      off(window, 'resize', this.handleWindowResize)
     }
   }
 </script>
@@ -356,6 +499,7 @@
     left: 50%;
     transform: translate(-50% -50%);
     transition: 0.3s ease-in-out;
+    will-change: transform opacity;
   }
 
   .#{$prefix-cls}-img {
@@ -366,6 +510,11 @@
     transition: transform 0.3s ease-in-out;
     box-shadow: rgba(0, 0, 0, 0.7) 0px 5px 20px 2px;
     background-color: rgba(0, 0, 0, 0.7);
+
+    @media (max-width: 750px) {
+      max-width: 85vw;
+      max-height: 95vh;
+    }
   }
 
   /* prev/next/close btns */
@@ -373,49 +522,52 @@
     .btn__prev,
     .btn__next,
     .btn__close {
-      cursor: pointer;
       position: absolute;
-      font-size: 60px;
-      color: #fff;
-      opacity: 0.6;
-      transition: 0.15s linear;
-    }
-    .btn__prev:hover,
-    .btn__next:hover,
-    .btn__close:hover {
-      opacity: 1;
-    }
-    .btn__prev.disable:hover,
-    .btn__next.disable:hover,
-    .btn__prev.disable,
-    .btn__next.disable {
-      cursor: default;
-      opacity: 0.2;
-    }
-    .btn__next {
       top: 50%;
       transform: translateY(-50%);
-      right: 20px;
-      font-size: 40px;
+      cursor: pointer;
+      opacity: 0.6;
+      font-size: 32px;
+      color: #fff;
+      transition: 0.15s linear;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+
+      &:hover {
+        opacity: 1;
+      }
+      &.disable,
+      &.disable:hover {
+        cursor: default;
+        opacity: 0.2;
+      }
+    }
+
+    .btn__next {
+      right: 12px;
     }
     .btn__prev {
-      top: 50%;
-      transform: translateY(-50%);
-      left: 20px;
-      font-size: 40px;
+      left: 12px;
     }
     .btn__close {
-      top: 10px;
+      top: 24px;
       right: 10px;
-      font-size: 40px;
     }
-  }
 
-  .#{$prefix-cls}-pagination-total {
-    position: absolute;
-    font-size: 16px;
-    top: 16px;
-    left: 16px;
-    color: #000;
+    @media (max-width: 750px) {
+      .btn__next,
+      .btn__prev {
+        font-size: 20px;
+      }
+      .btn__close {
+        font-size: 24px;
+      }
+      .btn__next {
+        right: 4px;
+      }
+      .btn__prev {
+        left: 4px;
+      }
+    }
   }
 </style>
