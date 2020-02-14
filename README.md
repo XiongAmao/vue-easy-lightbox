@@ -83,7 +83,8 @@ example:
       imgs: [
         'https://via.placeholder.com/450.png/',
         'https://via.placeholder.com/300.png/',
-        'https://via.placeholder.com/150.png/'
+        'https://via.placeholder.com/150.png/',
+        { src: 'https://via.placeholder.com/450.png/', title: 'this is title' }
       ]
     },
     methods: {
@@ -154,7 +155,7 @@ export default {
   },
   data() {
     return {
-      imgs: '',  // Img Url , string or Array
+      imgs: '',  // Img Url , string or Array of string
       visible: false,
       index: 0   // default: 0
     }
@@ -162,10 +163,19 @@ export default {
   methods: {
     showSingle() {
       this.imgs = 'http://via.placeholder.com/350x150'
+      // or
+      this.imgs = { title: 'this is a placeholder', src: 'http://via.placeholder.com/350x150' }
       this.show()
     },
     showMultiple() {
       this.imgs = ['http://via.placeholder.com/350x150', 'http://via.placeholder.com/350x150']
+      // or
+      this.imgs = [
+        { title: 'test img', src: 'http://via.placeholder.com/350x150' },
+        'http://via.placeholder.com/350x150'
+      ]
+      // allow mixing
+
       this.index = 1  // index of imgList
       this.show()
     },
@@ -203,7 +213,8 @@ export default {
   <template v-slot:toolbar="{ toolbarMethods }">
     <button @click="toolbarMethods.zoomIn">zoom in</button>
     <button @click="toolbarMethods.zoomOut">zoom out</button>
-    <button @click="toolbarMethods.rotate">rotate</button>
+    <button @click="toolbarMethods.rotateLeft">Anticlockwise rotation</button>
+    <button @click="toolbarMethods.rotateRight">clockwise rotation</button>
   </template>
 </vue-easy-lightbox>
 
@@ -225,7 +236,8 @@ export default {
   <template slot="toolbar" slot-scope="props">
     <button @click="props.toolbarMethods.zoomIn">zoom in</button>
     <button @click="props.toolbarMethods.zoomOut">zoom out</button>
-    <button @click="props.toolbarMethods.rotate">rotate</button>
+    <button @click="props.toolbarMethods.rotateLeft">Anticlockwise rotation</button>
+    <button @click="props.toolbarMethods.rotateRight">clockwise rotation</button>
   </template>
 </vue-easy-lightbox>
 ```
@@ -253,9 +265,9 @@ Props
     </tr>
     <tr>
       <td>imgs</td>
-      <td>String/Array</td>
+      <td>String/String[]/ImgObject:{ src: string, title: string }/ImgObject[]</td>
       <td>required</td>
-      <td>Image's Url</td>
+      <td>Image's src / array of src / ImgObject:{ src, title } / array of ImgObject / array of ImgObject.</td>
     </tr>
     <tr>
       <td>index</td>
@@ -336,11 +348,13 @@ Slot & Scoped Slot
           toolbarMethods: {
             zoomIn,
             zoomOut,
-            rotate
+            rotate(rotateLeft),
+            rotateLeft,
+            rotateRight
           }
       </td>
       <td>{ Function }</td>
-      <td>Zoom in, zoom out, rotate</td>
+      <td>Zoom in, zoom out, rotate(rotateLeft), rotateLeft, rotateRight</td>
     </tr>
     <tr>
       <td>loading</td>

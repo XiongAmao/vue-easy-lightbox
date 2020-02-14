@@ -82,7 +82,8 @@
       imgs: [
         'https://via.placeholder.com/450.png/',
         'https://via.placeholder.com/300.png/',
-        'https://via.placeholder.com/150.png/'
+        'https://via.placeholder.com/150.png/',
+        { src: 'https://via.placeholder.com/450.png/', title: 'this is title' }
       ]
     },
     methods: {
@@ -161,10 +162,19 @@ export default {
   methods: {
     showSingle() {
       this.imgs = 'http://via.placeholder.com/350x150'
+      // 或者传递一个图片配置对象
+      this.imgs = { title: 'this is a placeholder', src: 'http://via.placeholder.com/350x150' }
       this.show()
     },
     showMultiple() {
       this.imgs = ['http://via.placeholder.com/350x150', 'http://via.placeholder.com/350x150']
+      // 或者传递一组图片配置对象
+      this.imgs = [
+        { title: 'test img', src: 'http://via.placeholder.com/350x150' },
+        'http://via.placeholder.com/350x150'
+      ]
+      // 允许混合
+
       this.index = 1  // index of imgList
       this.show()
     },
@@ -201,7 +211,8 @@ export default {
   <template v-slot:toolbar="{ toolbarMethods }">
     <button @click="toolbarMethods.zoomIn">放大图片</button>
     <button @click="toolbarMethods.zoomOut">缩小图片</button>
-    <button @click="toolbarMethods.rotate">旋转</button>
+    <button @click="toolbarMethods.rotateLeft">逆时针旋转</button>
+    <button @click="toolbarMethods.rotateRight">顺时针旋转</button>
   </template>
 </vue-easy-lightbox>
 
@@ -222,7 +233,8 @@ export default {
   <template slot="toolbar" slot-scope="props">
     <button @click="props.toolbarMethods.zoomIn">放大图片</button>
     <button @click="props.toolbarMethods.zoomOut">缩小图片</button>
-    <button @click="props.toolbarMethods.rotate">旋转</button>
+    <button @click="props.toolbarMethods.rotateLeft">逆时针旋转</button>
+    <button @click="props.toolbarMethods.rotateRight">顺时针旋转</button>
   </template>
 </vue-easy-lightbox>
 ```
@@ -250,15 +262,15 @@ Props
     </tr>
     <tr>
       <td>imgs</td>
-      <td>String/Array</td>
+      <td>String/String[]/ImgObject:{ src: string, title: string }/ImgObject[]</td>
       <td>required</td>
-      <td>图片的url，传入数组则可以轮播显示</td>
+      <td>图片的src字符串或图片对象(地址和标题) { src, title }，传入数组则可以轮播显示</td>
     </tr>
     <tr>
       <td>index</td>
       <td>Number</td>
       <td>0</td>
-      <td>打开图片组时，展示的图片位置</td>
+      <td>打开图片组时，展示索引位置的图片</td>
     </tr>
     <tr>
       <td>escDisabled (esc-disabled)</td>
@@ -333,11 +345,13 @@ Slot & Scoped Slot
           toolbarMethods: {
             zoomIn,
             zoomOut,
-            rotate
+            rotate(rotateLeft),
+            rotateLeft,
+            rotateRight
           }
       </td>
       <td>{ Function }</td>
-      <td>放大、缩小、旋转</td>
+      <td>放大、缩小、逆时针/顺时针旋转</td>
     </tr>
     <tr>
       <td>loading</td>
