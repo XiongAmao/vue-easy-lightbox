@@ -340,8 +340,15 @@
 
     // key press events handler
     handleKeyPress(e: KeyboardEvent) {
-      if (!this.escDisabled && e.key === 'Escape' && this.visible) {
+      if (!this.visible) return
+      if (!this.escDisabled && e.key === 'Escape') {
         this.closeDialog()
+      }
+      if (e.key === 'ArrowLeft') {
+        this.onPrevClick()
+      }
+      if (e.key === 'ArrowRight') {
+        this.onNextClick()
       }
     }
 
