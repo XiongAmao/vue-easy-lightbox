@@ -105,6 +105,8 @@
       font-size: 20px;
       color: #fff;
       background-color: #2D2D2D;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
 
       &:hover,
       &:active {

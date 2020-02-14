@@ -32,6 +32,7 @@
           :style="imgWrapperStyle"
         >
           <img
+            ref="realImg"
             :class="`${prefixCls}-img`"
             :src="visibleImgSrc"
             :style="imgStyle"
@@ -39,17 +40,20 @@
             @mousedown="handleMouseDown($event)"
             @mouseup="handleMouseUp($event)"
             @mousemove="handleMouseMove($event)"
+            @touchstart="handleTouchStart($event)"
+            @touchmove="handleTouchMove($event)"
+            @touchend="handleTouchEnd($event)"
+            @load="handleRealImgLoad"
           >
         </div>
       </transition>
 
       <!-- use for load -->
       <img
-        ref="loadImg"
         style="display:none;"
         :src="visibleImgSrc"
         @error="handleImgError"
-        @load="handleImgLoad"
+        @load="handleTestImgLoad"
       >
 
       <!-- btns -->
@@ -182,10 +186,13 @@
     loading = false
     loadError = false
     isTicking = false
+    isGesturing = false
     imgBaseInfo = {
       width: 0,
-      height: 0
+      height: 0,
+      maxScale: 1
     }
+    touches: TouchList | [] = []
 
     get imgList() {
       if (isArray(this.imgs)) {
@@ -222,14 +229,15 @@
         rotateDeg,
         moveDisabled,
         loadError,
-        isDraging
+        isDraging,
+        isGesturing
       } = this
       return {
         transform: `translate(-50%, -50%) scale(${scale}) rotate(${rotateDeg}deg)`,
         top: `calc(50% + ${top}px)`,
         left: `calc(50% + ${left}px)`,
         cursor: moveDisabled || loadError ? 'default' : 'move',
-        transition: isDraging ? 'none' : ''
+        transition: isDraging || isGesturing ? 'none' : ''
       }
     }
     get imgStyle() {
@@ -275,6 +283,61 @@
       e.stopPropagation()
     }
 
+    // touch events handler
+    handleTouchStart(e: TouchEvent) {
+      const { touches } = e
+      if (touches.length > 1) {
+        this.isGesturing = true
+        this.touches = touches
+      } else {
+        this.lastX = touches[0].clientX
+        this.lastY = touches[0].clientY
+        this.isDraging = true
+      }
+      e.stopPropagation()
+    }
+    handleTouchMove(e: TouchEvent) {
+      if (this.isTicking) return
+      const { touches } = e
+      if (!this.isGesturing && this.isDraging) {
+        this.isTicking = true
+        requestAnimationFrame(() => {
+          if (!touches[0]) return
+          const lastX = touches[0].clientX
+          const lastY = touches[0].clientY
+          this.top = this.top - this.lastY + lastY
+          this.left = this.left - this.lastX + lastX
+          this.lastX = lastX
+          this.lastY = lastY
+          this.isTicking = false
+        })
+      } else if (
+        this.isGesturing &&
+        this.touches.length > 1 &&
+        touches.length > 1
+      ) {
+        this.isTicking = true
+        requestAnimationFrame(() => {
+          const scale =
+            (this.getDistance(this.touches[0], this.touches[1]) -
+              this.getDistance(touches[0], touches[1])) /
+            this.imgBaseInfo.width
+          this.touches = touches
+          const newScale = this.scale - scale * 1.3
+          if (newScale > 0.5 && newScale < this.imgBaseInfo.maxScale * 1.5) {
+            this.scale = newScale
+          }
+          this.isTicking = false
+        })
+      }
+    }
+    handleTouchEnd(e: TouchEvent) {
+      requestAnimationFrame(() => {
+        this.isDraging = false
+        this.isGesturing = false
+      })
+    }
+
     // key press events handler
     handleKeyPress(e: KeyboardEvent) {
       if (!this.escDisabled && e.key === 'Escape' && this.visible) {
@@ -283,21 +346,16 @@
     }
 
     // window resize
-    handleResize(e: UIEvent) {
-      console.log(e)
+    handleWindowResize(e: UIEvent) {
+      this.getImgSize()
     }
 
     // load event handler
-    handleImgLoad(e: HTMLMediaElementEventMap) {
-      const imgElement = this.$refs.loadImg as HTMLImageElement | undefined
-      if (imgElement) {
-        const { naturalWidth, naturalHeight } = imgElement
-        this.imgBaseInfo = {
-          width: naturalWidth,
-          height: naturalHeight
-        }
-      }
+    handleTestImgLoad(e: Event) {
       this.loading = false
+    }
+    handleRealImgLoad(e: Event) {
+      this.getImgSize()
     }
     handleImgError(e: Event) {
       this.loading = false
@@ -305,13 +363,33 @@
       this.$emit('on-error', e)
     }
 
+    // common methods
+    getImgSize() {
+      const imgElement = this.$refs.realImg as HTMLImageElement | undefined
+      if (imgElement) {
+        const { width, height, naturalHeight, naturalWidth } = imgElement
+        this.imgBaseInfo.maxScale = naturalWidth / width
+        this.imgBaseInfo.width = width
+        this.imgBaseInfo.height = height
+      }
+    }
+    getDistance(p1: Touch, p2: Touch) {
+      const x = p1.clientX - p2.clientX
+      const y = p1.clientY - p2.clientY
+      return Math.sqrt(x * x + y * y)
+    }
+
     // action handler
     zoomIn() {
-      this.scale += 0.25
+      const newScale = this.scale + 0.2
+      if (newScale < this.imgBaseInfo.maxScale * 3) {
+        this.scale = newScale
+      }
     }
     zoomOut() {
-      if (this.scale !== 0) {
-        this.scale -= 0.25
+      const newScale = this.scale - 0.2
+      if (newScale > 0.1) {
+        this.scale = newScale
       }
     }
     rotateLeft() {
@@ -376,11 +454,11 @@
     // life cycle
     mounted() {
       on(document, 'keydown', this.handleKeyPress)
-      on(window, 'resize', this.handleResize)
+      on(window, 'resize', this.handleWindowResize)
     }
     beforeDestroy() {
       off(document, 'keydown', this.handleKeyPress)
-      off(window, 'resize', this.handleResize)
+      off(window, 'resize', this.handleWindowResize)
     }
   }
 </script>
@@ -452,6 +530,8 @@
       font-size: 32px;
       color: #fff;
       transition: 0.15s linear;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
 
       &:hover {
         opacity: 1;
