@@ -95,6 +95,15 @@
         </slot>
 
         <slot
+          v-if="imgTitle && !titleDisabled && !loading && !loadError"
+          name="title"
+        >
+          <img-title>
+            {{ imgTitle }}
+          </img-title>
+        </slot>
+
+        <slot
           name="toolbar"
           :toolbarMethods="{
             zoomIn,
@@ -126,8 +135,18 @@
   import Toolbar from './components/toobar.vue'
   import ImgLoading from './components/img-loading.vue'
   import ImgOnError from './components/img-on-error.vue'
+  import ImgTitle from './components/img-title.vue'
   import { prefixCls } from './constant'
-  import { on, off } from './utils/index'
+  import { on, off, isArray, isObject, isString, notEmpty } from './utils/index'
+
+  interface Img {
+    src?: string
+    title?: string
+  }
+
+  function isImg(arg: Img): arg is Img {
+    return isObject(arg)
+  }
 
   @Component({
     name: 'vue-easy-lightbox',
@@ -135,18 +154,21 @@
       SvgIcon,
       Toolbar,
       ImgLoading,
-      ImgOnError
+      ImgOnError,
+      ImgTitle
     }
   })
   export default class VueEasyLightbox extends Vue {
     @Prop({ type: [Array, String], default: () => '' }) readonly imgs!:
       | string
-      | string[]
+      | Img
+      | (Img | string)[]
 
     @Prop({ type: Boolean, default: false }) readonly visible!: boolean
     @Prop({ type: Number, default: 0 }) readonly index!: number
     @Prop({ type: Boolean, default: false }) readonly escDisabled!: boolean
     @Prop({ type: Boolean, default: false }) readonly moveDisabled!: boolean
+    @Prop({ type: Boolean, default: false }) readonly titleDisabled!: boolean
 
     prefixCls = prefixCls
     scale = 1
@@ -166,13 +188,28 @@
     }
 
     get imgList() {
-      if (Array.isArray(this.imgs)) {
+      if (isArray(this.imgs)) {
         return this.imgs
+          .map((img) => {
+            if (typeof img === 'string') {
+              return { src: img }
+            } else if (isImg(img)) {
+              return img
+            }
+            return undefined
+          })
+          .filter(notEmpty)
       }
-      return [this.imgs]
+      if (isString(this.imgs)) {
+        return [{ src: this.imgs }]
+      }
+      return []
     }
     get visibleImgSrc() {
-      return this.imgList[this.imgIndex]
+      return this.imgList[this.imgIndex].src
+    }
+    get imgTitle() {
+      return this.imgList[this.imgIndex].title
     }
     get imgTotal() {
       return this.imgList.length || 0
@@ -413,7 +450,7 @@
       &:hover {
         opacity: 1;
       }
-      &.disalbe,
+      &.disable,
       &.disable:hover {
         cursor: default;
         opacity: 0.2;
@@ -432,7 +469,8 @@
     }
 
     @media (max-width: 750px) {
-      .btn__next, .btn__prev {
+      .btn__next,
+      .btn__prev {
         font-size: 20px;
       }
       .btn__close {

@@ -42,3 +42,20 @@ export const off = (
     target.removeEventListener(event, handler)
   }
 }
+
+const toString = Object.prototype.toString
+export function isArray(arg: any): arg is any[] {
+  return toString.call(arg) === '[object Array]'
+}
+
+export const isObject = (arg: any): arg is Object => {
+  return !!arg && toString.call(arg) === '[object Object]'
+}
+
+export const isString = (arg: any): arg is string => {
+  return !!arg && toString.call(arg) === '[object String]'
+}
+
+export function notEmpty<T>(value: T | null | undefined): value is T {
+  return value !== null && value !== undefined
+}

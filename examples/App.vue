@@ -5,7 +5,7 @@
       <h1> vue-easy-lightbox </h1>
       <div class="gallery">
         <div
-          v-for="(src, idx) in imgs"
+          v-for="(img, idx) in imgs"
           :key="idx"
           class="pic"
           @click="() => show(idx)"
@@ -13,7 +13,7 @@
           <div v-if="idx === 5">
             This is error image url.
           </div>
-          <img :src="src">
+          <img :src="img.src ? img.src : img">
         </div>
       </div>
 
@@ -38,8 +38,14 @@
     data() {
       return {
         imgs: [
-          'https://i.loli.net/2018/11/10/5be6852cdb002.jpeg',
-          'https://i.loli.net/2018/11/10/5be6852ce6965.jpeg',
+          {
+            title: 'img\'s url: https://i.loli.net/2018/11/10/5be6852cdb002.jpeg',
+            src: ' https://i.loli.net/2018/11/10/5be6852cdb002.jpeg'
+          },
+          {
+            title: 'There is img\'s description',
+            src: 'https://i.loli.net/2018/11/10/5be6852ce6965.jpeg'
+          },
           'https://i.loli.net/2018/11/10/5be6852dec46e.jpeg',
           'https://i.loli.net/2018/11/10/5be6852e1366d.jpeg',
           'https://i.loli.net/2018/11/10/5be6852e33f19.jpeg',
