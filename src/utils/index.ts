@@ -34,7 +34,7 @@ export const on = (
 }
 
 export const off = (
-  target: Element | Document,
+  target: Element | Document | Window,
   event: string,
   handler: any
 ) => {

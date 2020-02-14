@@ -145,7 +145,7 @@
   }
 
   function isImg(arg: Img): arg is Img {
-    return isObject(arg)
+    return isObject(arg) && isString(arg.src)
   }
 
   @Component({
@@ -246,7 +246,7 @@
       return button === 0
     }
 
-    // events handler
+    // mouse events handler
     handleMouseDown(e: MouseEvent) {
       if (!this.checkMouseEventPropButton(e.button)) return
       this.lastX = e.clientX
@@ -274,11 +274,15 @@
       }
       e.stopPropagation()
     }
-    handleEscapePress(e: KeyboardEvent) {
-      if (e.key === 'Escape' && this.visible) {
+
+    // key press events handler
+    handleKeyPress(e: KeyboardEvent) {
+      if (!this.escDisabled && e.key === 'Escape' && this.visible) {
         this.closeDialog()
       }
     }
+
+    // window resize
     handleResize(e: UIEvent) {
       console.log(e)
     }
@@ -371,15 +375,12 @@
 
     // life cycle
     mounted() {
-      if (!this.escDisabled) {
-        on(document, 'keydown', this.handleEscapePress)
-        on(window, 'resize', this.handleResize)
-      }
+      on(document, 'keydown', this.handleKeyPress)
+      on(window, 'resize', this.handleResize)
     }
     beforeDestroy() {
-      if (!this.escDisabled) {
-        off(document, 'keydown', this.handleEscapePress)
-      }
+      off(document, 'keydown', this.handleKeyPress)
+      off(window, 'resize', this.handleResize)
     }
   }
 </script>
