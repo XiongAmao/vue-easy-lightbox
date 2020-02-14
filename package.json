@@ -1,6 +1,6 @@
 {
   "name": "vue-easy-lightbox",
-  "version": "0.9.2",
+  "version": "0.10.2",
   "description": "A Vue.js image lightbox component with Zoom / Drag / Rotate / Switch",
   "private": false,
   "author": "Zichao Xiong <onycat@live.cn>",
@@ -17,7 +17,7 @@
     "clean": "rimraf ./dist",
     "build": "npm run clean && rollup -c build-scripts/rollup.config.js",
     "build:gh-page": "vue-cli-service build --dest dist-gh-page",
-    "deploy:gh-page": "bin/deploy-gh-page.sh",
+    "deploy:gh-page": "bash bin/deploy-gh-page.sh",
     "test:types": "tsc -p ./types/test/tsconfig.json"
   },
   "repository": {

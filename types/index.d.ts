@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-export interface ImgItem {
+export interface ImgObject {
   url: string
   title: string
 }
@@ -10,7 +10,7 @@ export declare class VueEasyLightbox extends Vue {
    * Image's Url
    * @requires
    */
-  imgs: string[] | string | ImgItem | ImgItem[]
+  imgs: string[] | string | ImgObject | ImgObject[]
 
   /**
    * Control lightbox display

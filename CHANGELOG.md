@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.2] (14 Feb 2020)
+
+### Feature
+- Add keyboard left or right event handler for switching images.
+- Add mobile device gesture to zoom or move image.
+- Add image description.
+
 ## [0.9.2]
 
 - Fix drag animation slow.
