@@ -343,6 +343,12 @@
       if (!this.escDisabled && e.key === 'Escape' && this.visible) {
         this.closeDialog()
       }
+      if (e.key === 'ArrowLeft') {
+        this.onPrevClick()
+      }
+      if (e.key === 'ArrowRight') {
+        this.onNextClick()
+      }
     }
 
     // window resize
