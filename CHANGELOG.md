@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.10.3] (28 Feb 2020)
+
+- Fix: revert 'ArrowLeft' 'ArrowRight' key handler.
+
 ## [0.10.2] (14 Feb 2020)
 
 ### Feature
