@@ -7,7 +7,8 @@ export const babelConfig = {
       {
         modules: false,
         loose: false,
-        useBuiltIns: 'usage'
+        useBuiltIns: 'usage',
+        corejs: 3
       }
     ],
     ['@vue/babel-preset-jsx', {}]
