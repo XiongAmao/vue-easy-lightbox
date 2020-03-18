@@ -241,7 +241,7 @@
       }
     }
     get imgStyle() {
-      const { rotateDeg } = this
+      // const { rotateDeg } = this
       return {
         // transform: `rotate(-${rotateDeg}deg)`
       }
@@ -373,7 +373,7 @@
     getImgSize() {
       const imgElement = this.$refs.realImg as HTMLImageElement | undefined
       if (imgElement) {
-        const { width, height, naturalHeight, naturalWidth } = imgElement
+        const { width, height, naturalWidth } = imgElement
         this.imgBaseInfo.maxScale = naturalWidth / width
         this.imgBaseInfo.width = width
         this.imgBaseInfo.height = height
