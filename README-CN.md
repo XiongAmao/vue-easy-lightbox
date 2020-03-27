@@ -307,6 +307,21 @@ Event
       <td>图片加载错误，触发error事件</td>
       <td>event (event.target 不是实际展示的图片)</td>
     </tr>
+    <tr>
+      <td>on-prev-click</td>
+      <td>点击上一张图片按钮时触发</td>
+      <td>(oldIndex, newIndex)</td>
+    </tr>
+    <tr>
+      <td>on-next-click</td>
+      <td>点击下一张图片按钮时触发</td>
+      <td>(oldIndex, newIndex)</td>
+    </tr>
+    <tr>
+      <td>on-index-change</td>
+      <td>当图片索引被改变时触发，比如点击或更改传给组件index</td>
+      <td>(oldIndex, newIndex)</td>
+    </tr>
   </tbody>
 </table>
 
