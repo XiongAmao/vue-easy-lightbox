@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.11.0] (27 March 2020)
+
+- Feat: add prev/next btn click event (`on-prev-click`/`on-next-click`) and index change event(`on-index-change`), these events will return `oldIndex` & `newIndex`.
+
 ## [0.10.3] (28 Feb 2020)
 
 - Fix: revert 'ArrowLeft' 'ArrowRight' key handler.
