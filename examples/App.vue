@@ -23,6 +23,7 @@
         :imgs="imgs"
         :moveDisabled="false"
         @hide="handleHide"
+        @on-index-change="handleIndexChange"
       />
     </div>
   </div>
@@ -39,11 +40,11 @@
       return {
         imgs: [
           {
-            title: 'img\'s url: https://i.loli.net/2018/11/10/5be6852cdb002.jpeg',
+            title: "img's url: https://i.loli.net/2018/11/10/5be6852cdb002.jpeg",
             src: ' https://i.loli.net/2018/11/10/5be6852cdb002.jpeg'
           },
           {
-            title: 'There is img\'s description',
+            title: "There is img's description",
             src: 'https://i.loli.net/2018/11/10/5be6852ce6965.jpeg'
           },
           'https://i.loli.net/2018/11/10/5be6852dec46e.jpeg',
@@ -62,6 +63,13 @@
       },
       handleHide() {
         this.visible = false
+      },
+      handleIndexChange(old, newIndex) {
+        if (newIndex === 5) {
+          setTimeout(() => {
+            this.imgs.push('https://i.loli.net/2018/11/10/5be6852e33f19.jpeg')
+          }, 1000)
+        }
       }
     }
   }

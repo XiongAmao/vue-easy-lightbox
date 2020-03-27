@@ -411,10 +411,20 @@
     }
 
     onNextClick() {
-      this.onIndexChange(this.imgIndex + 1)
+      const oldIndex = this.imgIndex
+      const newIndex = oldIndex + 1
+      if (newIndex > this.imgList.length - 1) return
+
+      this.$emit('on-next-click', oldIndex, newIndex)
+      this.onIndexChange(newIndex)
     }
     onPrevClick() {
-      this.onIndexChange(this.imgIndex - 1)
+      const oldIndex = this.imgIndex
+      const newIndex = oldIndex - 1
+      if (newIndex < 0) return
+
+      this.$emit('on-prev-click', oldIndex, newIndex)
+      this.onIndexChange(newIndex)
     }
     closeDialog() {
       this.$emit('hide')
@@ -443,14 +453,16 @@
     }
 
     @Watch('index')
-    onIndexChange(index: number) {
+    onIndexChange(newIndex: number) {
       if (!this.visible) return
-      if (index > this.imgList.length - 1 || index < 0) return
+      if (newIndex > this.imgList.length - 1 || newIndex < 0) return
+      const oldIndex = this.imgIndex
       this.reset()
-      this.imgIndex = index
+      this.imgIndex = newIndex
+      this.$emit('on-index-change', oldIndex, newIndex)
 
       // same url
-      if (this.imgList[this.imgIndex] === this.imgList[index]) {
+      if (this.imgList[this.imgIndex] === this.imgList[newIndex]) {
         this.$nextTick(() => {
           this.loading = false
         })

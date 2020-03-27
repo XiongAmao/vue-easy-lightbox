@@ -310,6 +310,21 @@ Event
       <td>Image loading error</td>
       <td>event (event.target is not the image to be displayed)</td>
     </tr>
+    <tr>
+      <td>on-prev-click</td>
+      <td>Emit when prev btn is clicked</td>
+      <td>(oldIndex, newIndex)</td>
+    </tr>
+    <tr>
+      <td>on-next-click</td>
+      <td>Emit when next btn is clicked</td>
+      <td>(oldIndex, newIndex)</td>
+    </tr>
+    <tr>
+      <td>on-index-change</td>
+      <td>Emit when imgs's index is changed</td>
+      <td>(oldIndex, newIndex)</td>
+    </tr>
   </tbody>
 </table>
 
