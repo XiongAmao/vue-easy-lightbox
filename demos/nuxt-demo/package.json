@@ -1,0 +1,18 @@
+{
+  "name": "nuxt-demo",
+  "version": "1.0.0",
+  "description": "My sweet Nuxt.js project",
+  "author": "XiongAmao",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "nuxt": "^2.0.0",
+    "vue-easy-lightbox": "^0.11.0"
+  },
+  "devDependencies": {}
+}
