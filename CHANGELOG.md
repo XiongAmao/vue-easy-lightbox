@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.12.0] (5 May 2020)
+
+- Fix: Style error on firfox mobile.
+
 ## [0.11.0] (27 March 2020)
 
 - Feat: add prev/next btn click event (`on-prev-click`/`on-next-click`) and index change event(`on-index-change`), these events will return `oldIndex` & `newIndex`.

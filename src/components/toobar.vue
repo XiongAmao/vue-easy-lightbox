@@ -99,6 +99,7 @@
     padding: 0;
 
     .toobar-btn {
+      user-select: none;
       flex-shrink: 0;
       cursor: pointer;
       padding: 6px 10px;
