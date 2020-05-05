@@ -511,6 +511,7 @@
   }
 
   .#{$prefix-cls}-img-wrapper {
+    user-select: none;
     margin: 0;
     position: absolute;
     top: 50%;
@@ -521,6 +522,7 @@
   }
 
   .#{$prefix-cls}-img {
+    user-select: none;
     max-width: 80vw;
     max-height: 80vh;
     vertical-align: middle;
@@ -540,6 +542,7 @@
     .btn__prev,
     .btn__next,
     .btn__close {
+      user-select: none;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
