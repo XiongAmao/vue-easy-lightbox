@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.12.1] (6 May 2020)
+
+- Fix: Add style prefixes to fix error on firfox.
+
 ## [0.12.0] (5 May 2020)
 
 - Fix: Style error on firfox mobile.
