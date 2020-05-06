@@ -5,6 +5,7 @@ import babel from 'rollup-plugin-babel'
 import typescript from 'rollup-plugin-typescript'
 import replace from 'rollup-plugin-replace'
 import { terser } from 'rollup-plugin-terser'
+import autoprefixer from 'autoprefixer'
 import { babelConfig } from './rollup.babel.config'
 import { terserOptions } from './rollup.terser.config'
 
@@ -40,7 +41,11 @@ const configs = builds.map((build) => {
     },
     plugins: [
       typescript(),
-      vue(),
+      vue({
+        style: {
+          postcssPlugins: [autoprefixer()]
+        }
+      }),
       replace({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }),
