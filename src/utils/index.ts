@@ -44,16 +44,19 @@ export const off = (
 }
 
 const toString = Object.prototype.toString
+const isType = (type: string) => (arg: any) =>
+  toString.call(arg).slice(8, -1) === type
+
 export function isArray(arg: any): arg is any[] {
-  return toString.call(arg) === '[object Array]'
+  return isType('Array')(arg)
 }
 
 export const isObject = (arg: any): arg is Object => {
-  return !!arg && toString.call(arg) === '[object Object]'
+  return !!arg && isType('Object')(arg)
 }
 
 export const isString = (arg: any): arg is string => {
-  return !!arg && toString.call(arg) === '[object String]'
+  return !!arg && isType('String')(arg)
 }
 
 export function notEmpty<T>(value: T | null | undefined): value is T {
