@@ -65,7 +65,7 @@
           <div
             v-if="imgList.length !== 1"
             class="btn__prev"
-            :class="{ disable: imgIndex === 0 }"
+            :class="{ disable: imgIndex === 0 || imgIndex > imgList.length }"
             @click="onPrevClick"
           >
             <svg-icon type="prev" />
@@ -79,7 +79,7 @@
           <div
             v-if="imgList.length !== 1"
             class="btn__next"
-            :class="{ disable: imgIndex === imgList.length - 1 }"
+            :class="{ disable: imgIndex >= imgList.length - 1 }"
             @click="onNextClick"
           >
             <svg-icon type="next" />
@@ -102,9 +102,7 @@
           v-if="imgTitle && !titleDisabled && !loading && !loadError"
           name="title"
         >
-          <img-title>
-            {{ imgTitle }}
-          </img-title>
+          <img-title>{{ imgTitle }}</img-title>
         </slot>
 
         <slot
@@ -213,10 +211,11 @@
       return []
     }
     get visibleImgSrc() {
-      return this.imgList[this.imgIndex].src
+      const src = this.imgList[this.imgIndex]?.src
+      return src
     }
     get imgTitle() {
-      return this.imgList[this.imgIndex].title
+      return this.imgList[this.imgIndex]?.title
     }
     get imgTotal() {
       return this.imgList.length || 0
@@ -413,19 +412,43 @@
     onNextClick() {
       const oldIndex = this.imgIndex
       const newIndex = oldIndex + 1
+
       if (newIndex > this.imgList.length - 1) return
 
-      this.$emit('on-next-click', oldIndex, newIndex)
-      this.onIndexChange(newIndex)
+      this.setIndex(newIndex, 'on-next-click')
     }
+
     onPrevClick() {
       const oldIndex = this.imgIndex
       const newIndex = oldIndex - 1
+
       if (newIndex < 0) return
 
-      this.$emit('on-prev-click', oldIndex, newIndex)
-      this.onIndexChange(newIndex)
+      this.setIndex(newIndex, 'on-prev-click')
     }
+
+    setIndex(newIndex: number, clickEvent?: 'on-prev-click' | 'on-next-click') {
+      const oldIndex = this.imgIndex
+      // reset style
+      this.reset()
+      // setIndex
+      this.imgIndex = newIndex
+
+      // handle same url
+      if (this.imgList[this.imgIndex] === this.imgList[newIndex]) {
+        this.$nextTick(() => {
+          this.loading = false
+        })
+      }
+
+      // No emit event when hidden or same index
+      if (!this.visible || oldIndex === newIndex) return
+      if (clickEvent) {
+        this.$emit(clickEvent, oldIndex, newIndex)
+      }
+      this.$emit('on-index-change', oldIndex, newIndex)
+    }
+
     closeDialog() {
       this.$emit('hide')
     }
@@ -441,9 +464,20 @@
       this.loadError = false
     }
     init() {
-      this.imgIndex = this.index
       this.reset()
-      // this.loading = true
+
+      const length = this.imgList.length
+
+      if (length === 0) {
+        this.imgIndex = 0
+        this.loading = false
+        this.$nextTick(() => {
+          this.loadError = true
+        })
+        return
+      }
+      this.imgIndex =
+        this.index >= length ? length - 1 : this.index < 0 ? 0 : this.index
     }
 
     // watch
@@ -454,19 +488,10 @@
 
     @Watch('index')
     onIndexChange(newIndex: number) {
-      if (!this.visible) return
-      if (newIndex > this.imgList.length - 1 || newIndex < 0) return
-      const oldIndex = this.imgIndex
-      this.reset()
-      this.imgIndex = newIndex
-      this.$emit('on-index-change', oldIndex, newIndex)
-
-      // same url
-      if (this.imgList[this.imgIndex] === this.imgList[newIndex]) {
-        this.$nextTick(() => {
-          this.loading = false
-        })
+      if (newIndex < 0 || newIndex >= this.imgList.length) {
+        return
       }
+      this.setIndex(newIndex)
     }
 
     // life cycle
