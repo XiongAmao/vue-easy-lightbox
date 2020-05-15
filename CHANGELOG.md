@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.13.0] (15 may 2020)
+
+- Fix: Error `src of undefined` thrown when show VueEasyLighbox.
+
 ## [0.12.1] (6 May 2020)
 
 - Fix: Add style prefixes to fix error on firfox.
