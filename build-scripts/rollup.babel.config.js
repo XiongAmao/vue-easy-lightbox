@@ -1,6 +1,6 @@
 export const babelConfig = {
   babelrc: false,
-  runtimeHelpers: true,
+  babelHelpers: 'runtime',
   presets: [
     [
       '@babel/preset-env',
@@ -22,6 +22,10 @@ export const babelConfig = {
       }
     ]
   ],
-  exclude: 'node_modules/**',
-  extensions: ['.js', '.jsx', '.ts', '.tsx']
+  include: [
+    'src/**',
+    'node_modules/vue-runtime-helpers/dist/inject-style/browser.mjs'
+    // https://github.com/vuejs/rollup-plugin-vue/issues/340
+  ],
+  extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue', '.mjs']
 }
