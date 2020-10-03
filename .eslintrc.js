@@ -5,11 +5,18 @@ module.exports = {
     node: true,
     es6: true
   },
+  extends: [
+    'plugin:vue/vue3-strongly-recommended',
+    'eslint:recommended',
+    '@vue/typescript/recommended'
+  ],
   parserOptions: {
-    parser: '@typescript-eslint/parser',
-    sourceType: 'module'
+    sourceType: 'module',
+    ecmaVersion: 2020,
+    ecmaFeatures: {
+      jsx: true
+    }
   },
-  plugins: ['vue'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -54,11 +61,5 @@ module.exports = {
     'vue/name-property-casing': 'off',
     'vue/attribute-hyphenation': ['error', 'never'],
     'lines-between-class-members': 'off'
-  },
-  extends: [
-    'eslint:recommended',
-    'plugin:vue/recommended',
-    '@vue/standard',
-    '@vue/typescript'
-  ]
+  }
 }
