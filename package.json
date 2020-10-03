@@ -29,28 +29,26 @@
   },
   "homepage": "https://github.com/XiongAmao/vue-easy-lightbox#readme",
   "peerDependencies": {
-    "vue": "^2.5.22"
+    "vue": "^3.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^5.0.4",
-    "@typescript-eslint/eslint-plugin": "^2.24.0",
-    "@typescript-eslint/parser": "^2.24.0",
-    "@vue/cli-plugin-babel": "^4.2.3",
-    "@vue/cli-plugin-eslint": "^4.2.3",
-    "@vue/cli-plugin-typescript": "^4.2.3",
-    "@vue/cli-service": "^4.2.3",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
+    "@vue/cli-plugin-eslint": "^4.5.6",
+    "@vue/compiler-sfc": "^3.0.0",
     "@vue/eslint-config-standard": "^5.1.2",
-    "@vue/eslint-config-typescript": "^5.0.2",
-    "autoprefixer": "^9.7.6",
+    "@vue/eslint-config-typescript": "^5.1.0",
+    "autoprefixer": "^9.8.6",
     "babel-eslint": "^10.1.0",
-    "core-js": "^3.6.4",
-    "eslint": "^6.8.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-node": "^11.0.0",
+    "core-js": "^3.6.5",
+    "eslint": "^7.10.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "eslint-plugin-vue": "^6.2.2",
-    "lodash": "^4.17.15",
+    "eslint-plugin-vue": "^7.0.0",
+    "lodash": "^4.17.20",
     "rimraf": "^3.0.2",
     "rollup": "^1.16.3",
     "rollup-plugin-babel": "^4.4.0",
@@ -61,17 +59,18 @@
     "rollup-plugin-terser": "^5.3.0",
     "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-vue": "^5.1.6",
-    "sass": "^1.26.3",
-    "sass-loader": "^8.0.2",
+    "sass": "^1.26.11",
+    "sass-loader": "^10.0.2",
     "tslib": "^1.11.1",
-    "typescript": "^3.8.3",
-    "vue": "^2.6.10",
-    "vue-cli-plugin-eruda": "^1.1.1",
-    "vue-property-decorator": "^8.4.1",
-    "vue-template-compiler": "^2.6.10"
+    "typescript": "^4.0.3",
+    "vite": "^1.0.0-rc.4",
+    "vue": "^3.0.0"
   },
   "vetur": {
     "tags": "vetur/tags.json",
     "attributes": "vetur/attributes.json"
+  },
+  "engines": {
+    "node": ">=10.13.0"
   }
 }
