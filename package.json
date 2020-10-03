@@ -12,11 +12,10 @@
     "./sfc": "src/vue-easy-lightbox.vue"
   },
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "lint": "vue-cli-service lint",
+    "dev": "vite",
     "clean": "rimraf ./dist",
     "build": "npm run clean && rollup -c build-scripts/rollup.config.js",
-    "build:gh-page": "vue-cli-service build --dest dist-gh-page",
+    "build:gh-page": "vite build",
     "deploy:gh-page": "bash bin/deploy-gh-page.sh",
     "test:types": "tsc -p ./types/test/tsconfig.json"
   },

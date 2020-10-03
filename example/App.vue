@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <github-conner />
-    <div class="container">
+    <!-- <div class="container">
       <h1> vue-easy-lightbox </h1>
       <div class="gallery">
         <div
@@ -25,7 +25,7 @@
         @hide="handleHide"
         @on-index-change="handleIndexChange"
       />
-    </div>
+    </div>-->
   </div>
 </template>
 

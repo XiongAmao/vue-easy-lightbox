@@ -11,7 +11,7 @@ cd dist-gh-page
 
 git init
 git add -A
-git commit -m 'update'
+git commit -m 'update gh-pages'
 git push -f git@github.com:XiongAmao/vue-easy-lightbox.git master:gh-pages
 
 cd -
