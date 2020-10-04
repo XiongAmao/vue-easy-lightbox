@@ -17,7 +17,8 @@
     "build": "npm run clean && rollup -c build-scripts/rollup.config.js",
     "build:gh-page": "vite build",
     "deploy:gh-page": "bash bin/deploy-gh-page.sh",
-    "test:types": "tsc -p ./types/test/tsconfig.json"
+    "test:types": "tsc -p ./types/test/tsconfig.json",
+    "lint": "eslint --fix --ext .ts,.vue,.js,.tsx ./src"
   },
   "repository": {
     "type": "git",
@@ -47,7 +48,10 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^7.0.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
     "lodash": "^4.17.20",
+    "prettier": "^2.1.2",
     "rimraf": "^3.0.2",
     "rollup": "^1.16.3",
     "rollup-plugin-babel": "^4.4.0",
@@ -71,5 +75,15 @@
   },
   "engines": {
     "node": ">=10.13.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{vue,js,ts,tsx}": [
+      "eslint --fix"
+    ]
   }
 }
