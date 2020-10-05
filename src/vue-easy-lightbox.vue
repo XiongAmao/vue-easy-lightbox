@@ -137,7 +137,7 @@
   import ImgOnError from './components/img-on-error.vue'
   import ImgTitle from './components/img-title.vue'
   import { prefixCls } from './constant'
-  import { on, off, isObject, isString, notEmpty } from './utils/index'
+  import { on, off, isObject, isString, notEmpty, isArray } from './utils/index'
 
   interface Img {
     src?: string
@@ -216,7 +216,7 @@
     },
     computed: {
       imgList(): Img[] {
-        if (Array.isArray(this.imgs)) {
+        if (isArray(this.imgs)) {
           return this.imgs
             .map((img) => {
               if (typeof img === 'string') {
