@@ -45,21 +45,12 @@ module.exports = {
       'always',
       { arraysInObjects: true, objectsInObjects: true }
     ],
-    'vue/html-self-closing': [
-      'error',
-      {
-        html: {
-          void: 'never',
-          normal: 'never',
-          component: 'always'
-        },
-        svg: 'never',
-        math: 'always'
-      }
-    ],
+    'vue/html-self-closing': 'off',
     'vue/multiline-html-element-content-newline': 'off',
     'vue/name-property-casing': 'off',
     'vue/attribute-hyphenation': ['error', 'never'],
-    'lines-between-class-members': 'off'
+    'vue/singleline-html-element-content-newline': 'off',
+    'lines-between-class-members': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off'
   }
 }

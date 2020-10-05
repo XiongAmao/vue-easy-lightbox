@@ -8,11 +8,11 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
+  import { defineComponent } from 'vue'
   import SvgIcon from './svg-icon.vue'
   import { prefixCls } from '../constant'
 
-  export default Vue.extend({
+  export default defineComponent({
     components: {
       SvgIcon
     },

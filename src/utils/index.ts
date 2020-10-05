@@ -1,7 +1,8 @@
-/* eslint-disable */
-import Vue from 'vue'
+export const isServer = typeof Window === undefined
 
-export const isServer = Vue.prototype.$isServer as boolean
+export const voidFn = () => {
+  return
+}
 
 // TODO: prepare for mobile touch event
 export let supportsPassive = false
@@ -14,14 +15,16 @@ if (!isServer) {
         supportsPassive = true
       }
     })
-    window.addEventListener('test-passive', () => {}, options)
-  } catch (e) {}
+    window.addEventListener('test-passive', voidFn, options)
+  } catch (e) {
+    voidFn()
+  }
 }
 
 export const on = (
   target: Element | Document | Window,
   event: string,
-  handler: any,
+  handler: EventListenerOrEventListenerObject,
   passive = false
 ) => {
   if (!isServer) {
@@ -36,7 +39,7 @@ export const on = (
 export const off = (
   target: Element | Document | Window,
   event: string,
-  handler: any
+  handler: EventListenerOrEventListenerObject
 ) => {
   if (!isServer) {
     target.removeEventListener(event, handler)
@@ -44,18 +47,18 @@ export const off = (
 }
 
 const toString = Object.prototype.toString
-const isType = (type: string) => (arg: any) =>
+const isType = (type: string) => (arg: unknown) =>
   toString.call(arg).slice(8, -1) === type
 
-export function isArray(arg: any): arg is any[] {
+export function isArray(arg: unknown): arg is unknown[] {
   return isType('Array')(arg)
 }
 
-export const isObject = (arg: any): arg is Object => {
+export const isObject = (arg: unknown): arg is Record<string, unknown> => {
   return !!arg && isType('Object')(arg)
 }
 
-export const isString = (arg: any): arg is string => {
+export const isString = (arg: unknown): arg is string => {
   return !!arg && isType('String')(arg)
 }
 

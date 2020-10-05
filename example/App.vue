@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <github-conner />
-    <!-- <div class="container">
-      <h1> vue-easy-lightbox </h1>
+    <div class="container">
+      <h1>vue-easy-lightbox</h1>
       <div class="gallery">
         <div
           v-for="(img, idx) in imgs"
@@ -10,10 +10,8 @@
           class="pic"
           @click="() => show(idx)"
         >
-          <div v-if="idx === 5">
-            This is error image url.
-          </div>
-          <img :src="img.src ? img.src : img">
+          <div v-if="idx === 5">This is error image url.</div>
+          <img :src="img.src ? img.src : img" />
         </div>
       </div>
 
@@ -25,16 +23,19 @@
         @hide="handleHide"
         @on-index-change="handleIndexChange"
       />
-    </div>-->
+    </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+  import { defineComponent } from 'vue'
   import GithubConner from './github-conner.vue'
+  import VueEasyLightbox from '../src/index'
 
-  export default {
+  export default defineComponent({
     components: {
-      GithubConner
+      GithubConner,
+      VueEasyLightbox
     },
     data() {
       return {
@@ -57,14 +58,14 @@
       }
     },
     methods: {
-      show(index) {
+      show(index: number) {
         this.index = index
         this.visible = true
       },
       handleHide() {
         this.visible = false
       },
-      handleIndexChange(old, newIndex) {
+      handleIndexChange(old: number, newIndex: number) {
         if (newIndex === 5) {
           setTimeout(() => {
             this.imgs.push('https://i.loli.net/2018/11/10/5be6852e33f19.jpeg')
@@ -72,7 +73,7 @@
         }
       }
     }
-  }
+  })
 </script>
 
 <style scoped>

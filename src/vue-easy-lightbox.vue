@@ -9,33 +9,32 @@
         :name="`${prefixCls}-fade`"
         mode="out-in"
       >
-        <!-- loading-slot -->
         <slot
           v-if="loading"
           name="loading"
+          key="loading"
         >
-          <img-loading />
+          <img-loading key="img-loading" />
         </slot>
 
-        <!-- error-slot -->
         <slot
-          v-if="loadError"
+          v-else-if="loadError"
           name="onerror"
+          key="onerror"
         >
-          <img-on-error />
+          <img-on-error key="img-on-error" />
         </slot>
 
-        <!-- img-wrapper -->
         <div
-          v-if="!loading && !loadError"
+          v-else-if="!loading && !loadError"
           :class="`${prefixCls}-img-wrapper`"
           :style="imgWrapperStyle"
+          key="img-wrapper"
         >
           <img
             ref="realImg"
             :class="`${prefixCls}-img`"
             :src="visibleImgSrc"
-            :style="imgStyle"
             draggable="false"
             @mousedown="handleMouseDown($event)"
             @mouseup="handleMouseUp($event)"
@@ -44,7 +43,7 @@
             @touchmove="handleTouchMove($event)"
             @touchend="handleTouchEnd($event)"
             @load="handleRealImgLoad"
-          >
+          />
         </div>
       </transition>
 
@@ -54,7 +53,7 @@
         :src="visibleImgSrc"
         @error="handleImgError"
         @load="handleTestImgLoad"
-      >
+      />
 
       <!-- btns -->
       <div :class="`${prefixCls}-btns-wrapper`">
@@ -108,7 +107,6 @@
         <slot
           name="toolbar"
           :toolbarMethods="{
-            zoomIn,
             zoomOut,
             rotate: rotateLeft,
             rotateLeft,
@@ -131,7 +129,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
+  import { defineComponent, PropType } from 'vue'
   import './assets/svg/iconfont'
   import SvgIcon from './components/svg-icon.vue'
   import Toolbar from './components/toobar.vue'
@@ -139,381 +137,393 @@
   import ImgOnError from './components/img-on-error.vue'
   import ImgTitle from './components/img-title.vue'
   import { prefixCls } from './constant'
-  import { on, off, isArray, isObject, isString, notEmpty } from './utils/index'
+  import { on, off, isObject, isString, notEmpty } from './utils/index'
 
   interface Img {
     src?: string
     title?: string
   }
+  type PropsImgs = Img | string | (Img | string)[]
 
   function isImg(arg: Img): arg is Img {
     return isObject(arg) && isString(arg.src)
   }
 
-  @Component({
-    name: 'vue-easy-lightbox',
+  export default defineComponent({
+    name: 'VueEasyLightbox',
     components: {
       SvgIcon,
       Toolbar,
       ImgLoading,
       ImgOnError,
       ImgTitle
-    }
-  })
-  export default class VueEasyLightbox extends Vue {
-    @Prop({ type: [Array, String], default: () => '' }) readonly imgs!:
-      | string
-      | Img
-      | (Img | string)[]
-
-    @Prop({ type: Boolean, default: false }) readonly visible!: boolean
-    @Prop({ type: Number, default: 0 }) readonly index!: number
-    @Prop({ type: Boolean, default: false }) readonly escDisabled!: boolean
-    @Prop({ type: Boolean, default: false }) readonly moveDisabled!: boolean
-    @Prop({ type: Boolean, default: false }) readonly titleDisabled!: boolean
-
-    prefixCls = prefixCls
-    scale = 1
-    rotateDeg = 0
-    imgIndex = 0
-    top = 0
-    left = 0
-    lastX = 0
-    lastY = 0
-    isDraging = false
-    loading = false
-    loadError = false
-    isTicking = false
-    isGesturing = false
-    imgBaseInfo = {
-      width: 0,
-      height: 0,
-      maxScale: 1
-    }
-    touches: TouchList | [] = []
-
-    get imgList() {
-      if (isArray(this.imgs)) {
-        return this.imgs
-          .map((img) => {
-            if (typeof img === 'string') {
-              return { src: img }
-            } else if (isImg(img)) {
-              return img
-            }
-            return undefined
-          })
-          .filter(notEmpty)
+    },
+    props: {
+      imgs: {
+        type: [Array, String] as PropType<PropsImgs>,
+        default: () => ''
+      },
+      visible: {
+        type: Boolean,
+        default: false
+      },
+      index: {
+        type: Number,
+        default: 0
+      },
+      escDisabled: {
+        type: Boolean,
+        default: false
+      },
+      moveDisabled: {
+        type: Boolean,
+        default: false
+      },
+      titleDisabled: {
+        type: Boolean,
+        default: false
       }
-      if (isString(this.imgs)) {
-        return [{ src: this.imgs }]
-      }
-      return []
-    }
-    get visibleImgSrc() {
-      const src = this.imgList[this.imgIndex]?.src
-      return src
-    }
-    get imgTitle() {
-      return this.imgList[this.imgIndex]?.title
-    }
-    get imgTotal() {
-      return this.imgList.length || 0
-    }
-    get imgWrapperStyle() {
-      const {
-        scale,
-        top,
-        left,
-        rotateDeg,
-        moveDisabled,
-        loadError,
-        isDraging,
-        isGesturing
-      } = this
+    },
+    emits: [
+      'hide',
+      'on-error',
+      'on-prev-click',
+      'on-next-click',
+      'on-index-change'
+    ],
+    data() {
       return {
-        transform: `translate(-50%, -50%) scale(${scale}) rotate(${rotateDeg}deg)`,
-        top: `calc(50% + ${top}px)`,
-        left: `calc(50% + ${left}px)`,
-        cursor: moveDisabled || loadError ? 'default' : 'move',
-        transition: isDraging || isGesturing ? 'none' : ''
+        prefixCls,
+        scale: 1,
+        rotateDeg: 0,
+        imgIndex: 0,
+        top: 0,
+        left: 0,
+        lastX: 0,
+        lastY: 0,
+        isDraging: false,
+        loading: false,
+        loadError: false,
+        isTicking: false,
+        isGesturing: false,
+        imgBaseInfo: {
+          width: 0,
+          height: 0,
+          maxScale: 1
+        },
+        touches: [] as TouchList | []
       }
-    }
-    get imgStyle() {
-      // const { rotateDeg } = this
-      return {
-        // transform: `rotate(-${rotateDeg}deg)`
+    },
+    computed: {
+      imgList(): Img[] {
+        if (Array.isArray(this.imgs)) {
+          return this.imgs
+            .map((img) => {
+              if (typeof img === 'string') {
+                return { src: img }
+              } else if (isImg(img)) {
+                return img
+              }
+            })
+            .filter(notEmpty)
+        } else if (isString(this.imgs)) {
+          return [{ src: this.imgs }]
+        }
+        return []
+      },
+      visibleImgSrc(): string | undefined {
+        const src = this.imgList[this.imgIndex]?.src
+        return src
+      },
+      imgTitle(): string | undefined {
+        return this.imgList[this.imgIndex]?.title
+      },
+      imgTotal() {
+        return this.imgList.length || 0
+      },
+      imgWrapperStyle(): {
+        [key: string]: string
+      } {
+        return {
+          transform: `translate(-50%, -50%) scale(${this.scale}) rotate(${this.rotateDeg}deg)`,
+          top: `calc(50% + ${this.top}px)`,
+          left: `calc(50% + ${this.left}px)`,
+          cursor: this.moveDisabled || this.loadError ? 'default' : 'move',
+          transition: this.isDraging || this.isGesturing ? 'none' : ''
+        }
       }
-    }
-
-    checkMoveable(button: number = 0) {
-      if (this.moveDisabled) return false
-
-      // mouse left btn click
-      return button === 0
-    }
-
-    // mouse events handler
-    handleMouseDown(e: MouseEvent) {
-      if (!this.checkMoveable(e.button)) return
-      this.lastX = e.clientX
-      this.lastY = e.clientY
-      this.isDraging = true
-      e.stopPropagation()
-    }
-    handleMouseUp(e: MouseEvent) {
-      if (!this.checkMoveable(e.button)) return
-      requestAnimationFrame(() => {
-        this.isDraging = false
-      })
-    }
-    handleMouseMove(e: MouseEvent) {
-      if (!this.checkMoveable(e.button)) return
-      if (this.isDraging && !this.isTicking) {
-        this.isTicking = true
-        requestAnimationFrame(() => {
-          this.top = this.top - this.lastY + e.clientY
-          this.left = this.left - this.lastX + e.clientX
-          this.lastX = e.clientX
-          this.lastY = e.clientY
-          this.isTicking = false
-        })
-      }
-      e.stopPropagation()
-    }
-
-    // touch events handler
-    handleTouchStart(e: TouchEvent) {
-      const { touches } = e
-      if (touches.length > 1) {
-        this.isGesturing = true
-        this.touches = touches
-      } else {
-        this.lastX = touches[0].clientX
-        this.lastY = touches[0].clientY
-        this.isDraging = true
-      }
-      e.stopPropagation()
-    }
-    handleTouchMove(e: TouchEvent) {
-      if (this.isTicking) return
-      const { touches } = e
-      if (this.checkMoveable() && !this.isGesturing && this.isDraging) {
-        this.isTicking = true
-        requestAnimationFrame(() => {
-          if (!touches[0]) return
-          const lastX = touches[0].clientX
-          const lastY = touches[0].clientY
-          this.top = this.top - this.lastY + lastY
-          this.left = this.left - this.lastX + lastX
-          this.lastX = lastX
-          this.lastY = lastY
-          this.isTicking = false
-        })
-      } else if (
-        this.isGesturing &&
-        this.touches.length > 1 &&
-        touches.length > 1
-      ) {
-        this.isTicking = true
-        requestAnimationFrame(() => {
-          const scale =
-            (this.getDistance(this.touches[0], this.touches[1]) -
-              this.getDistance(touches[0], touches[1])) /
-            this.imgBaseInfo.width
-          this.touches = touches
-          const newScale = this.scale - scale * 1.3
-          if (newScale > 0.5 && newScale < this.imgBaseInfo.maxScale * 1.5) {
-            this.scale = newScale
+    },
+    watch: {
+      visible: {
+        handler(visible: boolean) {
+          if (visible) this.init()
+        },
+        immediate: true
+      },
+      index: {
+        handler(newIndex: number) {
+          if (newIndex < 0 || newIndex >= this.imgList.length) {
+            return
           }
-          this.isTicking = false
-        })
+          this.setIndex(newIndex)
+        }
       }
-    }
-    handleTouchEnd(e: TouchEvent) {
-      requestAnimationFrame(() => {
-        this.isDraging = false
-        this.isGesturing = false
-      })
-    }
-
-    // key press events handler
-    handleKeyPress(e: KeyboardEvent) {
-      if (!this.escDisabled && e.key === 'Escape' && this.visible) {
-        this.closeDialog()
-      }
-      if (e.key === 'ArrowLeft') {
-        this.onPrevClick()
-      }
-      if (e.key === 'ArrowRight') {
-        this.onNextClick()
-      }
-    }
-
-    // window resize
-    handleWindowResize(e: UIEvent) {
-      this.getImgSize()
-    }
-
-    // load event handler
-    handleTestImgLoad(e: Event) {
-      this.loading = false
-    }
-    handleRealImgLoad(e: Event) {
-      this.getImgSize()
-    }
-    handleImgError(e: Event) {
-      this.loading = false
-      this.loadError = true
-      this.$emit('on-error', e)
-    }
-
-    // common methods
-    getImgSize() {
-      const imgElement = this.$refs.realImg as HTMLImageElement | undefined
-      if (imgElement) {
-        const { width, height, naturalWidth } = imgElement
-        this.imgBaseInfo.maxScale = naturalWidth / width
-        this.imgBaseInfo.width = width
-        this.imgBaseInfo.height = height
-      }
-    }
-    getDistance(p1: Touch, p2: Touch) {
-      const x = p1.clientX - p2.clientX
-      const y = p1.clientY - p2.clientY
-      return Math.sqrt(x * x + y * y)
-    }
-
-    // action handler
-    zoomIn() {
-      const newScale = this.scale + 0.2
-      if (newScale < this.imgBaseInfo.maxScale * 3) {
-        this.scale = newScale
-      }
-    }
-    zoomOut() {
-      const newScale = this.scale - 0.2
-      if (newScale > 0.1) {
-        this.scale = newScale
-      }
-    }
-    rotateLeft() {
-      this.rotateDeg -= 90
-    }
-    rotateRight() {
-      this.rotateDeg += 90
-    }
-    resize() {
-      this.scale = 1
-      this.top = 0
-      this.left = 0
-    }
-
-    onNextClick() {
-      const oldIndex = this.imgIndex
-      const newIndex = oldIndex + 1
-
-      if (newIndex > this.imgList.length - 1) return
-
-      this.setIndex(newIndex, 'on-next-click')
-    }
-
-    onPrevClick() {
-      const oldIndex = this.imgIndex
-      const newIndex = oldIndex - 1
-
-      if (newIndex < 0) return
-
-      this.setIndex(newIndex, 'on-prev-click')
-    }
-
-    setIndex(newIndex: number, clickEvent?: 'on-prev-click' | 'on-next-click') {
-      const oldIndex = this.imgIndex
-      // reset style
-      this.reset()
-      // setIndex
-      this.imgIndex = newIndex
-
-      // handle same url
-      if (this.imgList[this.imgIndex] === this.imgList[newIndex]) {
-        this.$nextTick(() => {
-          this.loading = false
-        })
-      }
-
-      // No emit event when hidden or same index
-      if (!this.visible || oldIndex === newIndex) return
-      if (clickEvent) {
-        this.$emit(clickEvent, oldIndex, newIndex)
-      }
-      this.$emit('on-index-change', oldIndex, newIndex)
-    }
-
-    closeDialog() {
-      this.$emit('hide')
-    }
-
-    // reset
-    reset() {
-      this.scale = 1
-      this.rotateDeg = 0
-      this.top = 0
-      this.left = 0
-      this.isDraging = false
-      this.loading = true
-      this.loadError = false
-    }
-    init() {
-      this.reset()
-
-      const length = this.imgList.length
-
-      if (length === 0) {
-        this.imgIndex = 0
-        this.loading = false
-        this.$nextTick(() => {
-          this.loadError = true
-        })
-        return
-      }
-      this.imgIndex =
-        this.index >= length ? length - 1 : this.index < 0 ? 0 : this.index
-    }
-
-    // watch
-    @Watch('visible', { immediate: true })
-    onVisibleChanged(visible: boolean) {
-      if (this.visible) this.init()
-    }
-
-    @Watch('index')
-    onIndexChange(newIndex: number) {
-      if (newIndex < 0 || newIndex >= this.imgList.length) {
-        return
-      }
-      this.setIndex(newIndex)
-    }
-
-    // life cycle
+    },
     mounted() {
       on(document, 'keydown', this.handleKeyPress)
       on(window, 'resize', this.handleWindowResize)
-    }
-    beforeDestroy() {
+    },
+    beforeUnmount() {
       off(document, 'keydown', this.handleKeyPress)
       off(window, 'resize', this.handleWindowResize)
+    },
+    methods: {
+      checkMoveable(button = 0) {
+        if (this.moveDisabled) return false
+
+        // mouse left btn click
+        return button === 0
+      },
+
+      // mouse events handler
+      handleMouseDown(e: MouseEvent) {
+        if (!this.checkMoveable(e.button)) return
+        this.lastX = e.clientX
+        this.lastY = e.clientY
+        this.isDraging = true
+        e.stopPropagation()
+      },
+      handleMouseUp(e: MouseEvent) {
+        if (!this.checkMoveable(e.button)) return
+        requestAnimationFrame(() => {
+          this.isDraging = false
+        })
+      },
+      handleMouseMove(e: MouseEvent) {
+        if (!this.checkMoveable(e.button)) return
+        if (this.isDraging && !this.isTicking) {
+          this.isTicking = true
+          requestAnimationFrame(() => {
+            this.top = this.top - this.lastY + e.clientY
+            this.left = this.left - this.lastX + e.clientX
+            this.lastX = e.clientX
+            this.lastY = e.clientY
+            this.isTicking = false
+          })
+        }
+        e.stopPropagation()
+      },
+
+      // touch events handler
+      handleTouchStart(e: TouchEvent) {
+        const { touches } = e
+        if (touches.length > 1) {
+          this.isGesturing = true
+          this.touches = touches
+        } else {
+          this.lastX = touches[0].clientX
+          this.lastY = touches[0].clientY
+          this.isDraging = true
+        }
+        e.stopPropagation()
+      },
+      handleTouchMove(e: TouchEvent) {
+        if (this.isTicking) return
+        const { touches } = e
+        if (this.checkMoveable() && !this.isGesturing && this.isDraging) {
+          this.isTicking = true
+          requestAnimationFrame(() => {
+            if (!touches[0]) return
+            const lastX = touches[0].clientX
+            const lastY = touches[0].clientY
+            this.top = this.top - this.lastY + lastY
+            this.left = this.left - this.lastX + lastX
+            this.lastX = lastX
+            this.lastY = lastY
+            this.isTicking = false
+          })
+        } else if (
+          this.isGesturing &&
+          this.touches.length > 1 &&
+          touches.length > 1
+        ) {
+          this.isTicking = true
+          requestAnimationFrame(() => {
+            const scale =
+              (this.getDistance(this.touches[0], this.touches[1]) -
+                this.getDistance(touches[0], touches[1])) /
+              this.imgBaseInfo.width
+            this.touches = touches
+            const newScale = this.scale - scale * 1.3
+            if (newScale > 0.5 && newScale < this.imgBaseInfo.maxScale * 1.5) {
+              this.scale = newScale
+            }
+            this.isTicking = false
+          })
+        }
+      },
+      handleTouchEnd() {
+        requestAnimationFrame(() => {
+          this.isDraging = false
+          this.isGesturing = false
+        })
+      },
+
+      // key press events handler
+      handleKeyPress(e: Event) {
+        const evt = e as KeyboardEvent
+        if (!this.escDisabled && evt.key === 'Escape' && this.visible) {
+          this.closeDialog()
+        }
+        if (evt.key === 'ArrowLeft') {
+          this.onPrevClick()
+        }
+        if (evt.key === 'ArrowRight') {
+          this.onNextClick()
+        }
+      },
+
+      // window resize
+      handleWindowResize() {
+        this.getImgSize()
+      },
+
+      // load event handler
+      handleTestImgLoad() {
+        this.loading = false
+      },
+      handleRealImgLoad() {
+        this.getImgSize()
+      },
+      handleImgError(e: Event) {
+        this.loading = false
+        this.loadError = true
+        this.$emit('on-error', e)
+      },
+
+      // common methods
+      getImgSize() {
+        const imgElement = this.$refs.realImg as HTMLImageElement | undefined
+        if (imgElement) {
+          const { width, height, naturalWidth } = imgElement
+          this.imgBaseInfo.maxScale = naturalWidth / width
+          this.imgBaseInfo.width = width
+          this.imgBaseInfo.height = height
+        }
+      },
+      getDistance(p1: Touch, p2: Touch) {
+        const x = p1.clientX - p2.clientX
+        const y = p1.clientY - p2.clientY
+        return Math.sqrt(x * x + y * y)
+      },
+
+      // action handler
+      zoomIn() {
+        const newScale = this.scale + 0.2
+        if (newScale < this.imgBaseInfo.maxScale * 3) {
+          this.scale = newScale
+        }
+      },
+      zoomOut() {
+        const newScale = this.scale - 0.2
+        if (newScale > 0.1) {
+          this.scale = newScale
+        }
+      },
+      rotateLeft() {
+        this.rotateDeg -= 90
+      },
+      rotateRight() {
+        this.rotateDeg += 90
+      },
+      resize() {
+        this.scale = 1
+        this.top = 0
+        this.left = 0
+      },
+
+      onNextClick() {
+        const oldIndex = this.imgIndex
+        const newIndex = oldIndex + 1
+
+        if (newIndex > this.imgList.length - 1) return
+
+        this.setIndex(newIndex, 'on-next-click')
+      },
+
+      onPrevClick() {
+        const oldIndex = this.imgIndex
+        const newIndex = oldIndex - 1
+
+        if (newIndex < 0) return
+
+        this.setIndex(newIndex, 'on-prev-click')
+      },
+
+      setIndex(newIndex: number, clickEvent?: 'on-prev-click' | 'on-next-click') {
+        const oldIndex = this.imgIndex
+        // reset style
+        this.reset()
+        // setIndex
+        this.imgIndex = newIndex
+
+        // handle same url
+        if (this.imgList[this.imgIndex] === this.imgList[newIndex]) {
+          this.$nextTick(() => {
+            this.loading = false
+          })
+        }
+
+        // No emit event when hidden or same index
+        if (!this.visible || oldIndex === newIndex) return
+        if (clickEvent) {
+          this.$emit(clickEvent, oldIndex, newIndex)
+        }
+        this.$emit('on-index-change', oldIndex, newIndex)
+      },
+
+      closeDialog() {
+        this.$emit('hide')
+      },
+
+      // reset
+      reset() {
+        this.scale = 1
+        this.rotateDeg = 0
+        this.top = 0
+        this.left = 0
+        this.isDraging = false
+        this.loading = true
+        this.loadError = false
+      },
+      init() {
+        this.reset()
+
+        const length = this.imgList.length
+
+        if (length === 0) {
+          this.imgIndex = 0
+          this.loading = false
+          this.$nextTick(() => {
+            this.loadError = true
+          })
+          return
+        }
+        this.imgIndex =
+          this.index >= length ? length - 1 : this.index < 0 ? 0 : this.index
+      }
     }
-  }
+  })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @import './assets/styles/variables.scss';
 
   .#{$prefix-cls}-fade-enter-active,
   .#{$prefix-cls}-fade-leave-active {
     transition: all 0.3s ease;
   }
-  .#{$prefix-cls}-fade-enter,
+  .#{$prefix-cls}-fade-enter-from,
   .#{$prefix-cls}-fade-leave-to {
     opacity: 0;
   }

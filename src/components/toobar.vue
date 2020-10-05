@@ -42,13 +42,12 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
+  import { defineComponent } from 'vue'
   import SvgIcon from './svg-icon.vue'
   import { prefixCls } from '../constant'
+  import { voidFn } from '../utils'
 
-  const voidFn = () => {}
-
-  export default Vue.extend({
+  export default defineComponent({
     components: {
       SvgIcon
     },
@@ -105,7 +104,7 @@
       padding: 6px 10px;
       font-size: 20px;
       color: #fff;
-      background-color: #2D2D2D;
+      background-color: #2d2d2d;
       -webkit-tap-highlight-color: transparent;
       outline: none;
 
