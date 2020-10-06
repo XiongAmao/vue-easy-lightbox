@@ -1,3 +1,4 @@
+import './styles/index'
 import type { App } from 'vue'
 import VueEasyLightbox from './vue-easy-lightbox.vue'
 

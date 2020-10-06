@@ -1,0 +1,109 @@
+@import './variables.scss';
+
+.#{$prefix-cls}-fade-enter-active,
+.#{$prefix-cls}-fade-leave-active {
+  transition: all 0.3s ease;
+}
+.#{$prefix-cls}-fade-enter-from,
+.#{$prefix-cls}-fade-leave-to {
+  opacity: 0;
+}
+
+/* container */
+.#{$prefix-cls}-img-swiper {
+  position: relative;
+  display: block;
+}
+
+.#{$prefix-cls}-modal {
+  z-index: 9998;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.#{$prefix-cls}-img-wrapper {
+  user-select: none;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% -50%);
+  transition: 0.3s ease-in-out;
+  will-change: transform opacity;
+}
+
+.#{$prefix-cls}-img {
+  user-select: none;
+  max-width: 80vw;
+  max-height: 80vh;
+  vertical-align: middle;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.7) 0px 5px 20px 2px;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  @media (max-width: 750px) {
+    max-width: 85vw;
+    max-height: 95vh;
+  }
+}
+
+/* prev/next/close btns */
+.#{$prefix-cls}-btns-wrapper {
+  .btn__prev,
+  .btn__next,
+  .btn__close {
+    user-select: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    opacity: 0.6;
+    font-size: 32px;
+    color: #fff;
+    transition: 0.15s linear;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+
+    &:hover {
+      opacity: 1;
+    }
+    &.disable,
+    &.disable:hover {
+      cursor: default;
+      opacity: 0.2;
+    }
+  }
+
+  .btn__next {
+    right: 12px;
+  }
+  .btn__prev {
+    left: 12px;
+  }
+  .btn__close {
+    top: 24px;
+    right: 10px;
+  }
+
+  @media (max-width: 750px) {
+    .btn__next,
+    .btn__prev {
+      font-size: 20px;
+    }
+    .btn__close {
+      font-size: 24px;
+    }
+    .btn__next {
+      right: 4px;
+    }
+    .btn__prev {
+      left: 4px;
+    }
+  }
+}

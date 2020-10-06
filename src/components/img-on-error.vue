@@ -23,19 +23,3 @@
     }
   })
 </script>
-
-<style scoped lang="scss">
-  @import '../assets/styles/variables.scss';
-
-  .#{$prefix-cls}-on-error {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    .icon {
-      font-size: 80px;
-      color: #aaa;
-    }
-  }
-</style>
