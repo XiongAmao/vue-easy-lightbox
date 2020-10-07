@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.0-rc.1] (7 Oct 2020)
+
+- Feat: Support Vue.js 3.0. And no breaking change!!
+
 ## [0.14.0] (10 Jul 2020)
 
 - Fix: Syntax error on IE11.
