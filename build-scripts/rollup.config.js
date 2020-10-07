@@ -7,6 +7,7 @@ import replace from '@rollup/plugin-replace'
 import postcss from 'rollup-plugin-postcss'
 import autoprefixer from 'autoprefixer'
 import { terser } from 'rollup-plugin-terser'
+import Case from 'case'
 import { babelConfig } from './rollup.babel.config'
 
 process.env.NODE_ENV = 'production'
@@ -40,11 +41,6 @@ const configs = builds.map((build) => {
       format
     },
     plugins: [
-      resolve({
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
-        browser: true
-      }),
-      commonJs(),
       vue(),
       postcss({
         minimize: true,
@@ -57,6 +53,11 @@ const configs = builds.map((build) => {
       replace({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }),
+      resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
+        browser: true
+      }),
+      commonJs(),
       terser({
         format: {
           comments: false
@@ -66,11 +67,12 @@ const configs = builds.map((build) => {
     external: ['vue']
   }
   if (config.output.format === 'umd') {
-    config.output.name = libraryName
+    config.output.name = Case.pascal(libraryName)
     config.output.globals = { vue: 'Vue' }
   }
   if (/es5/.test(build)) {
-    config.plugins.splice(config.plugins.length - 1, 0, babel(babelConfig))
+    // babel-plugin must set before resolve-plugin
+    config.plugins.splice(config.plugins.length - 3, 0, babel(babelConfig))
   }
 
   return config
