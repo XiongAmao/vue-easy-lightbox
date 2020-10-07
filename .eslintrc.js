@@ -5,11 +5,18 @@ module.exports = {
     node: true,
     es6: true
   },
+  extends: [
+    'plugin:vue/vue3-strongly-recommended',
+    'eslint:recommended',
+    '@vue/typescript/recommended'
+  ],
   parserOptions: {
-    parser: '@typescript-eslint/parser',
-    sourceType: 'module'
+    sourceType: 'module',
+    ecmaVersion: 2020,
+    ecmaFeatures: {
+      jsx: true
+    }
   },
-  plugins: ['vue'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -38,27 +45,12 @@ module.exports = {
       'always',
       { arraysInObjects: true, objectsInObjects: true }
     ],
-    'vue/html-self-closing': [
-      'error',
-      {
-        html: {
-          void: 'never',
-          normal: 'never',
-          component: 'always'
-        },
-        svg: 'never',
-        math: 'always'
-      }
-    ],
+    'vue/html-self-closing': 'off',
     'vue/multiline-html-element-content-newline': 'off',
     'vue/name-property-casing': 'off',
     'vue/attribute-hyphenation': ['error', 'never'],
-    'lines-between-class-members': 'off'
-  },
-  extends: [
-    'eslint:recommended',
-    'plugin:vue/recommended',
-    '@vue/standard',
-    '@vue/typescript'
-  ]
+    'vue/singleline-html-element-content-newline': 'off',
+    'lines-between-class-members': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off'
+  }
 }

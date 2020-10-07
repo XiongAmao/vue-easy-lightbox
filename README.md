@@ -1,6 +1,6 @@
 # vue-easy-lightbox
 
-> A Vue.js image lightbox component with Zoom / Drag / Rotate / Switch .
+> A Vue.js 3.0 image lightbox component with Zoom / Drag / Rotate / Switch .
 
 [![npm](https://img.shields.io/npm/v/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
 [![npm](https://img.shields.io/npm/l/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
@@ -12,7 +12,8 @@
 ## Installation
 
 ### Different Builds
-`ES5` build is converted by `Babel`. If you need to compile it yourself, you can use a non`ES5` build.
+
+`ES5` build is converted by `Babel`. If you don't need to support an es5 environment, you can choose a non`ES5` build with smaller size.
 
 <table>
   <thead>
@@ -41,14 +42,7 @@
   </tbody>
 </table>
 
-
-### use `script` tag
-
-Grab the minified version under `dist/vue-easy-lightbox.umd.min.js`. It will register components globally.
-
-```html
-<script src="path/to/vue-easy-lightbox.umd.min.js"></script>
-```
+### Direct `<script>` Include
 
 example:
 
@@ -61,7 +55,7 @@ example:
       class="pic"
       @click="() => showImg(index)"
     >
-      <img :src="src">
+      <img :src="src" />
     </div>
   </div>
   <vue-easy-lightbox
@@ -72,14 +66,16 @@ example:
   ></vue-easy-lightbox>
 </div>
 
-<script src="path/to/vue.js"></script>
+<script src="https://unpkg.com/vue@next"></script>
 <script src="path/to/vue-easy-lightbox.umd.min.js"></script>
 <script>
-  var app = new Vue({
+  // Note: The Global Vue Constructor is no longer available in Vue 3.0.
+  // https://v3.vuejs.org/guide/migration/global-api.html#a-new-global-api-createapp
+  var app = Vue.createApp({
     el: '#app',
     data: {
       visible: false,
-      index: 0,   // default: 0
+      index: 0, // default: 0
       imgs: [
         'https://via.placeholder.com/450.png/',
         'https://via.placeholder.com/300.png/',
@@ -88,15 +84,21 @@ example:
       ]
     },
     methods: {
-      showImg (index) {
+      showImg(index) {
         this.index = index
         this.visible = true
       },
-      handleHide () {
+      handleHide() {
         this.visible = false
       }
     }
   })
+  // Registering VueEasyLightbox for your VueApp.
+  app.use(VueEasyLightbox)
+  // or
+  app.component(VueEasyLightbox.default.name, VueEasyLightbox.default)
+
+  app.mount('#root')
 </script>
 ```
 
@@ -106,27 +108,23 @@ example:
 $ npm install --save vue-easy-lightbox
 ```
 
-`vue-easy-lightbox` can be loading all with the Vue.use() method as same as the other vue plugin.
+#### Register VueApp component
+
+The Global Vue Constructor is no longer available in `Vue.js` 3.0. You need to register the `vue-easy-lightbox` for each `VueApp` you use.
+https://v3.vuejs.org/guide/migration/global-api.html#a-new-global-api-createapp
 
 ```javascript
 import Vue from 'vue'
-import Lightbox from 'vue-easy-lightbox'
+import VueEasyLightbox from 'vue-easy-lightbox'
 
-Vue.use(Lightbox)
+const app = Vue.createApp({
+  ...
+})
+app.use(VueEasyLightbox)
+app.mount('#root')
 ```
 
-```html
-<template>
-  <vue-easy-lightbox
-    :visible="visible"
-    :imgs="imgs"
-    :index="index"
-    @hide="handleHide"
-  ></vue-easy-lightbox>
-</template>
-```
-
-Usage of Component
+#### Usage of Component
 
 ```html
 <template>
@@ -147,57 +145,60 @@ Usage of Component
 </template>
 
 <script>
-import VueEasyLightbox from 'vue-easy-lightbox'
+  // If VueApp is already registered with VueEasyLightbox, there is no need to register it here.
+  import VueEasyLightbox from 'vue-easy-lightbox'
 
-export default {
-  components: {
-    VueEasyLightbox
-  },
-  data() {
-    return {
-      imgs: '',  // Img Url , string or Array of string
-      visible: false,
-      index: 0   // default: 0
-    }
-  },
-  methods: {
-    showSingle() {
-      this.imgs = 'http://via.placeholder.com/350x150'
-      // or
-      this.imgs = { title: 'this is a placeholder', src: 'http://via.placeholder.com/350x150' }
-      this.show()
+  export default {
+    components: {
+      VueEasyLightbox
     },
-    showMultiple() {
-      this.imgs = ['http://via.placeholder.com/350x150', 'http://via.placeholder.com/350x150']
-      // or
-      this.imgs = [
-        { title: 'test img', src: 'http://via.placeholder.com/350x150' },
-        'http://via.placeholder.com/350x150'
-      ]
-      // allow mixing
+    data() {
+      return {
+        imgs: '', // Img Url , string or Array of string
+        visible: false,
+        index: 0 // default: 0
+      }
+    },
+    methods: {
+      showSingle() {
+        this.imgs = 'http://via.placeholder.com/350x150'
+        // or
+        this.imgs = {
+          title: 'this is a placeholder',
+          src: 'http://via.placeholder.com/350x150'
+        }
+        this.show()
+      },
+      showMultiple() {
+        this.imgs = [
+          'http://via.placeholder.com/350x150',
+          'http://via.placeholder.com/350x150'
+        ]
+        // or
+        this.imgs = [
+          { title: 'test img', src: 'http://via.placeholder.com/350x150' },
+          'http://via.placeholder.com/350x150'
+        ]
+        // allow mixing
 
-      this.index = 1  // index of imgList
-      this.show()
-    },
-    show() {
-      this.visible = true
-    },
-    handleHide() {
-      this.visible = false
+        this.index = 1 // index of imgList
+        this.show()
+      },
+      show() {
+        this.visible = true
+      },
+      handleHide() {
+        this.visible = false
+      }
     }
   }
-}
 </script>
-
 ```
 
 ### Use vue slot custom buttons or toolbar
 
 ```html
-<vue-easy-lightbox
-  ...
->
-  <!-- v-slot in vue@2.6.0+ -->
+<vue-easy-lightbox ...>
   <template v-slot:prev-btn="{ prev }">
     <button @click="prev">show the prev</button>
   </template>
@@ -217,36 +218,14 @@ export default {
     <button @click="toolbarMethods.rotateRight">clockwise rotation</button>
   </template>
 </vue-easy-lightbox>
-
-
-<!-- Deprecated in 2.6.0+ -->
-<vue-easy-lightbox>
-  <template slot="prev-btn" slot-scope="props">
-    <button @click="props.prev">show the prev</button>
-  </template>
-
-  <template slot="next-btn" slot-scope="props">
-    <button @click="props.next">show the next</button>
-  </template>
-
-  <template slot="close-btn" slot-scope="props">
-    <button @click="props.close">close lightbox</button>
-  </template>
-
-  <template slot="toolbar" slot-scope="props">
-    <button @click="props.toolbarMethods.zoomIn">zoom in</button>
-    <button @click="props.toolbarMethods.zoomOut">zoom out</button>
-    <button @click="props.toolbarMethods.rotateLeft">Anticlockwise rotation</button>
-    <button @click="props.toolbarMethods.rotateRight">clockwise rotation</button>
-  </template>
-</vue-easy-lightbox>
 ```
 
-Reference: [Slots-Vue.js](https://cn.vuejs.org/v2/guide/components-slots.html)
+Reference: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
 
 ## Options
 
 Props
+
 <table>
   <thead>
     <tr>
@@ -291,6 +270,7 @@ Props
 </table>
 
 Event
+
 <table>
   <thead>
     <tr>
@@ -329,6 +309,7 @@ Event
 </table>
 
 Slot & Scoped Slot
+
 <table>
   <thead>
     <tr>

@@ -1,13 +1,14 @@
 import vue from 'rollup-plugin-vue'
-import commonJs from 'rollup-plugin-commonjs'
-import resolve from 'rollup-plugin-node-resolve'
+import commonJs from '@rollup/plugin-commonjs'
+import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
-import typescript from 'rollup-plugin-typescript'
-import replace from 'rollup-plugin-replace'
-import { terser } from 'rollup-plugin-terser'
+import typescript from 'rollup-plugin-typescript2'
+import replace from '@rollup/plugin-replace'
+import postcss from 'rollup-plugin-postcss'
 import autoprefixer from 'autoprefixer'
+import { terser } from 'rollup-plugin-terser'
+import Case from 'case'
 import { babelConfig } from './rollup.babel.config'
-import { terserOptions } from './rollup.terser.config'
 
 process.env.NODE_ENV = 'production'
 
@@ -37,32 +38,42 @@ const configs = builds.map((build) => {
     input: entryPath,
     output: {
       file: `${distPath}/${libraryName}.${build}`,
-      format
+      format,
+      exports: 'named'
     },
     plugins: [
-      typescript(),
-      vue({
-        style: {
-          postcssPlugins: [autoprefixer()]
-        }
+      vue(),
+      postcss({
+        minimize: true,
+        plugins: [autoprefixer()]
+      }),
+      typescript({
+        include: [/\.tsx?$/, /\.vue\?.*?lang=ts/],
+        useTsconfigDeclarationDir: true
       }),
       replace({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }),
       resolve({
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue']
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
+        browser: true
       }),
       commonJs(),
-      terser(terserOptions)
+      terser({
+        format: {
+          comments: false
+        }
+      })
     ],
     external: ['vue']
   }
   if (config.output.format === 'umd') {
-    config.output.name = libraryName
+    config.output.name = Case.pascal(libraryName)
     config.output.globals = { vue: 'Vue' }
   }
   if (/es5/.test(build)) {
-    config.plugins.splice(2, 0, babel(babelConfig))
+    // babel-plugin must set before resolve-plugin
+    config.plugins.splice(config.plugins.length - 3, 0, babel(babelConfig))
   }
 
   return config

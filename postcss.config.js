@@ -1,5 +1,7 @@
 module.exports = {
   plugins: {
-    autoprefixer: {}
+    // with autoprefixer@10 need to use postcss@8+
+    autoprefixer: {},
+    'postcss-import': {}
   }
 }

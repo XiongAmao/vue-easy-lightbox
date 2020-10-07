@@ -1,6 +1,6 @@
 # vue-easy-lightbox
 
-> 纯Vue组件构建的图片阅览插件， 提供了旋转、放大、拖拽功能。
+> 基于Vue.js 3.0 与 TypeScript 构建的图片阅览插件， 提供了旋转、放大、拖拽功能。可自定义各种功能。
 
 [![npm](https://img.shields.io/npm/v/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
 [![npm](https://img.shields.io/npm/l/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
@@ -12,7 +12,7 @@
 ## 安装 & 使用
 
 ### 不同构建版本的区别
-`ES5` 构建是`Babel`编译后的版本。如果你需要自己编译，可以使用非`ES5`的版本。
+`ES5` 构建是`Babel`编译后的版本。如果你不需要支持`ES5`或更低版本的环境，可以使用非`ES5`的构建，它们提供了更小的文件。
 
 <table>
   <thead>
@@ -43,12 +43,6 @@
 
 ### 使用 `script` 标签引入
 
-引入压缩后的构建版本`dist/vue-easy-lightbox.umd.min.js`, 它会为你注册全局组件。
-
-```html
-<script src="path/to/vue-easy-lightbox.umd.min.js"></script>
-```
-
 例子：
 
 ```html
@@ -71,14 +65,16 @@
   ></vue-easy-lightbox>
 </div>
 
-<script src="path/to/vue.js"></script>
+<script src="https://unpkg.com/vue@next"></script>
 <script src="path/to/vue-easy-lightbox.umd.min.js"></script>
 <script>
-  var app = new Vue({
+  // 注意: Vue.js 3.0中不再提供Vue的全局共享实例，请为单个VueApp实例注册组件.
+  // https://v3.cn.vuejs.org/guide/migration/global-api.html#%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%85%A8%E5%B1%80-api-createapp
+  var app = Vue.createApp({
     el: '#app',
     data: {
       visible: false,
-      index: 0,  // default : 0
+      index: 0, // default: 0
       imgs: [
         'https://via.placeholder.com/450.png/',
         'https://via.placeholder.com/300.png/',
@@ -87,15 +83,21 @@
       ]
     },
     methods: {
-      showImg (index) {
+      showImg(index) {
         this.index = index
         this.visible = true
       },
-      handleHide () {
+      handleHide() {
         this.visible = false
       }
     }
   })
+  // 通过插件方式注册
+  app.use(VueEasyLightbox)
+  // 或使用组件注册的方式
+  app.component(VueEasyLightbox.default.name, VueEasyLightbox.default)
+
+  app.mount('#root')
 </script>
 ```
 
@@ -105,27 +107,22 @@
 $ npm install --save vue-easy-lightbox
 ```
 
-`vue-easy-lightbox`可以使用 `Vue.use()` 方法加载。
+#### 注册VueApp组件
+Vue.js 3.0中不再提供Vue的全局共享实例，请为单个VueApp实例注册组件.
+[createApp](https://v3.cn.vuejs.org/guide/migration/global-api.html#%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%85%A8%E5%B1%80-api-createapp)
 
 ```javascript
 import Vue from 'vue'
-import Lightbox from 'vue-easy-lightbox'
+import VueEasyLightbox from 'vue-easy-lightbox'
 
-Vue.use(Lightbox)
+const app = Vue.createApp({
+  ...
+})
+app.use(VueEasyLightbox)
+app.mount('#root')
 ```
 
-```html
-<template>
-  <vue-easy-lightbox
-    :visible="visible"
-    :imgs="imgs"
-    :index="index"
-    @hide="handleHide"
-  ></vue-easy-lightbox>
-</template>
-```
-
-以组件形式使用
+#### 以组件形式使用
 
 ```html
 <template>
@@ -146,6 +143,7 @@ Vue.use(Lightbox)
 </template>
 
 <script>
+// 如果VueApp已经注册组件，则这里不需要单独引入
 import VueEasyLightbox from 'vue-easy-lightbox'
 
 export default {
@@ -195,7 +193,6 @@ export default {
 <vue-easy-lightbox
   ...
 >
-  <!-- vue@2.6.0+ 你应该使用 v-slot -->
   <template v-slot:prev-btn="{ prev }">
     <button @click="prev">上一张</button>
   </template>
@@ -215,31 +212,9 @@ export default {
     <button @click="toolbarMethods.rotateRight">顺时针旋转</button>
   </template>
 </vue-easy-lightbox>
-
-<!-- 即将被废弃的语法，推荐升级到vue@2.6.0+ -->
-<vue-easy-lightbox>
-  <template slot="prev-btn" slot-scope="props">
-    <button @click="props.prev">上一张</button>
-  </template>
-
-  <template slot="next-btn" slot-scope="props">
-    <button @click="props.next">上一张</button>
-  </template>
-
-  <template slot="close-btn" slot-scope="props">
-    <button @click="props.close">关闭</button>
-  </template>
-
-  <template slot="toolbar" slot-scope="props">
-    <button @click="props.toolbarMethods.zoomIn">放大图片</button>
-    <button @click="props.toolbarMethods.zoomOut">缩小图片</button>
-    <button @click="props.toolbarMethods.rotateLeft">逆时针旋转</button>
-    <button @click="props.toolbarMethods.rotateRight">顺时针旋转</button>
-  </template>
-</vue-easy-lightbox>
 ```
 
-参考：[插槽 - Vue.js](https://cn.vuejs.org/v2/guide/components-slots.html)
+参考：[插槽 - Vue.js](https://v3.cn.vuejs.org/guide/component-slots.html#%E6%8F%92%E6%A7%BD%E5%86%85%E5%AE%B9)
 
 ## 配置项
 

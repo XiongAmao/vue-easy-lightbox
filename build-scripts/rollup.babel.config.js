@@ -10,10 +10,12 @@ export const babelConfig = {
         useBuiltIns: 'usage',
         corejs: 3
       }
-    ],
-    ['@vue/babel-preset-jsx', {}]
+    ]
   ],
   plugins: [
+    [
+      '@vue/babel-plugin-jsx'
+    ],
     [
       '@babel/plugin-transform-runtime',
       {
@@ -24,7 +26,7 @@ export const babelConfig = {
   ],
   include: [
     'src/**',
-    'node_modules/vue-runtime-helpers/dist/inject-style/browser.mjs'
+    // 'node_modules/vue-runtime-helpers/dist/inject-style/browser.mjs'
     // https://github.com/vuejs/rollup-plugin-vue/issues/340
   ],
   extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue', '.mjs']

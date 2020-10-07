@@ -42,13 +42,12 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
+  import { defineComponent } from 'vue'
   import SvgIcon from './svg-icon.vue'
   import { prefixCls } from '../constant'
+  import { voidFn } from '../utils'
 
-  const voidFn = () => {}
-
-  export default Vue.extend({
+  export default defineComponent({
     components: {
       SvgIcon
     },
@@ -81,38 +80,3 @@
     }
   })
 </script>
-
-<style scoped lang="scss">
-  @import '../assets/styles/variables.scss';
-
-  .#{$prefix-cls}-toolbar {
-    user-select: none;
-    position: absolute;
-    overflow: hidden;
-    bottom: 8px;
-    left: 50%;
-    transform: translate(-50%);
-    opacity: 0.9;
-    display: flex;
-    background-color: rgb(45, 45, 45);
-    border-radius: 4px;
-    padding: 0;
-
-    .toobar-btn {
-      user-select: none;
-      flex-shrink: 0;
-      cursor: pointer;
-      padding: 6px 10px;
-      font-size: 20px;
-      color: #fff;
-      background-color: #2D2D2D;
-      -webkit-tap-highlight-color: transparent;
-      outline: none;
-
-      &:hover,
-      &:active {
-        background-color: rgb(61, 61, 61);
-      }
-    }
-  }
-</style>

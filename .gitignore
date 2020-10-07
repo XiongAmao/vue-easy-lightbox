@@ -67,3 +67,4 @@ test-dist
 dist-gh-page
 .temp
 demos/**/dist
+.vscode
