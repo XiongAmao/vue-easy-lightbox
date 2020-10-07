@@ -38,7 +38,8 @@ const configs = builds.map((build) => {
     input: entryPath,
     output: {
       file: `${distPath}/${libraryName}.${build}`,
-      format
+      format,
+      exports: 'named'
     },
     plugins: [
       vue(),
