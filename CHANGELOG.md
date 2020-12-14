@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.14.1] (14 Dec 2020)
+
+- Docs: update for Vue2/Vue3.
+
 ## [0.14.0] (10 Jul 2020)
 
 - Fix: Syntax error on IE11.
