@@ -7,7 +7,9 @@
 
 [中文文档](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README-CN.md)
 
-## [DEMO](https://xiongamao.github.io/vue-easy-lightbox/)
+[DEMO](https://xiongamao.github.io/vue-easy-lightbox/)
+
+> `vue-easy-lightbox@0.x` only supports Vue.js 2, Vue.js 3 version please check [here](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README.md).
 
 ## Installation
 
@@ -103,7 +105,7 @@ example:
 ### With NPM
 
 ```shell
-$ npm install --save vue-easy-lightbox
+$ npm install --save vue-easy-lightbox@vue2
 ```
 
 `vue-easy-lightbox` can be loading all with the Vue.use() method as same as the other vue plugin.
