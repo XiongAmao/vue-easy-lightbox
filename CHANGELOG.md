@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.0-rc.2] (14 Dec 2020)
+
+- Feat: Update the d.ts file for Vue.js 3.
+- Docs: Update the docs guides for Vue.js 2.
+
 ## [1.0.0-rc.1] (7 Oct 2020)
 
 - Feat: Support Vue.js 3.0. And no breaking change!!
