@@ -7,7 +7,9 @@
 
 [中文文档](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README-CN.md)
 
-## [DEMO](https://xiongamao.github.io/vue-easy-lightbox/)
+[DEMO](https://xiongamao.github.io/vue-easy-lightbox/)
+
+> `Vue-easy-lightbox@1.x` only supports Vue.js 3, if you need Vue.js 2 version please check [here](https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x).
 
 ## Installation
 

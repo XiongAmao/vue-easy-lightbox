@@ -7,7 +7,9 @@
 
 [English](https://github.com/XiongAmao/vue-easy-lightbox)
 
-## [DEMO](https://xiongamao.github.io/vue-easy-lightbox/)
+[DEMO](https://xiongamao.github.io/vue-easy-lightbox/)
+
+> `Vue-easy-lightbox@1.x` 只支持Vue.js 3, 如果你需要使用Vue.js 2版本，请点击[这里](https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x)查看.
 
 ## 安装 & 使用
 
