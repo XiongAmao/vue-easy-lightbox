@@ -1,11 +1,11 @@
-import Vue from 'vue'
+import { App } from 'vue'
 
 export interface ImgObject {
   url: string
   title: string
 }
 
-export declare class VueEasyLightbox extends Vue {
+export interface IVueEasyLightbox {
   /**
    * Image's Url
    * @requires
@@ -36,8 +36,9 @@ export declare class VueEasyLightbox extends Vue {
    */
   moveDisabled?: boolean
 
-  /** Install component into Vue */
-  static install (vue: typeof Vue): void
+   /** Install component into Vue */
+   install: (app: App, ...options: any[]) => any
 }
 
+declare const VueEasyLightbox: IVueEasyLightbox
 export default VueEasyLightbox
