@@ -68,3 +68,4 @@ dist-gh-page
 .temp
 demos/**/dist
 .vscode
+/types/
