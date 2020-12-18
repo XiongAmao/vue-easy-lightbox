@@ -1,11 +1,14 @@
 import './styles/index'
 import type { App } from 'vue'
-import VueEasyLightbox from './vue-easy-lightbox.vue'
+import _VueEasyLightBox from './vue-easy-lightbox.vue'
 
-export const install = (app: App): void => {
-  app.component(VueEasyLightbox.name, VueEasyLightbox)
+type MergeInstall<T> = T & {
+  install(app: App): void
+}
+const VueEasyLightBox: MergeInstall<typeof _VueEasyLightBox> = _VueEasyLightBox
+
+VueEasyLightBox.install = (app) => {
+  app.component(VueEasyLightBox.name, VueEasyLightBox)
 }
 
-VueEasyLightbox.install = install
-
-export default VueEasyLightbox
+export default VueEasyLightBox

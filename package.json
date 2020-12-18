@@ -1,6 +1,6 @@
 {
   "name": "vue-easy-lightbox",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "description": "A Vue.js 3.0 image lightbox component with Zoom / Drag / Rotate / Switch",
   "private": false,
   "author": "Zichao Xiong <onycat@live.cn>",
@@ -13,8 +13,10 @@
   },
   "scripts": {
     "dev": "vite",
-    "clean": "rimraf ./dist",
-    "build": "npm run clean && rollup -c build-scripts/rollup.config.js",
+    "clean": "rimraf ./dist && rimraf ./types",
+    "build": "npm run clean && npm run build:bundle && npm run build:type",
+    "build:bundle": "rollup -c build-scripts/rollup.config.js",
+    "build:type": "node build-scripts/gen-types.js",
     "build:gh-page": "vite build",
     "deploy:gh-page": "bash bin/deploy-gh-page.sh",
     "test:types": "tsc -p ./types/test/tsconfig.json",
@@ -74,7 +76,7 @@
     "rollup-plugin-vue": "^6.0.0-beta.10",
     "sass": "^1.26.12",
     "sass-loader": "^10.0.2",
-    "typescript": "^4.0.3",
+    "typescript": "^4.1.3",
     "vite": "^1.0.0-rc.4",
     "vue": "^3.0.0"
   },

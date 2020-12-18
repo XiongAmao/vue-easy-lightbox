@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.0-rc.3] (18 Dec 2020)
+
+- Feat: Support `app.use(VueEasyLightbox)` in TypeScript.
+
 ## [1.0.0-rc.2] (14 Dec 2020)
 
 - Feat: Update the d.ts file for Vue.js 3.

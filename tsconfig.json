@@ -16,7 +16,9 @@
       "@/*": ["src/*"]
     },
     "typeRoots": ["src/types"],
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "declaration": true,
+    "declarationDir": "./types"
   },
   "include": [
     "src/**/*.ts",
