@@ -12,6 +12,7 @@
     "./sfc": "src/vue-easy-lightbox.vue"
   },
   "scripts": {
+    "dev:docs": "cd docs && yarn dev",
     "dev": "vite",
     "clean": "rimraf ./dist && rimraf ./types",
     "build": "npm run clean && npm run build:bundle && npm run build:type",

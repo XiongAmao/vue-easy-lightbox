@@ -4,18 +4,26 @@ module.exports = {
   themeConfig: {
     repo: 'XiongAmao/vue-easy-lightbox',
     search: false,
+    sidebarDepth: 2,
+    sidebar: 'auto',
     locales: {
       '/': {
         label: 'English',
         selectText: 'Languages',
-        ariaLabel: 'Select language',
+        ariaLabel: 'Select language'
       },
       '/zh/': {
         label: '简体中文',
         selectText: '选择语言',
-        ariaLabel: '选择语言',
+        ariaLabel: '选择语言'
       }
-    }
+    },
+    // '/': {
+    //   sidebar: 'auto',
+    // },
+    // '/zh/': {
+    //   sidebar: 'auto'
+    // }
   },
   locales: {
     '/': {
