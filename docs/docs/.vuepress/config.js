@@ -1,4 +1,5 @@
 module.exports = {
+  base: '/vue-easy-lightbox/',
   title: 'vue-easy-lightbox',
   description: '',
   themeConfig: {
@@ -10,14 +11,26 @@ module.exports = {
       '/': {
         label: 'English',
         selectText: 'Languages',
-        ariaLabel: 'Select language'
+        ariaLabel: 'Select language',
+        nav: [
+          {
+            text: 'Guide',
+            link: '/guide/'
+          }
+        ]
       },
       '/zh/': {
         label: '简体中文',
         selectText: '选择语言',
-        ariaLabel: '选择语言'
+        ariaLabel: '选择语言',
+        nav: [
+          {
+            text: '指南',
+            link: '/zh/guide/'
+          }
+        ]
       }
-    },
+    }
     // '/': {
     //   sidebar: 'auto',
     // },
@@ -36,7 +49,7 @@ module.exports = {
       lang: 'zh-CN',
       title: 'vue-easy-lightbox',
       description:
-        '基于Vue.js 3.0 与 TypeScript 构建的图片阅览插件， 提供了旋转、放大、拖拽功能。可自定义各种功能。'
+        '基于Vue.js 3.0 与 TypeScript 构建的图片阅览插件。 支持旋转、放大、拖拽图片等功能。'
     }
   }
 }

@@ -7548,6 +7548,11 @@ vm-browserify@^1.0.1:
   resolved "https://registry.npm.taobao.org/vm-browserify/download/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
 
+vue-easy-lightbox@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.npm.taobao.org/vue-easy-lightbox/download/vue-easy-lightbox-0.14.0.tgz#723ec4f888afc7989e05c58c7fd4c7f9ac5c11bf"
+  integrity sha1-cj7E+Iivx5ieBcWMf9TH+axcEb8=
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"

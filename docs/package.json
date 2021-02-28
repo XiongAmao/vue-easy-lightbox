@@ -4,10 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "vuepress dev content",
-    "build": "vuepress build content"
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
   },
   "devDependencies": {
     "vuepress": "^1.8.2"
+  },
+  "dependencies": {
+    "vue-easy-lightbox": "^0.14.0"
   }
 }
