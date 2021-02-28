@@ -68,6 +68,13 @@
 
 <style scoped lang="stylus">
   .homepage-demo
+    ::v-deep
+      img.vel-img
+        max-width: none;
+
+        @media screen and (max-width: 750px)
+          max-width: 85vw;
+
     .gallery
       display: flex;
       align-items: center;
