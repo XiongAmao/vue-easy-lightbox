@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <github-conner />
     <div class="container">
       <h1>vue-easy-lightbox</h1>
       <div class="gallery">
@@ -29,12 +28,10 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  import GithubConner from './github-conner.vue'
-  import VueEasyLightbox from '../src/index'
+  import VueEasyLightbox from '../index'
 
   export default defineComponent({
     components: {
-      GithubConner,
       VueEasyLightbox
     },
     data() {

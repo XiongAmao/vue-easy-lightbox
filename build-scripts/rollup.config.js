@@ -52,6 +52,7 @@ const configs = builds.map((build) => {
         useTsconfigDeclarationDir: true
       }),
       replace({
+        preventAssignment: true,
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }),
       resolve({

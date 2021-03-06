@@ -1,8 +1,9 @@
-import { UserConfig } from 'vite'
-import path from 'path'
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 
-const config: UserConfig = {
-  outDir: path.resolve(process.cwd(), './dist-gh-page')
-}
-
-export default config
+export default defineConfig({
+  server: {
+    port: 8888
+  },
+  plugins: [vue()]
+})

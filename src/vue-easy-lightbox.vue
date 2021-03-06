@@ -129,7 +129,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue'
+  import { defineComponent, PropType, nextTick } from 'vue'
   import './assets/svg/iconfont'
   import SvgIcon from './components/svg-icon.vue'
   import Toolbar from './components/toobar.vue'
@@ -469,7 +469,7 @@
 
         // handle same url
         if (this.imgList[this.imgIndex] === this.imgList[newIndex]) {
-          this.$nextTick(() => {
+          nextTick(() => {
             this.loading = false
           })
         }
@@ -504,7 +504,7 @@
         if (length === 0) {
           this.imgIndex = 0
           this.loading = false
-          this.$nextTick(() => {
+          nextTick(() => {
             this.loadError = true
           })
           return
