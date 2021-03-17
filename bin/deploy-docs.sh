@@ -4,10 +4,10 @@
 set -e
 
 # build
-npm run build:gh-page
+yarn build:docs
 
 # navigate into the build output directory
-cd dist-gh-page
+cd docs/docs/.vuepress/dist
 
 git init
 git add -A

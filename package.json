@@ -18,8 +18,8 @@
     "build": "npm run clean && npm run build:bundle && npm run build:type",
     "build:bundle": "rollup -c build-scripts/rollup.config.js",
     "build:type": "node build-scripts/gen-types.js",
-    "build:gh-page": "vite build",
-    "deploy:gh-page": "bash bin/deploy-gh-page.sh",
+    "build:docs": "cd docs && yarn build",
+    "deploy:docs": "bash bin/deploy-docs.sh",
     "test:types": "tsc -p ./types/test/tsconfig.json",
     "lint": "eslint --fix --ext .ts,.vue,.js,.tsx ./src"
   },
