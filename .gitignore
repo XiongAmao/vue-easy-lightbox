@@ -69,3 +69,4 @@ dist-gh-page
 demos/**/dist
 .vscode
 /types/
+docs/docs/.vuepress/dist
