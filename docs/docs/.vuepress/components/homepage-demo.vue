@@ -1,6 +1,9 @@
 <template>
   <div class="homepage-demo">
-    <div class="gallery">
+    <div
+      v-if="dynamicComponent"
+      class="gallery"
+    >
       <div
         v-for="(img, idx) in imgs"
         :key="idx"
@@ -11,27 +14,25 @@
       </div>
     </div>
 
-    <vue-easy-lightbox
+    <component
+      v-if="dynamicComponent"
+      :is="dynamicComponent"
       :visible="visible"
       :index="index"
       :imgs="imgs"
       @hide="visible = false"
       @on-prev-click="handlePrevClick"
       @on-next-click="handleNextClick"
-    />
+    ></component>
   </div>
 </template>
 
 <script>
-  import VueEasyLightbox from 'vue-easy-lightbox'
-
   export default {
     name: 'App',
-    components: {
-      VueEasyLightbox
-    },
     data() {
       return {
+        dynamicComponent: null,
         imgs: [
           {
             title: "img's url: https://i.loli.net/2018/11/10/5be6852cdb002.jpeg",
@@ -46,6 +47,11 @@
         visible: false,
         index: 0 // default
       }
+    },
+    mounted() {
+      import('vue-easy-lightbox').then((module) => {
+        this.dynamicComponent = module.default
+      })
     },
     methods: {
       show(index) {
@@ -67,30 +73,38 @@
 </script>
 
 <style scoped lang="stylus">
-  .homepage-demo
-    ::v-deep
-      img.vel-img
+  .homepage-demo {
+    ::v-deep {
+      img.vel-img {
         max-width: none;
 
-        @media screen and (max-width: 750px)
+        @media screen and (max-width: 750px) {
           max-width: 85vw;
+        }
+      }
+    }
 
-    .gallery
+    .gallery {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
+    }
 
-    .pic
+    .pic {
       cursor: pointer;
       margin: 4px;
 
-      img
+      img {
         height: 100px;
         width: 100px;
         object-fit: cover;
 
-        @media screen and (min-width: 800px)
+        @media screen and (min-width: 800px) {
           height: 200px;
           width: 200px;
+        }
+      }
+    }
+  }
 </style>
