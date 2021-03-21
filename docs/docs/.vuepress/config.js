@@ -29,6 +29,17 @@ module.exports = {
             link: '/zh/guide/'
           }
         ]
+      },
+      '/pt-BR/': {
+        label: 'Português',
+        selectText: 'Idiomas',
+        ariaLabel: 'Selecione o idioma',
+        nav: [
+          {
+            text: 'Guia',
+            link: '/pt-BR/guide/'
+          }
+        ]
       }
     }
     // '/': {
@@ -50,6 +61,12 @@ module.exports = {
       title: 'vue-easy-lightbox',
       description:
         '基于Vue.js 3.0 与 TypeScript 构建的图片阅览插件。 支持旋转、放大、拖拽图片等功能。'
+    },
+    '/pt-BR/': {
+      lang: 'pt-BR',
+      title: 'vue-easy-lightbox',
+      description:
+        'Um componente lightbox de visualização de imagens escrito com Vue.js 3 e Typescript, fornecendo funções de rotação, slide de imagens, zoom e redução.'
     }
   }
 }
