@@ -65,3 +65,9 @@ export const isString = (arg: unknown): arg is string => {
 export function notEmpty<T>(value: T | null | undefined): value is T {
   return value !== null && value !== undefined
 }
+
+export function getDistance(p1: Touch, p2: Touch) {
+  const x = p1.clientX - p2.clientX
+  const y = p1.clientY - p2.clientY
+  return Math.sqrt(x * x + y * y)
+}
