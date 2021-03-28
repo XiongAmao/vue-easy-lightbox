@@ -52,7 +52,7 @@
     "@vitejs/plugin-vue": "^1.1.5",
     "@vue/babel-plugin-jsx": "^1.0.3",
     "@vue/babel-preset-app": "^4.5.11",
-    "@vue/compiler-sfc": "^3.0.7",
+    "@vue/compiler-sfc": "^3.0.9",
     "@vue/eslint-config-standard": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
     "autoprefixer": "^10.2.5",
@@ -79,7 +79,7 @@
     "sass": "^1.32.8",
     "typescript": "^4.2.3",
     "vite": "^2.0.5",
-    "vue": "^3.0.0"
+    "vue": "^3.0.9"
   },
   "vetur": {
     "tags": "vetur/tags.json",
