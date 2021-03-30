@@ -1,4 +1,4 @@
-export const isServer = typeof Window === undefined
+export const inBrowser = typeof window !== 'undefined'
 
 export const voidFn = () => {
   return
@@ -7,7 +7,7 @@ export const voidFn = () => {
 // TODO: prepare for mobile touch event
 export let supportsPassive = false
 
-if (!isServer) {
+if (inBrowser) {
   try {
     const options = {}
     Object.defineProperty(options, 'passive', {
@@ -27,7 +27,7 @@ export const on = (
   handler: EventListenerOrEventListenerObject,
   passive = false
 ) => {
-  if (!isServer) {
+  if (inBrowser) {
     target.addEventListener(
       event,
       handler,
@@ -41,7 +41,7 @@ export const off = (
   event: string,
   handler: EventListenerOrEventListenerObject
 ) => {
-  if (!isServer) {
+  if (inBrowser) {
     target.removeEventListener(event, handler)
   }
 }
@@ -64,10 +64,4 @@ export const isString = (arg: unknown): arg is string => {
 
 export function notEmpty<T>(value: T | null | undefined): value is T {
   return value !== null && value !== undefined
-}
-
-export function getDistance(p1: Touch, p2: Touch) {
-  const x = p1.clientX - p2.clientX
-  const y = p1.clientY - p2.clientY
-  return Math.sqrt(x * x + y * y)
 }

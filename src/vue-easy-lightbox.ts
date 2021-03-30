@@ -25,15 +25,9 @@ import {
   isString,
   notEmpty,
   isArray,
-  getDistance
 } from './utils/index'
-import { useImage } from './utils/hooks'
-
-interface Img {
-  src?: string
-  title?: string
-}
-type PropsImgs = Img | string | (Img | string)[]
+import { useImage, useMouse, useTouch } from './utils/hooks'
+import { Img, IImgWrapperState, PropsImgs } from './types'
 
 function isImg(arg: Img): arg is Img {
   return isObject(arg) && isString(arg.src)
@@ -90,7 +84,7 @@ export default defineComponent({
     const { imgRef, imgState, setImgSize } = useImage()
     const imgIndex = ref(0)
 
-    const imgWrapperState = reactive({
+    const imgWrapperState = reactive<IImgWrapperState>({
       scale: 1,
       rotateDeg: 0,
       top: 0,
@@ -235,89 +229,26 @@ export default defineComponent({
       imgWrapperState.left = 0
     }
 
-    // mouse event handler
+    // check img moveable
     const canMove = (button = 0) => {
       if (props.moveDisabled) return false
       // mouse left btn click
       return button === 0
     }
 
-    const onMouseDown = (e: MouseEvent) => {
-      if (!canMove(e.button)) return
-      imgWrapperState.lastX = e.clientX
-      imgWrapperState.lastY = e.clientY
-      status.dragging = true
-      e.stopPropagation()
-    }
+    // mouse
+    const { onMouseDown, onMouseMove, onMouseUp } = useMouse(
+      imgWrapperState,
+      status,
+      canMove
+    )
 
-    const onMouseUp = (e: MouseEvent) => {
-      if (!canMove(e.button)) return
-      nextTick(() => {
-        status.dragging = false
-      })
-    }
-
-    const onMouseMove = (e: MouseEvent) => {
-      if (!canMove(e.button)) return
-      if (status.dragging) {
-        const { top, left, lastY, lastX } = imgWrapperState
-        imgWrapperState.top = top - lastY + e.clientY
-        imgWrapperState.left = left - lastX + e.clientX
-        imgWrapperState.lastX = e.clientX
-        imgWrapperState.lastY = e.clientY
-        e.stopPropagation()
-      }
-    }
-
-    // touch event handler
-    const onTouchStart = (e: TouchEvent) => {
-      const { touches } = e
-      if (touches.length > 1) {
-        status.gesturing = true
-        imgWrapperState.touches = touches
-      } else {
-        imgWrapperState.lastX = touches[0].clientX
-        imgWrapperState.lastY = touches[0].clientY
-        status.dragging = true
-      }
-      e.stopPropagation()
-    }
-
-    const onTouchMove = (e: TouchEvent) => {
-      const { touches } = e
-      const { lastX, lastY, left, top, scale } = imgWrapperState
-
-      if (canMove() && !status.gesturing && status.dragging) {
-        if (!touches[0]) return
-        const curX = touches[0].clientX
-        const curY = touches[0].clientY
-        imgWrapperState.top = top - lastY + curY
-        imgWrapperState.left = left - lastX + curX
-        imgWrapperState.lastX = curX
-        imgWrapperState.lastY = curY
-      } else if (
-        status.gesturing &&
-        imgWrapperState.touches.length > 1 &&
-        touches.length > 1
-      ) {
-        const calcScale =
-          (getDistance(imgWrapperState.touches[0], imgWrapperState.touches[1]) -
-            getDistance(touches[0], touches[1])) /
-          imgState.width
-        imgWrapperState.touches = touches
-
-        const newScale = scale - calcScale * 1.3
-
-        if (newScale > 0.5 && newScale < imgState.maxScale * 1.5) {
-          imgWrapperState.scale = newScale
-        }
-      }
-    }
-
-    const onTouchEnd = () => {
-      status.dragging = false
-      status.gesturing = false
-    }
+    const { onTouchStart, onTouchMove, onTouchEnd } = useTouch(
+      imgState,
+      imgWrapperState,
+      status,
+      canMove
+    )
 
     // key press events handler
     const onKeyPress = (e: Event) => {
@@ -365,16 +296,6 @@ export default defineComponent({
       }
     )
 
-    onMounted(() => {
-      on(document, 'keydown', onKeyPress)
-      on(window, 'resize', onWindowResize)
-    })
-
-    onBeforeUnmount(() => {
-      off(document, 'keydown', onKeyPress)
-      off(window, 'resize', onWindowResize)
-    })
-
     // init
     watch(
       () => props.visible,
@@ -392,6 +313,16 @@ export default defineComponent({
           props.index >= len ? len - 1 : props.index < 0 ? 0 : props.index
       }
     )
+
+    onMounted(() => {
+      on(document, 'keydown', onKeyPress)
+      on(window, 'resize', onWindowResize)
+    })
+
+    onBeforeUnmount(() => {
+      off(document, 'keydown', onKeyPress)
+      off(window, 'resize', onWindowResize)
+    })
 
     return {
       imgWrapperState,
