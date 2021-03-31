@@ -1,6 +1,6 @@
 export interface IImgState {
-  width: number,
-  height: number,
+  width: number
+  height: number
   maxScale: number
 }
 
@@ -27,3 +27,6 @@ export interface Img {
 }
 
 export type PropsImgs = Img | string | (Img | string)[]
+
+export type MouseEventHandler = (e: MouseEvent) => void
+export type TouchEventHandler = (e: TouchEvent) => void

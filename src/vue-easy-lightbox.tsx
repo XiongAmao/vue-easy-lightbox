@@ -7,25 +7,20 @@ import {
   reactive,
   watch,
   onMounted,
-  onBeforeUnmount
+  onBeforeUnmount,
+  Transition,
+  withModifiers
 } from 'vue'
 
 import './assets/svg/iconfont'
-import SvgIcon from './components/svg-icon.vue'
-import Toolbar from './components/toolbar.vue'
-import ImgLoading from './components/img-loading.vue'
-import ImgOnError from './components/img-on-error.vue'
-import ImgTitle from './components/img-title.vue'
+import SvgIcon from './components/svg-icon'
+import Toolbar from './components/toolbar'
+import ImgLoading from './components/img-loading'
+import ImgOnError from './components/img-on-error'
+import ImgTitle from './components/img-title'
 
 import { prefixCls } from './constant'
-import {
-  on,
-  off,
-  isObject,
-  isString,
-  notEmpty,
-  isArray,
-} from './utils/index'
+import { on, off, isObject, isString, notEmpty, isArray } from './utils/index'
 import { useImage, useMouse, useTouch } from './utils/hooks'
 import { Img, IImgWrapperState, PropsImgs } from './types'
 
@@ -35,13 +30,6 @@ function isImg(arg: Img): arg is Img {
 
 export default defineComponent({
   name: 'VueEasyLightbox',
-  components: {
-    SvgIcon,
-    Toolbar,
-    ImgLoading,
-    ImgOnError,
-    ImgTitle
-  },
   props: {
     imgs: {
       type: [Array, String] as PropType<PropsImgs>,
@@ -75,12 +63,7 @@ export default defineComponent({
     'on-next-click',
     'on-index-change'
   ],
-  data() {
-    return {
-      prefixCls
-    }
-  },
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const { imgRef, imgState, setImgSize } = useImage()
     const imgIndex = ref(0)
 
@@ -324,34 +307,176 @@ export default defineComponent({
       off(window, 'resize', onWindowResize)
     })
 
-    return {
-      imgWrapperState,
-      status,
-      imgIndex,
-      imgRef,
-      imgList,
-      imgTotal,
-      imgTitle,
-      currentImgSrc,
-      imgWrapperStyle,
-      imgState,
-      onPrevClick,
-      onNextClick,
-      zoomIn,
-      zoomOut,
-      rotateRight,
-      rotateLeft,
-      resize,
-      closeDialog,
-      onImgLoad,
-      onTestImgError,
-      onTestImgLoad,
-      onMouseDown,
-      onMouseUp,
-      onMouseMove,
-      onTouchStart,
-      onTouchMove,
-      onTouchEnd
+    const renderLoading = () => {
+      return slots.loading ? (
+        slots.loading({
+          key: 'loading'
+        })
+      ) : (
+        <ImgLoading key="img-loading" />
+      )
+    }
+    const renderOnError = () => {
+      return slots.onerror ? (
+        slots.onerror({
+          key: 'onerror'
+        })
+      ) : (
+        <ImgOnError key="img-on-error" />
+      )
+    }
+    const renderImgWrapper = () => {
+      return (
+        <div
+          class={`${prefixCls}-img-wrapper`}
+          style={imgWrapperStyle.value}
+          key="img-wrapper"
+        >
+          <img
+            ref={imgRef}
+            draggable="false"
+            class={`${prefixCls}-img`}
+            src={currentImgSrc.value}
+            onMousedown={onMouseDown}
+            onMouseup={onMouseUp}
+            onMousemove={onMouseMove}
+            onTouchstart={onTouchStart}
+            onTouchmove={onTouchMove}
+            onTouchend={onTouchEnd}
+            onLoad={onImgLoad}
+          />
+        </div>
+      )
+    }
+
+    const renderWrapper = () => {
+      if (status.loading) {
+        return renderLoading()
+      } else if (status.loadError) {
+        return renderOnError()
+      }
+      return renderImgWrapper()
+    }
+
+    const renderTestImg = () => (
+      <img
+        style="display:none;"
+        src={currentImgSrc.value}
+        onError={onTestImgError}
+        onLoad={onTestImgLoad}
+      />
+    )
+
+    const renderPrevBtn = () => {
+      if (slots['prev-btn']) {
+        return slots['prev-btn']({
+          prev: onPrevClick
+        })
+      }
+
+      if (imgList.value.length <= 1) return
+
+      const isDisabled =
+        imgIndex.value === 0 || imgIndex.value > imgList.value.length
+      return (
+        <div
+          class={`btn__prev ${isDisabled ? 'disable' : ''}`}
+          onClick={onPrevClick}
+        >
+          <SvgIcon type="prev" />
+        </div>
+      )
+    }
+    const renderNextBtn = () => {
+      if (slots['next-btn']) {
+        return slots['next-btn']({
+          prev: onNextClick
+        })
+      }
+
+      if (imgList.value.length <= 1) return
+
+      const isDisabled = imgIndex.value >= imgList.value.length - 1
+      return (
+        <div
+          class={`btn__next ${isDisabled ? 'disable' : ''}`}
+          onClick={onNextClick}
+        >
+          <SvgIcon type="next" />
+        </div>
+      )
+    }
+    const renderCloseBtn = () => {
+      return slots['close-btn'] ? (
+        slots['close-btn']({
+          close: closeDialog
+        })
+      ) : (
+        <div class={`btn__close`} onClick={closeDialog}>
+          <SvgIcon type="close" />
+        </div>
+      )
+    }
+
+    const renderToolbar = () => {
+      return slots.toolbar ? (
+        slots.toolbar({
+          zoomOut,
+          rotate: rotateLeft,
+          rotateLeft,
+          rotateRight,
+          resize
+        })
+      ) : (
+        <Toolbar
+          zoomIn={zoomIn}
+          zoomOut={zoomOut}
+          resize={resize}
+          rotateLeft={rotateLeft}
+          rotateRight={rotateRight}
+        />
+      )
+    }
+    const renderImgTitle = () => {
+      if (
+        !imgTitle.value ||
+        props.titleDisabled ||
+        status.loading ||
+        status.loadError
+      ) {
+        return
+      }
+
+      return slots.title ? slots.title() : <ImgTitle>{imgTitle.value}</ImgTitle>
+    }
+
+    const renderModal = () => {
+      if (!props.visible) {
+        return
+      }
+
+      return (
+        <div
+          class={[`${prefixCls}-img-modal`, `${prefixCls}-modal`]}
+          onClick={withModifiers(closeDialog, ['self'])}
+        >
+          <Transition name={`${prefixCls}-fade`} mode="out-in">
+            {renderWrapper()}
+          </Transition>
+          {renderTestImg()}
+          <div class={`${prefixCls}-btns-wrapper`}>
+            {renderPrevBtn()}
+            {renderNextBtn()}
+            {renderImgTitle()}
+            {renderCloseBtn()}
+            {renderToolbar()}
+          </div>
+        </div>
+      )
+    }
+
+    return () => {
+      return <Transition name={`${prefixCls}-fade`}>{renderModal()}</Transition>
     }
   }
 })

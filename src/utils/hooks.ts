@@ -1,5 +1,5 @@
 import { reactive, ref } from 'vue'
-import { IImgState, IImgWrapperState, IStatus } from '@/types'
+import { IImgState, IImgWrapperState, IStatus } from '../types'
 import { cancelRaf, raf } from './raf'
 
 export function getDistance(p1: Touch, p2: Touch) {
