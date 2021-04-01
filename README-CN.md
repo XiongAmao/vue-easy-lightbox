@@ -68,7 +68,7 @@
 </div>
 
 <script src="https://unpkg.com/vue@next"></script>
-<script src="path/to/vue-easy-lightbox.umd.min.js"></script>
+<script src="https://unpkg.com/vue-easy-lightbox/dist/vue-easy-lightbox.umd.min.js"></script>
 <script>
   // 注意: Vue.js 3.0中不再提供Vue的全局共享实例，请为单个VueApp实例注册组件.
   // https://v3.cn.vuejs.org/guide/migration/global-api.html#%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%85%A8%E5%B1%80-api-createapp
@@ -99,7 +99,7 @@
   // 或使用组件注册的方式
   app.component(VueEasyLightbox.default.name, VueEasyLightbox.default)
 
-  app.mount('#root')
+  app.mount('#app')
 </script>
 ```
 
