@@ -2,6 +2,8 @@ module.exports = {
   base: '/vue-easy-lightbox/',
   title: 'vue-easy-lightbox',
   description: '',
+  port: 8089,
+  theme: '@vuepress/theme-default',
   themeConfig: {
     repo: 'XiongAmao/vue-easy-lightbox',
     search: false,
@@ -42,12 +44,6 @@ module.exports = {
         ]
       }
     }
-    // '/': {
-    //   sidebar: 'auto',
-    // },
-    // '/zh/': {
-    //   sidebar: 'auto'
-    // }
   },
   locales: {
     '/': {

@@ -90,7 +90,8 @@ Add `script` in your browser and use the global variable `VueEasyLightbox`.
 </div>
 
 <script src="https://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/vue-easy-lightbox"></script>
+<script src="https://unpkg.com/vue-easy-lightbox/dist/vue-easy-lightbox.umd.min.js"></script>
+<!-- umd bundle -->
 <script>
   // Note: The Global Vue Constructor is no longer available in Vue 3.0.
   // https://v3.vuejs.org/guide/migration/global-api.html#a-new-global-api-createapp
