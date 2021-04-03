@@ -32,27 +32,27 @@ export default defineComponent({
     return () => {
       return (
         <div class={`${prefixCls}-toolbar`}>
-          <div class="toobar-btn toolbar-btn__zoomin" onClick={props.zoomIn}>
+          <div class="toolbar-btn toolbar-btn__zoomin" onClick={props.zoomIn}>
             <SvgIcon type="zoomin" />
           </div>
 
-          <div class="toobar-btn toolbar-btn__zoomout" onClick={props.zoomOut}>
+          <div class="toolbar-btn toolbar-btn__zoomout" onClick={props.zoomOut}>
             <SvgIcon type="zoomout" />
           </div>
 
-          <div class="toobar-btn toolbar-btn__resize" onClick={props.resize}>
+          <div class="toolbar-btn toolbar-btn__resize" onClick={props.resize}>
             <SvgIcon type="resize" />
           </div>
 
           <div
-            class="toobar-btn toolbar-btn__rotate"
+            class="toolbar-btn toolbar-btn__rotate"
             onClick={props.rotateLeft}
           >
             <SvgIcon type="rotate-left" />
           </div>
 
           <div
-            class="toobar-btn toolbar-btn__rotate"
+            class="toolbar-btn toolbar-btn__rotate"
             onClick={props.rotateRight}
           >
             <SvgIcon type="rotate-right" />

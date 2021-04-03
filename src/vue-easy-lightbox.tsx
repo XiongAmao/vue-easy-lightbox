@@ -101,10 +101,6 @@ export default defineComponent({
       return []
     })
 
-    const imgTotal = computed(() => {
-      return imgList.value.length
-    })
-
     const currentImgSrc = computed(() => {
       const src = imgList.value[imgIndex.value]?.src
       return src
@@ -128,7 +124,7 @@ export default defineComponent({
       emit('hide')
     }
 
-    const initImgStatus = () => {
+    const initImg = () => {
       imgWrapperState.scale = 1
       imgWrapperState.rotateDeg = 0
       imgWrapperState.top = 0
@@ -145,7 +141,7 @@ export default defineComponent({
     ) => {
       const oldIndex = imgIndex.value
 
-      initImgStatus()
+      initImg()
 
       imgIndex.value = newIndex
 
@@ -284,7 +280,7 @@ export default defineComponent({
       () => props.visible,
       (visible) => {
         if (!visible) return
-        initImgStatus()
+        initImg()
         const len = imgList.value.length
         if (len === 0) {
           imgIndex.value = 0
