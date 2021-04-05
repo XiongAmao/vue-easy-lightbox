@@ -1,15 +1,18 @@
+import './types/tsx.shim'
+
 import './styles/index'
+
 import type { App } from 'vue'
-import _VueEasyLightBox from './vue-easy-lightbox'
+import _VueEasyLightbox from './vue-easy-lightbox'
 
 export type WithInstall<T> = T & {
   install(app: App): void
 }
 
-const VueEasyLightBox = _VueEasyLightBox as WithInstall<typeof _VueEasyLightBox>
+const VueEasyLightbox = _VueEasyLightbox as WithInstall<typeof _VueEasyLightbox>
 
-VueEasyLightBox.install =  (app: App) => {
-  app.component(_VueEasyLightBox.name, _VueEasyLightBox)
+VueEasyLightbox.install = (app: App) => {
+  app.component(_VueEasyLightbox.name, _VueEasyLightbox)
 }
 
-export default VueEasyLightBox
+export default VueEasyLightbox

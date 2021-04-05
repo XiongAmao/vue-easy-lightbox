@@ -386,7 +386,7 @@ export default defineComponent({
     const renderNextBtn = () => {
       if (slots['next-btn']) {
         return slots['next-btn']({
-          prev: onNextClick
+          next: onNextClick
         })
       }
 

@@ -1,32 +1,6 @@
-<template>
-  <div id="app">
-    <div class="container">
-      <h1>vue-easy-lightbox</h1>
-      <div class="gallery">
-        <div
-          v-for="(img, idx) in imgs"
-          :key="idx"
-          class="pic"
-          @click="() => show(idx)"
-        >
-          <div v-if="idx === 5">This is error image url.</div>
-          <img :src="img.src ? img.src : img" />
-        </div>
-      </div>
 
-      <vue-easy-lightbox
-        :visible="visible"
-        :index="index"
-        :imgs="imgs"
-        :moveDisabled="false"
-        @hide="handleHide"
-        @on-index-change="handleIndexChange"
-      />
-    </div>
-  </div>
-</template>
 
-<script lang="ts">
+<script lang="tsx">
   import { defineComponent } from 'vue'
   import VueEasyLightbox from '../index'
 
@@ -68,7 +42,50 @@
             this.imgs.push('https://i.loli.net/2018/11/10/5be6852e33f19.jpeg')
           }, 1000)
         }
+      },
+      log(...arg: unknown[]) {
+        console.log('---------')
+        console.log(arg)
       }
+    },
+    render() {
+      const imgs = this.imgs.map((img, idx) => {
+        const Img = <img src={typeof img === 'string' ? img : img.src} alt="" />
+        return (
+          <div key={idx} class="pic" onClick={() => this.show(idx)}>
+            {idx === 5 ? <div> error img url</div> : ''}
+            {Img}
+          </div>
+        )
+      })
+      const slots = {
+        'next-btn': (props: { next: () => void }) => {
+          const click = () => {
+            console.log(props)
+            props.next()
+          }
+          return <div onClick={click}>测试安娜</div>
+        }
+      }
+      return (
+        <div id="app">
+          <div class="container">
+            <h1>vue-easy-lightbox</h1>
+            <div class="gallery">{imgs}</div>
+            <VueEasyLightbox
+              visible={this.visible}
+              index={this.index}
+              imgs={this.imgs}
+              onHide={this.handleHide}
+              onOnIndexChange={this.log}
+              onOnPrevClick={this.log}
+              onOnError={this.log}
+            >
+              {slots}
+            </VueEasyLightbox>
+          </div>
+        </div>
+      )
     }
   })
 </script>
