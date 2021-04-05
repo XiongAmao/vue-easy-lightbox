@@ -11,10 +11,19 @@ export const createBabelConfig = (isES5 = false) => {
           useBuiltIns: 'usage',
           corejs: 3
         }
+      ],
+      [
+        '@babel/preset-typescript',
+        {
+          isTSX: true,
+          allExtensions: true,
+          jsxPragma: 'preserve',
+          allowDeclareFields: true
+        }
       ]
     ],
     targets: {
-      browsers: isES5 ? 'defaults' : 'last 2 Chrome versions'
+      browsers: isES5 ? 'defaults' : 'chrome > 66'
     },
     plugins: [
       ['@vue/babel-plugin-jsx'],
