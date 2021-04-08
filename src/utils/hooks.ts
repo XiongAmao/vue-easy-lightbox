@@ -45,6 +45,7 @@ export const useMouse = (
     wrapperState.lastX = e.clientX
     wrapperState.lastY = e.clientY
     status.dragging = true
+    ticking = false
     e.stopPropagation()
   }
 
@@ -52,6 +53,7 @@ export const useMouse = (
     if (!canMove(e.button)) return
     cancelRaf(rafId)
     status.dragging = false
+    ticking = false
   }
 
   const onMouseMove = (e: MouseEvent) => {
