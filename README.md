@@ -74,8 +74,8 @@ example:
   ></vue-easy-lightbox>
 </div>
 
-<script src="path/to/vue.js"></script>
-<script src="path/to/vue-easy-lightbox.umd.min.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-easy-lightbox@vue2/dist/vue-easy-lightbox.umd.min.js"></script>>
 <script>
   var app = new Vue({
     el: '#app',
