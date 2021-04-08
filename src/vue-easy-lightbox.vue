@@ -2,6 +2,7 @@
   <transition :name="`${prefixCls}-fade`">
     <div
       v-if="visible"
+      ref="modal"
       :class="[`${prefixCls}-img-modal`, `${prefixCls}-modal`]"
       @click.self="closeDialog"
     >
@@ -35,7 +36,6 @@
             ref="realImg"
             :class="`${prefixCls}-img`"
             :src="visibleImgSrc"
-            :style="imgStyle"
             draggable="false"
             @mousedown="handleMouseDown($event)"
             @mouseup="handleMouseUp($event)"
@@ -44,7 +44,7 @@
             @touchmove="handleTouchMove($event)"
             @touchend="handleTouchEnd($event)"
             @load="handleRealImgLoad"
-          >
+          />
         </div>
       </transition>
 
@@ -54,7 +54,7 @@
         :src="visibleImgSrc"
         @error="handleImgError"
         @load="handleTestImgLoad"
-      >
+      />
 
       <!-- btns -->
       <div :class="`${prefixCls}-btns-wrapper`">
@@ -191,6 +191,7 @@
       maxScale: 1
     }
     touches: TouchList | [] = []
+    rafId: number = 0
 
     get imgList() {
       if (isArray(this.imgs)) {
@@ -239,12 +240,6 @@
         transition: isDraging || isGesturing ? 'none' : ''
       }
     }
-    get imgStyle() {
-      // const { rotateDeg } = this
-      return {
-        // transform: `rotate(-${rotateDeg}deg)`
-      }
-    }
 
     checkMoveable(button: number = 0) {
       if (this.moveDisabled) return false
@@ -263,15 +258,15 @@
     }
     handleMouseUp(e: MouseEvent) {
       if (!this.checkMoveable(e.button)) return
-      requestAnimationFrame(() => {
-        this.isDraging = false
-      })
+      cancelAnimationFrame(this.rafId)
+      this.isDraging = false
+      this.isTicking = false
     }
     handleMouseMove(e: MouseEvent) {
       if (!this.checkMoveable(e.button)) return
       if (this.isDraging && !this.isTicking) {
         this.isTicking = true
-        requestAnimationFrame(() => {
+        this.rafId = requestAnimationFrame(() => {
           this.top = this.top - this.lastY + e.clientY
           this.left = this.left - this.lastX + e.clientX
           this.lastX = e.clientX
@@ -300,7 +295,7 @@
       const { touches } = e
       if (this.checkMoveable() && !this.isGesturing && this.isDraging) {
         this.isTicking = true
-        requestAnimationFrame(() => {
+        this.rafId = requestAnimationFrame(() => {
           if (!touches[0]) return
           const lastX = touches[0].clientX
           const lastY = touches[0].clientY
@@ -316,7 +311,7 @@
         touches.length > 1
       ) {
         this.isTicking = true
-        requestAnimationFrame(() => {
+        this.rafId = requestAnimationFrame(() => {
           const scale =
             (this.getDistance(this.touches[0], this.touches[1]) -
               this.getDistance(touches[0], touches[1])) /
@@ -331,10 +326,9 @@
       }
     }
     handleTouchEnd(e: TouchEvent) {
-      requestAnimationFrame(() => {
-        this.isDraging = false
-        this.isGesturing = false
-      })
+      cancelAnimationFrame(this.rafId)
+      this.isDraging = false
+      this.isGesturing = false
     }
 
     // key press events handler
