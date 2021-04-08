@@ -2,13 +2,12 @@ import vue from 'rollup-plugin-vue'
 import commonJs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
-import typescript from 'rollup-plugin-typescript2'
 import replace from '@rollup/plugin-replace'
 import postcss from 'rollup-plugin-postcss'
 import autoprefixer from 'autoprefixer'
 import { terser } from 'rollup-plugin-terser'
 import Case from 'case'
-import { babelConfig } from './rollup.babel.config'
+import { createBabelConfig } from './rollup.babel.config'
 
 process.env.NODE_ENV = 'production'
 
@@ -38,8 +37,8 @@ const configs = builds.map((build) => {
     input: entryPath,
     output: {
       file: `${distPath}/${libraryName}.${build}`,
-      format,
-      exports: 'named'
+      exports: 'named',
+      format
     },
     plugins: [
       vue(),
@@ -47,13 +46,11 @@ const configs = builds.map((build) => {
         minimize: true,
         plugins: [autoprefixer()]
       }),
-      typescript({
-        include: [/\.tsx?$/, /\.vue\?.*?lang=ts/],
-        useTsconfigDeclarationDir: true
-      }),
       replace({
+        preventAssignment: true,
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }),
+      babel(createBabelConfig(/es5/.test(build))),
       resolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
         browser: true
@@ -70,10 +67,7 @@ const configs = builds.map((build) => {
   if (config.output.format === 'umd') {
     config.output.name = Case.pascal(libraryName)
     config.output.globals = { vue: 'Vue' }
-  }
-  if (/es5/.test(build)) {
-    // babel-plugin must set before resolve-plugin
-    config.plugins.splice(config.plugins.length - 3, 0, babel(babelConfig))
+    config.output.exports = 'default'
   }
 
   return config
