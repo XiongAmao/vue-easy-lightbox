@@ -477,7 +477,14 @@
     // watch
     @Watch('visible', { immediate: true })
     onVisibleChanged(visible: boolean) {
-      if (this.visible) this.init()
+      if (visible) {
+        this.init()
+        this.$nextTick(() => {
+          on(this.$refs.modal as Element, 'touchmove', (e: Event) => {
+            e.preventDefault()
+          })
+        })
+      }
     }
 
     @Watch('index')
