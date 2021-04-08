@@ -4,17 +4,35 @@
 
 [![npm](https://img.shields.io/npm/v/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
 [![npm](https://img.shields.io/npm/l/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
+[![npm](https://img.badgesize.io/https://unpkg.com/vue-easy-lightbox@vue2/dist/vue-easy-lightbox.esm.min.js?compression=gzip&style=flat-square&label=gzip%20size&color=#4fc08d)](https://www.npmjs.com/package/vue-easy-lightbox)
 
-[中文文档](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README-CN.md)
-
-[DEMO](https://xiongamao.github.io/vue-easy-lightbox/)
+English | [中文文档](https://github.com/XiongAmao/vue-easy-lightbox/blob/vue2.x/README-CN.md)
 
 > `vue-easy-lightbox@0.x` only supports Vue.js 2, Vue.js 3 version please check [here](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README.md).
 
 ## Installation
 
-### Different Builds
-`ES5` build is converted by `Babel`. If you need to compile it yourself, you can use a non`ES5` build.
+### Package managers
+
+```shell
+$ npm install --save vue-easy-lightbox@vue2
+# OR
+$ yarn add vue-easy-lightbox@vue2
+```
+
+### Direct Download
+
+Include the CDN link in the html file, I It will register `vue-easy-lightbox` component globally.
+
+```html
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-easy-lightbox@vue2/dist/vue-easy-lightbox.umd.min.js"></script>
+```
+
+
+### Explanation of Different Builds
+
+`ES5` build is converted by `Babel`. If you need to compile it yourself, you can use a non `ES5` build.
 
 <table>
   <thead>
@@ -44,17 +62,13 @@
 </table>
 
 
-### use `script` tag
+## Usage
 
-Grab the minified version under `dist/vue-easy-lightbox.umd.min.js`. It will register components globally.
 
-```html
-<script src="path/to/vue-easy-lightbox.umd.min.js"></script>
-```
-
-example:
+### Direct `<script />` Include
 
 ```html
+<!-- in html -->
 <div id="app">
   <div class="">
     <div
@@ -75,7 +89,7 @@ example:
 </div>
 
 <script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/vue-easy-lightbox@vue2/dist/vue-easy-lightbox.umd.min.js"></script>>
+<script src="https://unpkg.com/vue-easy-lightbox@vue2/dist/vue-easy-lightbox.umd.min.js"></script>
 <script>
   var app = new Vue({
     el: '#app',
@@ -102,33 +116,22 @@ example:
 </script>
 ```
 
-### With NPM
+### `.vue` Single File Component
 
-```shell
-$ npm install --save vue-easy-lightbox@vue2
-```
-
-`vue-easy-lightbox` can be loading all with the Vue.use() method as same as the other vue plugin.
 
 ```javascript
+// global registration in the entry file, e.g. main.js
 import Vue from 'vue'
-import Lightbox from 'vue-easy-lightbox'
+import VueEasyLightbox from 'vue-easy-lightbox'
 
-Vue.use(Lightbox)
+// Method 1. via Vue.use
+Vue.use(VueEasyLightbox)
+
+// Method 2. Register via Vue.component
+Vue.component(VueEasyLightbox.name, VueEasyLightbox)
 ```
 
-```html
-<template>
-  <vue-easy-lightbox
-    :visible="visible"
-    :imgs="imgs"
-    :index="index"
-    @hide="handleHide"
-  ></vue-easy-lightbox>
-</template>
-```
-
-Usage of Component
+example:
 
 ```html
 <template>
@@ -149,6 +152,7 @@ Usage of Component
 </template>
 
 <script>
+// Method.3 Local registration
 import VueEasyLightbox from 'vue-easy-lightbox'
 
 export default {
@@ -193,7 +197,8 @@ export default {
 
 ```
 
-### Use vue slot custom buttons or toolbar
+
+### Custom buttons or toolbar via `slot`
 
 ```html
 <vue-easy-lightbox

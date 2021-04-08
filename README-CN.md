@@ -4,14 +4,32 @@
 
 [![npm](https://img.shields.io/npm/v/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
 [![npm](https://img.shields.io/npm/l/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
+[![npm](https://img.badgesize.io/https://unpkg.com/vue-easy-lightbox@vue2/dist/vue-easy-lightbox.esm.min.js?compression=gzip&style=flat-square&label=gzip%20size&color=#4fc08d)](https://www.npmjs.com/package/vue-easy-lightbox)
 
-[English](https://github.com/XiongAmao/vue-easy-lightbox)
+简体中文 | [English](https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x)
 
-[DEMO](https://xiongamao.github.io/vue-easy-lightbox/)
 
-> `vue-easy-lightbox@0.x` 支持Vue.js 2版本, Vue.js 3 版本请点击 [这里](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README.md) 查看。
+> `vue-easy-lightbox@0.x` 仅支持Vue.js 2版本, Vue.js 3 版本请点击 [这里](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README.md) 查看。
 
-## 安装 & 使用
+## 安装
+
+### 包管理器
+
+```shell
+$ npm install --save vue-easy-lightbox
+# OR
+$ yarn add vue-easy-lightbox
+```
+
+### 直接下载
+
+在html中直接引入CDN链接文件, 它会为你注册全局组件。
+
+```html
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-easy-lightbox@vue2/dist/vue-easy-lightbox.umd.min.js"></script>
+```
+
 
 ### 不同构建版本的区别
 `ES5` 构建是`Babel`编译后的版本。如果你需要自己编译，可以使用非`ES5`的版本。
@@ -43,17 +61,14 @@
   </tbody>
 </table>
 
-### 使用 `script` 标签引入
 
-引入压缩后的构建版本`dist/vue-easy-lightbox.umd.min.js`, 它会为你注册全局组件。
+## 使用方式
 
-```html
-<script src="path/to/vue-easy-lightbox.umd.min.js"></script>
-```
+### html中使用 `<script />` 标签引入
 
-例子：
 
 ```html
+<!-- in html -->
 <div id="app">
   <div class="">
     <div
@@ -101,33 +116,22 @@
 </script>
 ```
 
-### 通过 NPM包 安装
+### `.vue` 单文件组件
 
-```shell
-$ npm install --save vue-easy-lightbox
-```
-
-`vue-easy-lightbox`可以使用 `Vue.use()` 方法加载。
 
 ```javascript
+// 在项目入口文件全局注册，比如 main.js
 import Vue from 'vue'
-import Lightbox from 'vue-easy-lightbox'
+import VueEasyLightbox from 'vue-easy-lightbox'
 
-Vue.use(Lightbox)
+// 方法 1. 使用 Vue.use
+Vue.use(VueEasyLightbox)
+
+// 方法 2. 通过 Vue.component 注册
+Vue.component(VueEasyLightbox.name, VueEasyLightbox)
 ```
 
-```html
-<template>
-  <vue-easy-lightbox
-    :visible="visible"
-    :imgs="imgs"
-    :index="index"
-    @hide="handleHide"
-  ></vue-easy-lightbox>
-</template>
-```
-
-以组件形式使用
+用例：
 
 ```html
 <template>
@@ -148,6 +152,7 @@ Vue.use(Lightbox)
 </template>
 
 <script>
+// 方法 3. 组件内注册
 import VueEasyLightbox from 'vue-easy-lightbox'
 
 export default {
