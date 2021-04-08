@@ -20,7 +20,15 @@ import ImgOnError from './components/img-on-error'
 import ImgTitle from './components/img-title'
 
 import { prefixCls } from './constant'
-import { on, off, isObject, isString, notEmpty, isArray } from './utils/index'
+import {
+  on,
+  off,
+  isObject,
+  isString,
+  notEmpty,
+  isArray,
+  preventDefault
+} from './utils/index'
 import { useImage, useMouse, useTouch } from './utils/hooks'
 import { Img, IImgWrapperState, PropsImgs } from './types'
 
@@ -65,6 +73,7 @@ export default defineComponent({
   ],
   setup(props, { emit, slots }) {
     const { imgRef, imgState, setImgSize } = useImage()
+    const modalRef = ref<Element>()
     const imgIndex = ref(0)
 
     const imgWrapperState = reactive<IImgWrapperState>({
@@ -262,6 +271,7 @@ export default defineComponent({
     }
 
     const onWindowResize = () => {
+      if (!props.visible) return
       setImgSize()
     }
 
@@ -279,17 +289,24 @@ export default defineComponent({
     watch(
       () => props.visible,
       (visible) => {
-        if (!visible) return
-        initImg()
-        const len = imgList.value.length
-        if (len === 0) {
-          imgIndex.value = 0
-          status.loading = false
-          nextTick(() => (status.loadError = true))
-          return
+        if (visible) {
+          initImg()
+          const len = imgList.value.length
+          if (len === 0) {
+            imgIndex.value = 0
+            status.loading = false
+            nextTick(() => (status.loadError = true))
+            return
+          }
+          imgIndex.value =
+            props.index >= len ? len - 1 : props.index < 0 ? 0 : props.index
+
+          nextTick(() => {
+            modalRef.value && on(modalRef.value, 'touchmove', preventDefault)
+          })
+        } else {
+          modalRef.value && off(modalRef.value, 'touchmove', preventDefault)
         }
-        imgIndex.value =
-          props.index >= len ? len - 1 : props.index < 0 ? 0 : props.index
       }
     )
 
@@ -453,6 +470,7 @@ export default defineComponent({
 
       return (
         <div
+          ref={modalRef}
           class={[`${prefixCls}-img-modal`, `${prefixCls}-modal`]}
           onClick={withModifiers(closeDialog, ['self'])}
         >

@@ -64,7 +64,7 @@
             console.log(props)
             props.next()
           }
-          return <div onClick={click}>测试安娜</div>
+          return <div onClick={click}>TestNextBtn</div>
         }
       }
       return (

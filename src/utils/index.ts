@@ -46,6 +46,10 @@ export const off = (
   }
 }
 
+export const preventDefault = (e: Event) => {
+  e.preventDefault()
+}
+
 const toString = Object.prototype.toString
 const isType = (type: string) => (arg: unknown) =>
   toString.call(arg).slice(8, -1) === type
