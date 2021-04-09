@@ -1,4 +1,7 @@
 # Changelog
+## [0.15.2] (9 April 2021)
+
+- Fix: Component name typos.
 
 ## [0.15.1] (9 April 2021)
 
