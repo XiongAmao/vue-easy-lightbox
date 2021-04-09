@@ -9,11 +9,11 @@
 ### Usando com npm ou yarn
 
 ```shell
-$ npm install --save vue-easy-lightbox
+$ npm install --save vue-easy-lightbox@next
 ```
 
 ```shell
-$ yarn add vue-easy-lightbox
+$ yarn add vue-easy-lightbox@next
 ```
 
 ### Importando direto no navegador
@@ -22,7 +22,7 @@ Adicione a tag `script` em seu navegador e use a variável global `VueEasyLightb
 
 ```html
 <script src="https://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/vue-easy-lightbox"></script>
+<script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
 <script>
 
   var app = Vue.createApp({

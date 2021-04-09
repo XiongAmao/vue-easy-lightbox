@@ -76,7 +76,7 @@
   .homepage-demo {
     ::v-deep {
       img.vel-img {
-        max-width: none;
+        max-width: 80vw;
 
         @media screen and (max-width: 750px) {
           max-width: 85vw;

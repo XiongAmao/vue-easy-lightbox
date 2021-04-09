@@ -11,6 +11,6 @@
     "vuepress": "^1.8.2"
   },
   "dependencies": {
-    "vue-easy-lightbox": "^0.14.0"
+    "vue-easy-lightbox": "0.15.2"
   }
 }

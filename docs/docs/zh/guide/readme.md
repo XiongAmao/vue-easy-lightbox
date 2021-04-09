@@ -11,11 +11,11 @@
 ### 使用 npm or yarn 安装
 
 ```shell
-$ npm install --save vue-easy-lightbox
+$ npm install --save vue-easy-lightbox@next
 ```
 
 ```shell
-$ yarn add vue-easy-lightbox
+$ yarn add vue-easy-lightbox@next
 ```
 
 ### 浏览器引入
@@ -24,7 +24,7 @@ $ yarn add vue-easy-lightbox
 
 ```html
 <script src="https://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/vue-easy-lightbox"></script>
+<script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
 <script>
 
   var app = Vue.createApp({
