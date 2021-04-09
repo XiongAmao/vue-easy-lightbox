@@ -1,6 +1,6 @@
 {
   "name": "vue-easy-lightbox",
-  "version": "0.14.1",
+  "version": "0.15.0",
   "description": "A Vue.js image lightbox component with Zoom / Drag / Rotate / Switch",
   "private": false,
   "author": "Zichao Xiong <onycat@live.cn>",
@@ -73,5 +73,11 @@
   "vetur": {
     "tags": "vetur/tags.json",
     "attributes": "vetur/attributes.json"
-  }
+  },
+  "files": [
+    "dist",
+    "types",
+    "vetur",
+    "src"
+  ]
 }

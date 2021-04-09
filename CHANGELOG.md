@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.15.0] (9 April 2021)
+
+- Docs: update.
+- Fix: scroll chaining when touchmove.
+- Fix: mouse-drag / touchmove animation ends incorrectly.
+
 ## [0.14.1] (14 Dec 2020)
 
 - Docs: update for Vue2/Vue3.
