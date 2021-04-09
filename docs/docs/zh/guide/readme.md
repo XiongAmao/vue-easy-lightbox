@@ -3,7 +3,7 @@
 > 基于Vue.js 3.0 与 TypeScript 构建的图片阅览插件， 提供了旋转、放大、拖拽功能。可自定义各种功能。
 
 
-> `Vue-easy-lightbox@1.x` 只支持Vue.js 3, 如果你需要使用Vue.js 2版本，请点击[这里](https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x)查看.
+> `vue-easy-lightbox@1.x` 只支持Vue.js 3, 如果你需要使用Vue.js 2版本，请点击[这里](https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x)查看.
 
 ## 安装
 

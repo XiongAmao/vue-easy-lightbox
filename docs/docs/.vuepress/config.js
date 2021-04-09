@@ -18,6 +18,10 @@ module.exports = {
           {
             text: 'Guide',
             link: '/guide/'
+          },
+          {
+            text: 'v0.x',
+            link: 'https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x'
           }
         ]
       },
@@ -29,6 +33,10 @@ module.exports = {
           {
             text: '指南',
             link: '/zh/guide/'
+          },
+          {
+            text: 'v0.x',
+            link: 'https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x'
           }
         ]
       },
@@ -40,6 +48,10 @@ module.exports = {
           {
             text: 'Guia',
             link: '/pt-BR/guide/'
+          },
+          {
+            text: 'v0.x',
+            link: 'https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x'
           }
         ]
       }

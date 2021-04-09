@@ -2,7 +2,7 @@
 
 > Um componente lightbox de visualização de imagens escrito com Vue.js 3 e Typescript, fornecendo funções de rotação, slide de imagens, zoom e redução.
 
-> `Vue-easy-lightbox@1.x` suporta apenas ao Vue.js 3, se você precisar da versão em Vue.js 2, verifique [aqui](https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x).
+> `vue-easy-lightbox@1.x` suporta apenas ao Vue.js 3, se você precisar da versão em Vue.js 2, verifique [aqui](https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x).
 
 ## Instalação
 
