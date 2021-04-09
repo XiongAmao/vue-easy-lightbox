@@ -90,7 +90,7 @@ A compilação `ES5` é convertida pelo o `Babel`. Se você não precisa oferece
 </div>
 
 <script src="https://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/vue-easy-lightbox/dist/vue-easy-lightbox.umd.min.js"></script>
+<script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
 <!-- umd bundle -->
 <script>
   // Nota: O Vue.js 3 não fornece mais uma instância global do Vue, registre o componente a cada instância VueApp.

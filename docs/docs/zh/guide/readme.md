@@ -90,7 +90,7 @@ $ yarn add vue-easy-lightbox@next
 </div>
 
 <script src="https://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/vue-easy-lightbox/dist/vue-easy-lightbox.umd.min.js"></script>
+<script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
 <!-- umd bundle -->
 <script>
   // 注意: Vue.js 3.0中不再提供Vue的全局共享实例，请为单个VueApp实例注册组件.
