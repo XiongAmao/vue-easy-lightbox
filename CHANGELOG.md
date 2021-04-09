@@ -1,9 +1,15 @@
 # Changelog
 
+## [0.15.1] (9 April 2021)
+
+- Fix: Style classname typos.
+- Fix: Touch event handler error may occur in some cases.
+- Fix: [#54](https://github.com/XiongAmao/vue-easy-lightbox/issues/54) Img may be blurred in some cases.
+
 ## [0.15.0] (9 April 2021)
 
-- Docs: update.
-- Fix: scroll chaining when touchmove.
+- Docs: Update.
+- Fix: Scroll chaining when touchmove.
 - Fix: mouse-drag / touchmove animation ends incorrectly.
 
 ## [0.14.1] (14 Dec 2020)
