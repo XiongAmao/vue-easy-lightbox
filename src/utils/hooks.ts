@@ -144,6 +144,7 @@ export const useTouch = (
     cancelRaf(rafId)
     status.dragging = false
     status.gesturing = false
+    ticking = false
   }
 
   return {
