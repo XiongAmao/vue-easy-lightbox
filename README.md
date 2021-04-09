@@ -4,14 +4,35 @@
 
 [![npm](https://img.shields.io/npm/v/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
 [![npm](https://img.shields.io/npm/l/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
+[![npm](https://img.badgesize.io/https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.esm.min.js?compression=gzip&style=flat-square&label=gzip%20size&color=#4fc08d)](https://www.npmjs.com/package/vue-easy-lightbox)
 
-[中文文档](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README-CN.md)
 
-[DEMO](https://xiongamao.github.io/vue-easy-lightbox/)
+English | [中文文档](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README-CN.md) | [Homepage](https://xiongamao.github.io/vue-easy-lightbox/)
+
+
+
 
 > `Vue-easy-lightbox@1.x` only supports Vue.js 3, if you need Vue.js 2 version please check [here](https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x).
 
 ## Installation
+
+### Package managers
+
+```shell
+$ npm install --save vue-easy-lightbox@next
+# OR
+$ yarn add vue-easy-lightbox@next
+```
+
+
+### Direct Download
+
+Include the CDN link in the html file.
+
+```html
+<script src="https://unpkg.com/vue@next"></script>
+<script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
+```
 
 ### Different Builds
 
@@ -44,11 +65,14 @@
   </tbody>
 </table>
 
+## Usage
+
 ### Direct `<script>` Include
 
 example:
 
 ```html
+<!-- in html -->
 <div id="app">
   <div class="">
     <div
@@ -98,19 +122,13 @@ example:
   // Registering VueEasyLightbox for your VueApp.
   app.use(VueEasyLightbox)
   // or
-  app.component(VueEasyLightbox.default.name, VueEasyLightbox.default)
+  app.component(VueEasyLightbox.name, VueEasyLightbox)
 
   app.mount('#root')
 </script>
 ```
 
-### With NPM
-
-```shell
-$ npm install --save vue-easy-lightbox
-```
-
-#### Register VueApp component
+### Register VueApp component
 
 The Global Vue Constructor is no longer available in `Vue.js` 3.0. You need to register the `vue-easy-lightbox` for each `VueApp` you use.
 https://v3.vuejs.org/guide/migration/global-api.html#a-new-global-api-createapp

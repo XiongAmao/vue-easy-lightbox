@@ -4,14 +4,31 @@
 
 [![npm](https://img.shields.io/npm/v/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
 [![npm](https://img.shields.io/npm/l/vue-easy-lightbox.svg)](https://www.npmjs.com/package/vue-easy-lightbox)
+[![npm](https://img.badgesize.io/https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.esm.min.js?compression=gzip&style=flat-square&label=gzip%20size&color=#4fc08d)](https://www.npmjs.com/package/vue-easy-lightbox)
 
-[English](https://github.com/XiongAmao/vue-easy-lightbox)
 
-[DEMO](https://xiongamao.github.io/vue-easy-lightbox/)
+简体中文 | [English](https://github.com/XiongAmao/vue-easy-lightbox) | [Homepage](https://xiongamao.github.io/vue-easy-lightbox/)
 
 > `Vue-easy-lightbox@1.x` 只支持Vue.js 3, 如果你需要使用Vue.js 2版本，请点击[这里](https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x)查看.
 
-## 安装 & 使用
+## 安装
+
+### 包管理器
+
+```shell
+$ npm install --save vue-easy-lightbox@next
+# OR
+$ yarn add vue-easy-lightbox@next
+```
+
+### 直接下载
+
+在html中直接引入CDN链接文件。
+
+```html
+<script src="https://unpkg.com/vue@next"></script>
+<script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
+```
 
 ### 不同构建版本的区别
 `ES5` 构建是`Babel`编译后的版本。如果你不需要支持`ES5`或更低版本的环境，可以使用非`ES5`的构建，它们提供了更小的文件。
@@ -43,11 +60,15 @@
   </tbody>
 </table>
 
-### 使用 `script` 标签引入
+
+## 使用方式
+
+### html中使用 `<script />` 标签引入
 
 例子：
 
 ```html
+<!-- in html -->
 <div id="app">
   <div class="">
     <div
@@ -68,7 +89,7 @@
 </div>
 
 <script src="https://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/vue-easy-lightbox/dist/vue-easy-lightbox.umd.min.js"></script>
+<script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
 <script>
   // 注意: Vue.js 3.0中不再提供Vue的全局共享实例，请为单个VueApp实例注册组件.
   // https://v3.cn.vuejs.org/guide/migration/global-api.html#%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%85%A8%E5%B1%80-api-createapp
@@ -97,19 +118,13 @@
   // 通过插件方式注册
   app.use(VueEasyLightbox)
   // 或使用组件注册的方式
-  app.component(VueEasyLightbox.default.name, VueEasyLightbox.default)
+  app.component(VueEasyLightbox.name, VueEasyLightbox)
 
   app.mount('#app')
 </script>
 ```
 
-### 通过 NPM包 安装
-
-```shell
-$ npm install --save vue-easy-lightbox
-```
-
-#### 注册VueApp组件
+### 注册VueApp组件
 Vue.js 3.0中不再提供Vue的全局共享实例，请为单个VueApp实例注册组件.
 [createApp](https://v3.cn.vuejs.org/guide/migration/global-api.html#%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%85%A8%E5%B1%80-api-createapp)
 
@@ -118,7 +133,7 @@ import Vue from 'vue'
 import VueEasyLightbox from 'vue-easy-lightbox'
 
 const app = Vue.createApp({
-  ...
+  // ...
 })
 app.use(VueEasyLightbox)
 app.mount('#root')
