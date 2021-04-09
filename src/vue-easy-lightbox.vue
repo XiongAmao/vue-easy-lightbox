@@ -329,6 +329,7 @@
       cancelAnimationFrame(this.rafId)
       this.isDraging = false
       this.isGesturing = false
+      this.isTicking = false
     }
 
     // key press events handler
