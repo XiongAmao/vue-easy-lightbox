@@ -134,7 +134,7 @@
   import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
   import './assets/svg/iconfont'
   import SvgIcon from './components/svg-icon.vue'
-  import Toolbar from './components/toobar.vue'
+  import Toolbar from './components/toolbar.vue'
   import ImgLoading from './components/img-loading.vue'
   import ImgOnError from './components/img-on-error.vue'
   import ImgTitle from './components/img-title.vue'

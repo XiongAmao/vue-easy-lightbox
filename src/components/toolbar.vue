@@ -2,7 +2,7 @@
   <div :class="`${prefixCls}-toolbar`">
     <!-- zoom-in -->
     <div
-      class="toobar-btn toolbar-btn__zoomin"
+      class="toolbar-btn toolbar-btn__zoomin"
       @click="zoomIn"
     >
       <svg-icon type="zoomin" />
@@ -10,7 +10,7 @@
 
     <!-- zoom-out -->
     <div
-      class="toobar-btn toolbar-btn__zoomout"
+      class="toolbar-btn toolbar-btn__zoomout"
       @click="zoomOut"
     >
       <svg-icon type="zoomout" />
@@ -18,7 +18,7 @@
 
     <!-- resize -->
     <div
-      class="toobar-btn toolbar-btn__resize"
+      class="toolbar-btn toolbar-btn__resize"
       @click="resize"
     >
       <svg-icon type="resize" />
@@ -26,14 +26,14 @@
 
     <!-- rotate -->
     <div
-      class="toobar-btn toolbar-btn__rotate"
+      class="toolbar-btn toolbar-btn__rotate"
       @click="rotateLeft"
     >
       <svg-icon type="rotate-left" />
     </div>
 
     <div
-      class="toobar-btn toolbar-btn__rotate"
+      class="toolbar-btn toolbar-btn__rotate"
       @click="rotateRight"
     >
       <svg-icon type="rotate-right" />
@@ -98,7 +98,7 @@
     border-radius: 4px;
     padding: 0;
 
-    .toobar-btn {
+    .toolbar-btn {
       user-select: none;
       flex-shrink: 0;
       cursor: pointer;

@@ -16,9 +16,9 @@
 ### 包管理器
 
 ```shell
-$ npm install --save vue-easy-lightbox
+$ npm install --save vue-easy-lightbox@vue2
 # OR
-$ yarn add vue-easy-lightbox
+$ yarn add vue-easy-lightbox@vue2
 ```
 
 ### 直接下载
