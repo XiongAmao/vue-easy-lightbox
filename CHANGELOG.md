@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.0.0] (9 April 2021)
+
+- Docs: update.
+- Feat: New animation throttling.
+- Feat: `d.ts` for `.tsx`.
+- Feat: Small size.
+- Fix: css class typos.
+- Fix: Touch event handler error may occur in some cases.
+- Fix: Scroll chaining when touchmove.
+- Fix: [#54](https://github.com/XiongAmao/vue-easy-lightbox/issues/54) Img may be blurred in some cases.
+
+## [0.15.2] (9 April 2021)
+
+- Fix: Component name typos.
+
+## [0.15.1] (9 April 2021)
+
+- Fix: Touch event handler error may occur in some cases.
+- Fix: [#54](https://github.com/XiongAmao/vue-easy-lightbox/issues/54) Img may be blurred in some cases.
+
+## [0.15.0] (9 April 2021)
+
+- Docs: Update.
+- Fix: Scroll chaining when touchmove.
+- Fix: mouse-drag / touchmove animation ends incorrectly.
+
 ## [1.0.0-rc.3] (18 Dec 2020)
 
 - Feat: Support `app.use(VueEasyLightbox)` in TypeScript.
@@ -17,7 +43,7 @@
 
 - Fix: Syntax error on IE11.
 
-## [0.13.0] (15 may 2020)
+## [0.13.0] (15 May 2020)
 
 - Fix: Error `src of undefined` thrown when show VueEasyLighbox.
 
