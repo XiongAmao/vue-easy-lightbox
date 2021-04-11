@@ -286,6 +286,12 @@ Props
       <td>false</td>
       <td>Pass true to disable image movement.</td>
     </tr>
+    <tr>
+      <td>teleport</td>
+      <td>string | Element</td>
+      <td>-</td>
+      <td>Specify the mount node for vue-easy-lightbox.</td>
+    </tr>
   </tbody>
 </table>
 
