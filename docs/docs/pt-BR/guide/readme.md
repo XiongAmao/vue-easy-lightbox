@@ -285,8 +285,16 @@ Referência: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
       <td>falso</td>
       <td>Passe verdadeiro para desativar o movimento da imagem.</td>
     </tr>
+    <tr>
+      <td>teleport</td>
+      <td>string | Element</td>
+      <td>-</td>
+      <td>Especificar o nó de montagem para `vue-easy-lightbox'.</td>
+    </tr>
   </tbody>
 </table>
+
+Referência: [Teleport](https://v3.cn.vuejs.org/guide/teleport.html)
 
 ### Event
 

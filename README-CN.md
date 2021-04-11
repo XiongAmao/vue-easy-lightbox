@@ -276,6 +276,12 @@ Props
       <td>false</td>
       <td>传true时，禁用拖动图片功能</td>
     </tr>
+    <tr>
+      <td>teleport</td>
+      <td>string | Element</td>
+      <td>-</td>
+      <td>指定挂载的节点. </td>
+    </tr>
   </tbody>
 </table>
 

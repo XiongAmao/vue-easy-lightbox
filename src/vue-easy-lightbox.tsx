@@ -9,7 +9,9 @@ import {
   onMounted,
   onBeforeUnmount,
   Transition,
-  withModifiers
+  withModifiers,
+  TeleportProps,
+  Teleport
 } from 'vue'
 
 import './assets/svg/iconfont'
@@ -62,6 +64,10 @@ export default defineComponent({
     titleDisabled: {
       type: Boolean,
       default: false
+    },
+    teleport: {
+      type: [String, Object] as PropType<TeleportProps['to']>,
+      default: null
     }
   },
   emits: [
@@ -490,6 +496,14 @@ export default defineComponent({
     }
 
     return () => {
+      if (props.teleport) {
+        return (
+          <Teleport to={props.teleport}>
+            <Transition name={`${prefixCls}-fade`}>{renderModal()}</Transition>
+          </Teleport>
+        )
+      }
+
       return <Transition name={`${prefixCls}-fade`}>{renderModal()}</Transition>
     }
   }
