@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.0] (11 April 2021)
+
+- Feat: Use `teleport` prop to specify mount location. [Docs](https://v3.vuejs.org/guide/teleport.html#using-with-vue-components)
+
 ## [1.0.0] (9 April 2021)
 
 - Docs: update.
