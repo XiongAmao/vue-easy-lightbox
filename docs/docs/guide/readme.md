@@ -286,8 +286,16 @@ Reference: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
       <td>false</td>
       <td>Pass true to disable image movement.</td>
     </tr>
+    <tr>
+      <td>teleport</td>
+      <td>string | Element</td>
+      <td>-</td>
+      <td>Specify the mount node for vue-easy-lightbox.</td>
+    </tr>
   </tbody>
 </table>
+
+Reference: [Teleport](https://v3.vuejs.org/guide/teleport.html)
 
 ### Event
 
