@@ -27,16 +27,16 @@
     "description": "Image loading error",
     "type": "event"
   },
-  "vue-easy-lightbox/on-prev-click": {
-    "description": "Emit when prev btn is clicked",
+  "vue-easy-lightbox/on-prev": {
+    "description": "Emit when prev btn is clicked or when user swiped right",
     "type": "event"
   },
-  "vue-easy-lightbox/on-next-click": {
-    "description": "Emit when next btn is clicked",
+  "vue-easy-lightbox/on-next": {
+    "description": "Emit when next btn is clicked or when user swiped left",
     "type": "event"
   },
   "vue-easy-lightbox/on-index-change": {
-    "description": "mit when imgs's index is changed",
+    "description": "Emit when imgs's index is changed",
     "type": "event"
   }
 }

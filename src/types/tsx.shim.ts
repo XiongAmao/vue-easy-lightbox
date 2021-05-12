@@ -10,8 +10,8 @@ declare module 'vue' {
     onHide?: EventHandler
     ['onOnIndexChange']?: EventHandler
     ['onOnError']?: EventHandler
-    ['onOnNextClick']?: EventHandler
-    ['onOnPrevClick']?: EventHandler
+    ['onOnNext']?: EventHandler
+    ['onOnPrev']?: EventHandler
   }
 }
 

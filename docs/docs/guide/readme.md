@@ -319,12 +319,12 @@ Reference: [Teleport](https://v3.vuejs.org/guide/teleport.html)
       <td>event (event.target is not the image to be displayed)</td>
     </tr>
     <tr>
-      <td>on-prev-click</td>
+      <td>on-prev</td>
       <td>Emit when prev btn is clicked</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
     <tr>
-      <td>on-next-click</td>
+      <td>on-next</td>
       <td>Emit when next btn is clicked</td>
       <td>(oldIndex, newIndex)</td>
     </tr>

@@ -78,7 +78,7 @@
               imgs={this.imgs}
               onHide={this.handleHide}
               onOnIndexChange={this.log}
-              onOnPrevClick={this.log}
+              onOnPrev={this.log}
               onOnError={this.log}
             >
               {slots}

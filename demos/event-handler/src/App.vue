@@ -16,8 +16,8 @@
       :index="index"
       :imgs="imgs"
       @hide="visible = false"
-      @on-prev-click="handlePrevClick"
-      @on-next-click="handleNextClick"
+      @on-prev="handlePrev"
+      @on-next="handleNext"
     />
   </div>
 </template>
@@ -46,13 +46,13 @@
         this.index = index
         this.visible = true
       },
-      handlePrevClick(oldIndex, newIndex) {
-        console.log('when next btn click ----')
+      handlePrev(oldIndex, newIndex) {
+        console.log('when prev btn click or user swipe right ----')
         console.log('oldIndex of imgs:', oldIndex)
         console.log('newIndex of imgs:', newIndex)
       },
-      handleNextClick(oldIndex, newIndex) {
-        console.log('when next btn click ----')
+      handleNext(oldIndex, newIndex) {
+        console.log('when next btn click or user swipe left ----')
         console.log('oldIndex of imgs:', oldIndex)
         console.log('newIndex of imgs:', newIndex)
         if (newIndex === this.imgs.length - 1) {

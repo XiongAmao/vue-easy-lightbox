@@ -73,8 +73,8 @@ export default defineComponent({
   emits: [
     'hide',
     'on-error',
-    'on-prev-click',
-    'on-next-click',
+    'on-prev',
+    'on-next',
     'on-index-change'
   ],
   setup(props, { emit, slots }) {
@@ -152,7 +152,7 @@ export default defineComponent({
     // switching imgs manually
     const changeIndex = (
       newIndex: number,
-      action?: 'on-prev-click' | 'on-next-click'
+      action?: 'on-prev' | 'on-next'
     ) => {
       const oldIndex = imgIndex.value
 
@@ -176,22 +176,22 @@ export default defineComponent({
       emit('on-index-change', oldIndex, newIndex)
     }
 
-    const onNextClick = () => {
+    const onNext = () => {
       const oldIndex = imgIndex.value
       const newIndex = oldIndex + 1
 
       if (newIndex > imgList.value.length - 1) return
 
-      changeIndex(newIndex, 'on-next-click')
+      changeIndex(newIndex, 'on-next')
     }
 
-    const onPrevClick = () => {
+    const onPrev = () => {
       const oldIndex = imgIndex.value
       const newIndex = oldIndex - 1
 
       if (newIndex < 0) return
 
-      changeIndex(newIndex, 'on-prev-click')
+      changeIndex(newIndex, 'on-prev')
     }
 
     // actions for changing img
@@ -254,10 +254,10 @@ export default defineComponent({
         closeDialog()
       }
       if (evt.key === 'ArrowLeft') {
-        onPrevClick()
+        onPrev()
       }
       if (evt.key === 'ArrowRight') {
-        onNextClick()
+        onNext()
       }
     }
 
@@ -389,19 +389,14 @@ export default defineComponent({
     const renderPrevBtn = () => {
       if (slots['prev-btn']) {
         return slots['prev-btn']({
-          prev: onPrevClick
+          prev: onPrev
         })
       }
 
       if (imgList.value.length <= 1) return
 
-      const isDisabled =
-        imgIndex.value === 0 || imgIndex.value > imgList.value.length
       return (
-        <div
-          class={`btn__prev ${isDisabled ? 'disable' : ''}`}
-          onClick={onPrevClick}
-        >
+        <div class={`btn__prev`} onClick={onPrev}>
           <SvgIcon type="prev" />
         </div>
       )
@@ -409,18 +404,14 @@ export default defineComponent({
     const renderNextBtn = () => {
       if (slots['next-btn']) {
         return slots['next-btn']({
-          next: onNextClick
+          next: onNext
         })
       }
 
       if (imgList.value.length <= 1) return
 
-      const isDisabled = imgIndex.value >= imgList.value.length - 1
       return (
-        <div
-          class={`btn__next ${isDisabled ? 'disable' : ''}`}
-          onClick={onNextClick}
-        >
+        <div class={`btn__next`} onClick={onNext}>
           <SvgIcon type="next" />
         </div>
       )
