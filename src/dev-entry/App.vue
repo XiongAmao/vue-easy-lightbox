@@ -73,6 +73,7 @@
             <h1>vue-easy-lightbox</h1>
             <div class="gallery">{imgs}</div>
             <VueEasyLightbox
+              scrollDisabled
               moveDisabled
               visible={this.visible}
               index={this.index}

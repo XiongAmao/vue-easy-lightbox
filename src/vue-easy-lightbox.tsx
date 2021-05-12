@@ -53,6 +53,10 @@ export default defineComponent({
       type: Number,
       default: 0
     },
+    scrollDisabled: {
+      type: Boolean,
+      default: false
+    },
     escDisabled: {
       type: Boolean,
       default: false
@@ -346,11 +350,25 @@ export default defineComponent({
           nextTick(() => {
             modalRef.value && on(modalRef.value, 'touchmove', preventDefault)
           })
+
+          if (props.scrollDisabled) {
+            disableScrolling()
+          }
         } else {
           modalRef.value && off(modalRef.value, 'touchmove', preventDefault)
+
+          if (props.scrollDisabled) {
+            enableScrolling()
+          }
         }
       }
     )
+
+    const disableScrolling = () =>
+      document.body.style.overflowY = 'hidden'
+
+    const enableScrolling = () =>
+      document.body.style.overflowY = 'scroll'
 
     onMounted(() => {
       on(document, 'keydown', onKeyPress)

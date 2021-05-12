@@ -154,6 +154,7 @@ app.mount('#root')
 
     <!-- all props & events -->
     <vue-easy-lightbox
+      scrollDisabled
       escDisabled
       moveDisabled
       :visible="visible"
@@ -273,6 +274,12 @@ Props
       <td>Number</td>
       <td>0</td>
       <td>Index of imgList</td>
+    </tr>
+    <tr>
+      <td>scrollDisabled (scroll-disabled)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Pass true to disable scrolling when modal is visible.</td>
     </tr>
     <tr>
       <td>escDisabled (esc-disabled)</td>

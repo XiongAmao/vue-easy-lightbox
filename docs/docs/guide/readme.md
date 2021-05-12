@@ -154,6 +154,7 @@ app.mount('#root')
 
     <!-- all props & events -->
     <vue-easy-lightbox
+      scrollDisabled
       escDisabled
       moveDisabled
       :visible="visible"
