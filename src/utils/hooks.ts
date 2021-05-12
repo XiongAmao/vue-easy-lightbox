@@ -41,33 +41,38 @@ export const useMouse = (
   let ticking = false
 
   const onMouseDown = (e: MouseEvent) => {
-    if (!canMove(e.button)) return
-    wrapperState.lastX = e.clientX
-    wrapperState.lastY = e.clientY
+    wrapperState.initX = wrapperState.lastX = e.clientX
+    wrapperState.initY = wrapperState.lastY = e.clientY
     status.dragging = true
     ticking = false
     e.stopPropagation()
   }
 
   const onMouseUp = (e: MouseEvent) => {
-    if (!canMove(e.button)) return
-    cancelRaf(rafId)
+    if (canMove(e.button)) {
+      cancelRaf(rafId)
+    }
+
     status.dragging = false
     ticking = false
   }
 
   const onMouseMove = (e: MouseEvent) => {
-    if (!canMove(e.button) || ticking) return
     if (status.dragging) {
-      ticking = true
-      rafId = raf(() => {
-        const { top, left, lastY, lastX } = wrapperState
-        wrapperState.top = top - lastY + e.clientY
-        wrapperState.left = left - lastX + e.clientX
-        wrapperState.lastX = e.clientX
-        wrapperState.lastY = e.clientY
-        ticking = false
-      })
+      const { top, left, lastY, lastX } = wrapperState
+      wrapperState.lastX = e.clientX
+      wrapperState.lastY = e.clientY
+
+      if (canMove(e.button) && !ticking) {
+        ticking = true
+
+        rafId = raf(() => {
+          wrapperState.top = top - lastY + e.clientY
+          wrapperState.left = left - lastX + e.clientX
+
+          ticking = false
+        })
+      }
     }
     e.stopPropagation()
   }
@@ -95,8 +100,8 @@ export const useTouch = (
       status.gesturing = true
       wrapperState.touches = touches
     } else {
-      wrapperState.lastX = touches[0].clientX
-      wrapperState.lastY = touches[0].clientY
+      wrapperState.initX = wrapperState.lastX = touches[0].clientX
+      wrapperState.initY = wrapperState.lastY = touches[0].clientY
       status.dragging = true
     }
     e.stopPropagation()
@@ -107,17 +112,19 @@ export const useTouch = (
     const { touches } = e
     const { lastX, lastY, left, top, scale } = wrapperState
 
-    if (canMove() && !status.gesturing && status.dragging) {
-      rafId = raf(() => {
-        if (!touches[0]) return
-        const curX = touches[0].clientX
-        const curY = touches[0].clientY
-        wrapperState.top = top - lastY + curY
-        wrapperState.left = left - lastX + curX
-        wrapperState.lastX = curX
-        wrapperState.lastY = curY
-        ticking = false
-      })
+    if (!status.gesturing && status.dragging) {
+      if (!touches[0]) return
+      const { clientX, clientY } = touches[0]
+      wrapperState.lastX = clientX
+      wrapperState.lastY = clientY
+
+      if (canMove()) {
+        rafId = raf(() => {
+          wrapperState.top = top - lastY + clientY
+          wrapperState.left = left - lastX + clientX
+          ticking = false
+        })
+      }
     } else if (
       status.gesturing &&
       wrapperState.touches.length > 1 &&

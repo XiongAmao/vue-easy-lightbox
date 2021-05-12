@@ -292,6 +292,12 @@ Props
       <td>-</td>
       <td>Specify the mount node for vue-easy-lightbox.</td>
     </tr>
+    <tr>
+      <td>swipeTolerance (swipe-tolerance)</td>
+      <td>Number</td>
+      <td>50</td>
+      <td>Specify the number of pixel you have to swipe.</td>
+    </tr>
   </tbody>
 </table>
 

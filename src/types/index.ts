@@ -9,6 +9,8 @@ export interface IImgWrapperState {
   rotateDeg: number
   top: number
   left: number
+  initX: number
+  initY: number
   lastX: number
   lastY: number
   touches: TouchList | []

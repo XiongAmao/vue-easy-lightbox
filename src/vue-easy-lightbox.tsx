@@ -68,6 +68,10 @@ export default defineComponent({
     teleport: {
       type: [String, Object] as PropType<TeleportProps['to']>,
       default: null
+    },
+    swipeTolerance: {
+      type: Number,
+      default: 50
     }
   },
   emits: [
@@ -87,6 +91,8 @@ export default defineComponent({
       rotateDeg: 0,
       top: 0,
       left: 0,
+      initX: 0,
+      initY: 0,
       lastX: 0,
       lastY: 0,
       touches: [] as TouchList | []
@@ -125,13 +131,23 @@ export default defineComponent({
       return imgList.value[imgIndex.value]?.title
     })
 
+    const currCursor = () => {
+      if (status.loadError) return 'default'
+
+      if (props.moveDisabled) {
+        return status.dragging ? 'grabbing' : 'grab'
+      }
+
+      return 'move'
+    }
+
     const imgWrapperStyle = computed(() => {
       return {
-        transform: `translate(-50%, -50%) scale(${imgWrapperState.scale}) rotate(${imgWrapperState.rotateDeg}deg)`,
+        cursor: currCursor(),
         top: `calc(50% + ${imgWrapperState.top}px)`,
         left: `calc(50% + ${imgWrapperState.left}px)`,
-        cursor: props.moveDisabled || status.loadError ? 'default' : 'move',
-        transition: status.dragging || status.gesturing ? 'none' : ''
+        transition: status.dragging || status.gesturing ? 'none' : '',
+        transform: `translate(-50%, -50%) scale(${imgWrapperState.scale}) rotate(${imgWrapperState.rotateDeg}deg)`
       }
     })
 
@@ -178,18 +194,18 @@ export default defineComponent({
 
     const onNext = () => {
       const oldIndex = imgIndex.value
-      const newIndex = oldIndex + 1
-
-      if (newIndex > imgList.value.length - 1) return
+      const newIndex = (oldIndex + 1) % imgList.value.length
 
       changeIndex(newIndex, 'on-next')
     }
 
     const onPrev = () => {
       const oldIndex = imgIndex.value
-      const newIndex = oldIndex - 1
+      let newIndex = oldIndex - 1
 
-      if (newIndex < 0) return
+      if (oldIndex == 0) {
+        newIndex = imgList.value.length - 1
+      }
 
       changeIndex(newIndex, 'on-prev')
     }
@@ -288,6 +304,26 @@ export default defineComponent({
           return
         }
         changeIndex(newIndex)
+      }
+    )
+
+    watch(
+      () => status.dragging,
+      (newStatus, oldStatus) => {
+        const dragged = !newStatus && oldStatus
+
+        if (!canMove() && dragged) {
+          const xDiff = imgWrapperState.lastX - imgWrapperState.initX
+          const yDiff = imgWrapperState.lastY - imgWrapperState.initY
+
+          const tolerance = props.swipeTolerance
+          const movedHorizontally = Math.abs(xDiff) > Math.abs(yDiff)
+
+          if (movedHorizontally) {
+            if (xDiff < tolerance * -1) onNext()
+            else if (xDiff > tolerance) onPrev()
+          }
+        }
       }
     )
 
