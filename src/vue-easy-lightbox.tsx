@@ -32,7 +32,7 @@ import {
   preventDefault
 } from './utils/index'
 import { useImage, useMouse, useTouch } from './utils/hooks'
-import { Img, IImgWrapperState, PropsImgs } from './types'
+import { Img, IImgWrapperState, PropsImgs, IndexChangeActions } from './types'
 
 function isImg(arg: Img): arg is Img {
   return isObject(arg) && isString(arg.src)
@@ -76,9 +76,21 @@ export default defineComponent({
     swipeTolerance: {
       type: Number,
       default: 50
+    },
+    loop: {
+      type: Boolean,
+      default: false
     }
   },
-  emits: ['hide', 'on-error', 'on-prev', 'on-next', 'on-index-change'],
+  emits: [
+    'hide',
+    'on-error',
+    'on-prev',
+    'on-next',
+    'on-prev-click',
+    'on-next-click',
+    'on-index-change'
+  ],
   setup(props, { emit, slots }) {
     const { imgRef, imgState, setImgSize } = useImage()
     const imgIndex = ref(0)
@@ -164,7 +176,7 @@ export default defineComponent({
     }
 
     // switching imgs manually
-    const changeIndex = (newIndex: number, action?: 'on-prev' | 'on-next') => {
+    const changeIndex = (newIndex: number, actions?: IndexChangeActions) => {
       const oldIndex = imgIndex.value
 
       initImg()
@@ -181,28 +193,38 @@ export default defineComponent({
       // No emit event when hidden or same index
       if (!props.visible || oldIndex === newIndex) return
 
-      if (action) {
-        emit(action, oldIndex, newIndex)
+      if (actions) {
+        if (isArray(actions)) {
+          actions.forEach((action) => {
+            emit(action, oldIndex, newIndex)
+          })
+        } else {
+          emit(actions, oldIndex, newIndex)
+        }
       }
       emit('on-index-change', oldIndex, newIndex)
     }
 
     const onNext = () => {
       const oldIndex = imgIndex.value
-      const newIndex = (oldIndex + 1) % imgList.value.length
+      const newIndex = props.loop
+        ? (oldIndex + 1) % imgList.value.length
+        : oldIndex + 1
 
-      changeIndex(newIndex, 'on-next')
+      if (!props.loop && newIndex > imgList.value.length - 1) return
+
+      changeIndex(newIndex, ['on-next', 'on-next-click'])
     }
 
     const onPrev = () => {
       const oldIndex = imgIndex.value
       let newIndex = oldIndex - 1
 
-      if (oldIndex == 0) {
+      if (oldIndex === 0) {
+        if (!props.loop) return
         newIndex = imgList.value.length - 1
       }
-
-      changeIndex(newIndex, 'on-prev')
+      changeIndex(newIndex, ['on-prev', 'on-prev-click'])
     }
 
     // actions for changing img
@@ -439,8 +461,13 @@ export default defineComponent({
 
       if (imgList.value.length <= 1) return
 
+      const isDisabled = !props.loop && imgIndex.value <= 0
+
       return (
-        <div class={`btn__prev`} onClick={onPrev}>
+        <div
+          class={`btn__prev ${isDisabled ? 'disable' : ''}`}
+          onClick={onPrev}
+        >
           <SvgIcon type="prev" />
         </div>
       )
@@ -454,8 +481,14 @@ export default defineComponent({
 
       if (imgList.value.length <= 1) return
 
+      const isDisabled =
+        !props.loop && imgIndex.value >= imgList.value.length - 1
+
       return (
-        <div class={`btn__next`} onClick={onNext}>
+        <div
+          class={`btn__next ${isDisabled ? 'disable' : ''}`}
+          onClick={onNext}
+        >
           <SvgIcon type="next" />
         </div>
       )

@@ -32,3 +32,6 @@ export type PropsImgs = Img | string | (Img | string)[]
 
 export type MouseEventHandler = (e: MouseEvent) => void
 export type TouchEventHandler = (e: TouchEvent) => void
+
+export type IndexChangeAction = 'on-prev' | 'on-next' | 'on-prev-click' | 'on-next-click'
+export type IndexChangeActions = IndexChangeAction | IndexChangeAction[]
