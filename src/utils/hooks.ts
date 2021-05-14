@@ -59,19 +59,22 @@ export const useMouse = (
 
   const onMouseMove = (e: MouseEvent) => {
     if (status.dragging) {
-      const { top, left, lastY, lastX } = wrapperState
-      wrapperState.lastX = e.clientX
-      wrapperState.lastY = e.clientY
-
-      if (canMove(e.button) && !ticking) {
+      if (canMove(e.button)) {
+        if (ticking) return
         ticking = true
 
         rafId = raf(() => {
+          const { top, left, lastY, lastX } = wrapperState
           wrapperState.top = top - lastY + e.clientY
           wrapperState.left = left - lastX + e.clientX
-
+          wrapperState.lastX = e.clientX
+          wrapperState.lastY = e.clientY
           ticking = false
         })
+      } else {
+        // for calculating the tolerance
+        wrapperState.lastX = e.clientX
+        wrapperState.lastY = e.clientY
       }
     }
     e.stopPropagation()
@@ -115,15 +118,19 @@ export const useTouch = (
     if (!status.gesturing && status.dragging) {
       if (!touches[0]) return
       const { clientX, clientY } = touches[0]
-      wrapperState.lastX = clientX
-      wrapperState.lastY = clientY
 
       if (canMove()) {
         rafId = raf(() => {
+          wrapperState.lastX = clientX
+          wrapperState.lastY = clientY
           wrapperState.top = top - lastY + clientY
           wrapperState.left = left - lastX + clientX
           ticking = false
         })
+      } else {
+        // for calculating the tolerance
+        wrapperState.lastX = clientX
+        wrapperState.lastY = clientY
       }
     } else if (
       status.gesturing &&
