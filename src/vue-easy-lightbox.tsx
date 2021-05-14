@@ -78,17 +78,11 @@ export default defineComponent({
       default: 50
     }
   },
-  emits: [
-    'hide',
-    'on-error',
-    'on-prev',
-    'on-next',
-    'on-index-change'
-  ],
+  emits: ['hide', 'on-error', 'on-prev', 'on-next', 'on-index-change'],
   setup(props, { emit, slots }) {
     const { imgRef, imgState, setImgSize } = useImage()
-    const modalRef = ref<Element>()
     const imgIndex = ref(0)
+    const lastBodyStyleOverflowY = ref('')
 
     const imgWrapperState = reactive<IImgWrapperState>({
       scale: 1,
@@ -170,10 +164,7 @@ export default defineComponent({
     }
 
     // switching imgs manually
-    const changeIndex = (
-      newIndex: number,
-      action?: 'on-prev' | 'on-next'
-    ) => {
+    const changeIndex = (newIndex: number, action?: 'on-prev' | 'on-next') => {
       const oldIndex = imgIndex.value
 
       initImg()
@@ -347,16 +338,10 @@ export default defineComponent({
           imgIndex.value =
             props.index >= len ? len - 1 : props.index < 0 ? 0 : props.index
 
-          nextTick(() => {
-            modalRef.value && on(modalRef.value, 'touchmove', preventDefault)
-          })
-
           if (props.scrollDisabled) {
             disableScrolling()
           }
         } else {
-          modalRef.value && off(modalRef.value, 'touchmove', preventDefault)
-
           if (props.scrollDisabled) {
             enableScrolling()
           }
@@ -364,11 +349,16 @@ export default defineComponent({
       }
     )
 
-    const disableScrolling = () =>
+    const disableScrolling = () => {
+      if (!document) return
+      lastBodyStyleOverflowY.value = document.body.style.overflowY
       document.body.style.overflowY = 'hidden'
+    }
 
-    const enableScrolling = () =>
-      document.body.style.overflowY = 'scroll'
+    const enableScrolling = () => {
+      if (!document) return
+      document.body.style.overflowY = lastBodyStyleOverflowY.value
+    }
 
     onMounted(() => {
       on(document, 'keydown', onKeyPress)
@@ -521,7 +511,7 @@ export default defineComponent({
 
       return (
         <div
-          ref={modalRef}
+          onTouchmove={preventDefault}
           class={[`${prefixCls}-img-modal`, `${prefixCls}-modal`]}
           onClick={withModifiers(closeDialog, ['self'])}
         >
