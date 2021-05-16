@@ -22,6 +22,9 @@
           'https://i.loli.net/2018/11/10/5be6852dec46e.jpeg',
           'https://i.loli.net/2018/11/10/5be6852e1366d.jpeg',
           'https://i.loli.net/2018/11/10/5be6852e33f19.jpeg',
+          'https://i.loli.net/2018/11/10/5be6852dec46e.jpeg',
+          'https://i.loli.net/2018/11/10/5be6852e1366d.jpeg',
+          'https://i.loli.net/2018/11/10/5be6852e33f19.jpeg',
           'https://example.com/asdf.jpeg'
         ],
         visible: false,
@@ -37,11 +40,11 @@
         this.visible = false
       },
       handleIndexChange(old: number, newIndex: number) {
-        if (newIndex === 5) {
-          setTimeout(() => {
-            this.imgs.push('https://i.loli.net/2018/11/10/5be6852e33f19.jpeg')
-          }, 1000)
-        }
+        // if (newIndex === 5) {
+        //   setTimeout(() => {
+        //     this.imgs.push('https://i.loli.net/2018/11/10/5be6852e33f19.jpeg')
+        //   }, 1000)
+        // }
       },
       log(...arg: unknown[]) {
         console.log('---------')
@@ -75,6 +78,7 @@
             <VueEasyLightbox
               scrollDisabled
               moveDisabled
+              loop
               visible={this.visible}
               index={this.index}
               imgs={this.imgs}
@@ -82,9 +86,7 @@
               onOnIndexChange={this.log}
               onOnPrev={this.log}
               onOnError={this.log}
-            >
-              {slots}
-            </VueEasyLightbox>
+            ></VueEasyLightbox>
           </div>
         </div>
       )
