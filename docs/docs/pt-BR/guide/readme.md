@@ -274,6 +274,18 @@ Referência: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
       <td>Index do imgList</td>
     </tr>
     <tr>
+      <td>loop</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Passe verdadeiro para permitir o modo de loop contínuo.</td>
+    </tr>
+    <tr>
+      <td>scrollDisabled (scroll-disabled)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Passe verdadeiro para desactivar a rolagem quando o modal é visível.</td>
+    </tr>
+    <tr>
       <td>escDisabled (esc-disabled)</td>
       <td>Boolean</td>
       <td>falso</td>
@@ -283,13 +295,19 @@ Referência: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
       <td>moveDisabled (move-disabled)</td>
       <td>Boolean</td>
       <td>falso</td>
-      <td>Passe verdadeiro para desativar o movimento da imagem.</td>
+      <td>Passe verdadeiro para desativar o movimento da imagem e permitir `swipe`.</td>
     </tr>
     <tr>
       <td>teleport</td>
       <td>string | Element</td>
       <td>-</td>
       <td>Especificar o nó de montagem para `vue-easy-lightbox'.</td>
+    </tr>
+    <tr>
+      <td>swipeTolerance (swipe-tolerance)</td>
+      <td>Number</td>
+      <td>50</td>
+      <td>Especifique o número de píxeis que tem de `swipe`.</td>
     </tr>
   </tbody>
 </table>
@@ -318,18 +336,18 @@ Referência: [Teleport](https://v3.cn.vuejs.org/guide/teleport.html)
       <td>event (event.target não é a imagem a ser exibida)</td>
     </tr>
     <tr>
-      <td>on-prev-click</td>
-      <td>Emite quando o botão anterior for clicado</td>
+      <td>on-prev / <br> on-prev-click</td>
+      <td>Emite quando o botão anterior for clicado </td>
       <td>(oldIndex, newIndex)</td>
     </tr>
-    <tr>
-      <td>on-next-click</td>
-      <td>Emite quando o próximo botão for clicado</td>
+     <tr>
+      <td>on-next / <br> on-next-click</td>
+      <td>Emite quando o próximo botão for clicado ou quando o utilizador deslizar para a esquerda</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
     <tr>
       <td>on-index-change</td>
-      <td>Emite quando o index de imgs é alterado</td>
+      <td>Emite quando o index de imgs é alterado ou quando o utilizador desliza para a direita</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
   </tbody>

@@ -265,6 +265,18 @@ Props
       <td>打开图片组时，展示索引位置的图片</td>
     </tr>
     <tr>
+      <td>loop</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>允许循环切换图片</td>
+    </tr>
+    <tr>
+      <td>scrollDisabled (scroll-disabled)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>传true时，禁用背景滚动</td>
+    </tr>
+    <tr>
       <td>escDisabled (esc-disabled)</td>
       <td>Boolean</td>
       <td>false</td>
@@ -274,13 +286,19 @@ Props
       <td>moveDisabled (move-disabled)</td>
       <td>Boolean</td>
       <td>false</td>
-      <td>传true时，禁用拖动图片功能</td>
+      <td>传true时，禁用拖动图片功能，并启用swipe功能</td>
     </tr>
     <tr>
       <td>teleport</td>
       <td>string | Element</td>
       <td>-</td>
-      <td>指定挂载的节点. </td>
+      <td>指定挂载的节点</td>
+    </tr>
+    <tr>
+      <td>swipeTolerance (swipe-tolerance)</td>
+      <td>Number</td>
+      <td>50</td>
+      <td>指定swipe距离，单位为px</td>
     </tr>
   </tbody>
 </table>
@@ -306,13 +324,13 @@ Event
       <td>event (event.target 不是实际展示的图片)</td>
     </tr>
     <tr>
-      <td>on-prev-click</td>
-      <td>点击上一张图片按钮时触发</td>
+      <td>on-prev / <br> on-prev-click</td>
+      <td>切换上一张图片时触发</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
     <tr>
-      <td>on-next-click</td>
-      <td>点击下一张图片按钮时触发</td>
+      <td>on-next / <br> on-next-click</td>
+      <td>切换下一张图片时触发</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
     <tr>

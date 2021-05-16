@@ -276,6 +276,12 @@ Props
       <td>Index of imgList</td>
     </tr>
     <tr>
+      <td>loop</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Pass true to enable continuous loop mode.</td>
+    </tr>
+    <tr>
       <td>scrollDisabled (scroll-disabled)</td>
       <td>Boolean</td>
       <td>false</td>
@@ -291,7 +297,7 @@ Props
       <td>moveDisabled (move-disabled)</td>
       <td>Boolean</td>
       <td>false</td>
-      <td>Pass true to disable image movement.</td>
+      <td>Pass true to disable image movement and enable swipe.</td>
     </tr>
     <tr>
       <td>teleport</td>
@@ -330,12 +336,12 @@ Event
       <td>event (event.target is not the image to be displayed)</td>
     </tr>
     <tr>
-      <td>on-prev</td>
+      <td>on-prev / <br> on-prev-click</td>
       <td>Emit when prev btn is clicked or when the user swiped right</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
     <tr>
-      <td>on-next</td>
+      <td>on-next / <br> on-next-click</td>
       <td>Emit when next btn is clicked or when the user swiped left</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
