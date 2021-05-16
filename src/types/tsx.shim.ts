@@ -12,6 +12,8 @@ declare module 'vue' {
     ['onOnError']?: EventHandler
     ['onOnNext']?: EventHandler
     ['onOnPrev']?: EventHandler
+    ['onOnNextClick']?: EventHandler
+    ['onOnPrevClick']?: EventHandler
   }
 }
 
