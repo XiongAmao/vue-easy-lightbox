@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.0] (16 May 2021)
+
+- Feat: Add `loop` prop to enable loop switching of image.
+- Feat: Add `scrollDisabled` prop to disable scrolling when modal is visible.
+- Feat: When `moveDisabled` is set to `true`, it is possible to switch images by swiping.
+- Feat: Add `swipeTolerance` prop for swipe distance detection.
+- Feat: `on-prev-click`/`on-next-click` is renamed to `on-prev`/ `on-next`, the old event name is kept and you can still use it.
+
+
 ## [1.1.0] (11 April 2021)
 
 - Feat: Use `teleport` prop to specify mount location. [Docs](https://v3.vuejs.org/guide/teleport.html#using-with-vue-components)
