@@ -2,7 +2,7 @@
   <div id="app">
     <github-conner />
     <div class="container">
-      <h1> vue-easy-lightbox </h1>
+      <h1>vue-easy-lightbox</h1>
       <div class="gallery">
         <div
           v-for="(img, idx) in imgs"
@@ -10,14 +10,13 @@
           class="pic"
           @click="() => show(idx)"
         >
-          <div v-if="idx === 5">
-            This is error image url.
-          </div>
-          <img :src="img.src ? img.src : img">
+          <div v-if="idx === 5">This is error image url.</div>
+          <img :src="img.src ? img.src : img" />
         </div>
       </div>
 
       <vue-easy-lightbox
+        loop
         :visible="visible"
         :index="index"
         :imgs="imgs"
@@ -49,8 +48,8 @@
           },
           'https://i.loli.net/2018/11/10/5be6852dec46e.jpeg',
           'https://i.loli.net/2018/11/10/5be6852e1366d.jpeg',
-          'https://i.loli.net/2018/11/10/5be6852e33f19.jpeg',
-          'https://example.com/asdf.jpeg'
+          'https://i.loli.net/2018/11/10/5be6852e33f19.jpeg'
+          // 'https://example.com/asdf.jpeg'
         ],
         visible: false,
         index: 0 // default

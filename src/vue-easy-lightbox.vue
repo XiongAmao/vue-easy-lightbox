@@ -63,9 +63,9 @@
           :prev="onPrevClick"
         >
           <div
-            v-if="imgList.length !== 1"
+            v-if="imgList.length > 1"
             class="btn__prev"
-            :class="{ disable: imgIndex === 0 || imgIndex > imgList.length }"
+            :class="{ disable: !loop && imgIndex <= 0 }"
             @click="onPrevClick"
           >
             <svg-icon type="prev" />
@@ -77,9 +77,9 @@
           :next="onNextClick"
         >
           <div
-            v-if="imgList.length !== 1"
+            v-if="imgList.length > 1"
             class="btn__next"
-            :class="{ disable: imgIndex >= imgList.length - 1 }"
+            :class="{ disable: !loop && imgIndex >= imgList.length - 1 }"
             @click="onNextClick"
           >
             <svg-icon type="next" />
@@ -146,6 +146,13 @@
     title?: string
   }
 
+  type IndexChangeAction =
+    | 'on-prev'
+    | 'on-next'
+    | 'on-prev-click'
+    | 'on-next-click'
+  type IndexChangeActions = IndexChangeAction | IndexChangeAction[]
+
   function isImg(arg: Img): arg is Img {
     return isObject(arg) && isString(arg.src)
   }
@@ -171,6 +178,7 @@
     @Prop({ type: Boolean, default: false }) readonly escDisabled!: boolean
     @Prop({ type: Boolean, default: false }) readonly moveDisabled!: boolean
     @Prop({ type: Boolean, default: false }) readonly titleDisabled!: boolean
+    @Prop({ type: Boolean, default: false }) readonly loop!: boolean
 
     prefixCls = prefixCls
     scale = 1
@@ -406,23 +414,28 @@
 
     onNextClick() {
       const oldIndex = this.imgIndex
-      const newIndex = oldIndex + 1
+      const newIndex = this.loop
+        ? (oldIndex + 1) % this.imgList.length
+        : oldIndex + 1
 
-      if (newIndex > this.imgList.length - 1) return
+      if (!this.loop && newIndex > this.imgList.length - 1) return
 
-      this.setIndex(newIndex, 'on-next-click')
+      this.setIndex(newIndex, ['on-next-click', 'on-next'])
     }
 
     onPrevClick() {
       const oldIndex = this.imgIndex
-      const newIndex = oldIndex - 1
+      let newIndex = oldIndex - 1
 
-      if (newIndex < 0) return
+      if (oldIndex === 0) {
+        if (!this.loop) return
+        newIndex = this.imgList.length - 1
+      }
 
-      this.setIndex(newIndex, 'on-prev-click')
+      this.setIndex(newIndex, ['on-prev-click', 'on-prev'])
     }
 
-    setIndex(newIndex: number, clickEvent?: 'on-prev-click' | 'on-next-click') {
+    setIndex(newIndex: number, actions?: IndexChangeActions) {
       const oldIndex = this.imgIndex
       // reset style
       this.reset()
@@ -438,8 +451,14 @@
 
       // No emit event when hidden or same index
       if (!this.visible || oldIndex === newIndex) return
-      if (clickEvent) {
-        this.$emit(clickEvent, oldIndex, newIndex)
+      if (actions) {
+        if (isArray(actions)) {
+          actions.forEach((action) => {
+            this.$emit(action, oldIndex, newIndex)
+          })
+        } else {
+          this.$emit(actions, oldIndex, newIndex)
+        }
       }
       this.$emit('on-index-change', oldIndex, newIndex)
     }
