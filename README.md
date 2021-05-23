@@ -283,6 +283,12 @@ Props
       <td>Index of imgList</td>
     </tr>
     <tr>
+      <td>loop</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Pass true to enable continuous loop mode.</td>
+    </tr>
+    <tr>
       <td>escDisabled (esc-disabled)</td>
       <td>Boolean</td>
       <td>false</td>
@@ -319,12 +325,12 @@ Event
     </tr>
     <tr>
       <td>on-prev-click</td>
-      <td>Emit when prev btn is clicked</td>
+      <td>Emit when switch to prev image</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
     <tr>
       <td>on-next-click</td>
-      <td>Emit when next btn is clicked</td>
+      <td>Emit when switch to next image</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
     <tr>

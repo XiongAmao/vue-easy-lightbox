@@ -1,4 +1,10 @@
 # Changelog
+
+## [0.16.0] (23 May 2021)
+
+- Feat: Add `loop` prop to enable loop switching of image
+- Feat: `on-prev-click`/`on-next-click` is renamed to `on-prev`/ `on-next`, the old event name is kept and you can still use it.
+
 ## [0.15.2] (9 April 2021)
 
 - Fix: Component name typos.

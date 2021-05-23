@@ -280,6 +280,12 @@ Props
       <td>打开图片组时，展示索引位置的图片</td>
     </tr>
     <tr>
+      <td>loop</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>传true时，开启循环切换</td>
+    </tr>
+    <tr>
       <td>escDisabled (esc-disabled)</td>
       <td>Boolean</td>
       <td>false</td>
@@ -316,12 +322,12 @@ Event
     </tr>
     <tr>
       <td>on-prev-click</td>
-      <td>点击上一张图片按钮时触发</td>
+      <td>切换到上一张图片时触发</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
     <tr>
       <td>on-next-click</td>
-      <td>点击下一张图片按钮时触发</td>
+      <td>切换到下一张图片时触发</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
     <tr>
