@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.16.1] (15 June 2021)
+
+- Fix: Detect `window` incorrect on server side.
+
 ## [0.16.0] (23 May 2021)
 
 - Feat: Add `loop` prop to enable loop switching of image
