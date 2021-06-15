@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.2.0] (16 June 2021)
+## [1.2.1] (16 June 2021)
 
 - Fix: Detect `window` incorrect on server side.
 
