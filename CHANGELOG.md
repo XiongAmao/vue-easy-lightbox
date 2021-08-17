@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.3] (17 August 2021)
+
+- Feat: Make vue-devtool display named components.
+- Fix: Can't get `toolbarMethods` from slot props.
+
 ## [1.2.2] (17 August 2021)
 
 - Feat: Extract css.
