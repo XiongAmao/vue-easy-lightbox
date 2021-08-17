@@ -15,11 +15,11 @@ import {
 } from 'vue'
 
 import './assets/svg/iconfont'
-import SvgIcon from './components/svg-icon'
-import Toolbar from './components/toolbar'
-import ImgLoading from './components/img-loading'
-import ImgOnError from './components/img-on-error'
-import ImgTitle from './components/img-title'
+import { SvgIcon } from './components/svg-icon'
+import { Toolbar } from './components/toolbar'
+import { ImgLoading } from './components/img-loading'
+import { ImgOnError } from './components/img-on-error'
+import { ImgTitle } from './components/img-title'
 
 import { prefixCls } from './constant'
 import {

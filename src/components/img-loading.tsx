@@ -1,6 +1,6 @@
 import { prefixCls } from '../constant'
 
-export default () => (
+export const ImgLoading = () => (
   <div class={`${prefixCls}-loading`}>
     <div class="ring"></div>
   </div>

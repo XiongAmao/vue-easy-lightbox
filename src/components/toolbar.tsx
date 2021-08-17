@@ -3,9 +3,10 @@ import { prefixCls } from '../constant'
 import { voidFn } from '../utils'
 import { MouseEventHandler } from '../types'
 
-import SvgIcon from './svg-icon'
+import { SvgIcon } from './svg-icon'
 
-export default defineComponent({
+export const Toolbar = defineComponent({
+  name: 'Toolbar',
   props: {
     zoomIn: {
       type: Function as PropType<MouseEventHandler>,

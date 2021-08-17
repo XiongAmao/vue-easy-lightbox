@@ -1,7 +1,8 @@
 import { prefixCls } from '../constant'
 import { defineComponent } from 'vue'
 
-export default defineComponent({
+export const SvgIcon = defineComponent({
+  name: 'SvgIcon',
   props: {
     type: {
       type: String,
