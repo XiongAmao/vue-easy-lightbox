@@ -1,3 +1,4 @@
+import path from 'path'
 import vue from 'rollup-plugin-vue'
 import commonJs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
@@ -21,22 +22,38 @@ const builds = [
   `es5.common.min.js`,
   `common.min.js`,
   `es5.umd.min.js`,
-  `umd.min.js`
+  `umd.min.js`,
+
+  'es5.esm.min.external-css.js',
+  'es5.umd.min.external-css.js',
+  'es5.common.min.external-css.js',
+  'esm.min.external-css.js',
+  'umd.min.external-css.js',
+  'common.min.external-css.js'
 ]
 
-const getFormat = (build) => {
-  if (/esm/.test(build)) return 'esm'
-  if (/common/.test(build)) return 'cjs'
-  if (/umd/.test(build)) return 'umd'
+const getFormat = (buildType) => {
+  if (/esm/.test(buildType)) return 'esm'
+  if (/common/.test(buildType)) return 'cjs'
+  if (/umd/.test(buildType)) return 'umd'
   throw new Error('Unexpected format name.')
 }
 
-const configs = builds.map((build) => {
-  const format = getFormat(build)
+const isExternalCSS = (buildText) => {
+  return /external-css/.test(buildText)
+}
+
+const configs = builds.map((buildType) => {
+  const format = getFormat(buildType)
   const config = {
     input: entryPath,
     output: {
-      file: `${distPath}/${libraryName}.${build}`,
+      file: isExternalCSS(buildType)
+        ? `${distPath}/external-css/${libraryName}.${buildType.replace(
+            'external-css.',
+            ''
+          )}`
+        : `${distPath}/${libraryName}.${buildType}`,
       exports: 'named',
       format
     },
@@ -44,13 +61,16 @@ const configs = builds.map((build) => {
       vue(),
       postcss({
         minimize: true,
-        plugins: [autoprefixer()]
+        plugins: [autoprefixer()],
+        extract: isExternalCSS(buildType)
+          ? path.resolve(distPath, `./external-css/${libraryName}.css`)
+          : false
       }),
       replace({
         preventAssignment: true,
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }),
-      babel(createBabelConfig(/es5/.test(build))),
+      babel(createBabelConfig(/es5/.test(buildType))),
       resolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
         browser: true
