@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.2] (17 August 2021)
+
+- Feat: Extract css.
+
 ## [1.2.1] (16 June 2021)
 
 - Fix: Detect `window` incorrect on server side.
