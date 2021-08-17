@@ -508,6 +508,15 @@ export default defineComponent({
     const renderToolbar = () => {
       return slots.toolbar ? (
         slots.toolbar({
+          toolbarMethods: {
+            zoomIn,
+            zoomOut,
+            rotate: rotateLeft,
+            rotateLeft,
+            rotateRight,
+            resize
+          },
+          zoomIn,
           zoomOut,
           rotate: rotateLeft,
           rotateLeft,
