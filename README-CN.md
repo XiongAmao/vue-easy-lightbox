@@ -61,6 +61,52 @@ $ yarn add vue-easy-lightbox@next
 </table>
 
 
+### 单独导入CSS文件 `^1.2.3`
+
+默认情况下， CSS被包含在了  `dist/*.min.js`. 在一些特殊情况，你可能需要单独引入CSS文件来避免一些问题 ([CSP Violation](https://github.com/XiongAmao/vue-easy-lightbox/issues/75)). 你可以从`dist/external-css/`导入不包含CSS的构建文件和单独的样式文件.
+
+```js
+// in this path vue-easy-lightbox/dist/external-css/*.js
+import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'
+
+// 单独引入组件样式
+import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
+```
+
+#### TypeScript Checking error:
+
+如果你使用TypeScript，并遇到了以下报错：
+
+> `Could not find the declaration file for module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'`
+
+这里有两种办法解决这个问题
+
+方法 1: 项目本地添加 `d.ts`，补充模块信息:
+```ts
+declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.common.min' {
+  import VueEasyLightbox from 'vue-easy-lightbox'
+  export default VueEasyLightbox
+}
+```
+
+方法 2:
+如果你使用的是Webpack工程，参考以下方法:  [webpack alias docs](https://webpack.js.org/configuration/resolve/#resolvealias)
+
+```js
+// wepback.config.js
+module.exports = {
+  //...
+  resolve: {
+    alias: {
+      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.common.min.js',
+    },
+  },
+};
+
+// in your component
+import VueEasyLightbox from 'vue-easy-lightbox' // work
+```
+
 ## 使用方式
 
 ### html中使用 `<script />` 标签引入

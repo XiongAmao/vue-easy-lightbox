@@ -65,6 +65,54 @@ Add `script` in your browser and use the global variable `VueEasyLightbox`.
   </tbody>
 </table>
 
+
+### External CSS Build `^1.2.3`
+
+By default, CSS is included in `dist/*.min.js`. In some special cases you may want to import CSS individually to avoid some problems ([CSP Violation](https://github.com/XiongAmao/vue-easy-lightbox/issues/75)). You can import builds without CSS and individual `.css` file from `dist/external-css/`.
+
+```js
+// in this path vue-easy-lightbox/dist/external-css/*.js
+import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'
+
+// you need to import css yourself
+import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
+```
+
+#### TypeScript Checking error:
+
+If your project is TypeScript project and you get this error message:
+
+> `Could not find the declaration file for module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'`
+
+Here are two ways to solve it.
+
+Way 1: add `d.ts` locally:
+```ts
+declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.common.min' {
+  import VueEasyLightbox from 'vue-easy-lightbox'
+  export default VueEasyLightbox
+}
+```
+
+Way 2:
+if you're using webpack:  [webpack alias docs](https://webpack.js.org/configuration/resolve/#resolvealias)
+
+```js
+// wepback.config.js
+module.exports = {
+  //...
+  resolve: {
+    alias: {
+      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.common.min.js',
+    },
+  },
+};
+
+// in your component
+import VueEasyLightbox from 'vue-easy-lightbox' // work
+```
+
+
 ## Usage
 
 ### Direct `<script/>` Include
