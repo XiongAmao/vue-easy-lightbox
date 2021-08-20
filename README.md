@@ -146,15 +146,17 @@ example:
   // https://v3.vuejs.org/guide/migration/global-api.html#a-new-global-api-createapp
   var app = Vue.createApp({
     el: '#app',
-    data: {
-      visible: false,
-      index: 0, // default: 0
-      imgs: [
-        'https://via.placeholder.com/450.png/',
-        'https://via.placeholder.com/300.png/',
-        'https://via.placeholder.com/150.png/',
-        { src: 'https://via.placeholder.com/450.png/', title: 'this is title' }
-      ]
+    data() {
+      return {
+        visible: false,
+        index: 0, // default: 0
+        imgs: [
+          'https://via.placeholder.com/450.png/',
+          'https://via.placeholder.com/300.png/',
+          'https://via.placeholder.com/150.png/',
+          { src: 'https://via.placeholder.com/450.png/', title: 'this is title' }
+        ]
+      }
     },
     methods: {
       showImg(index) {

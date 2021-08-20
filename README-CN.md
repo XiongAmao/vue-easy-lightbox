@@ -141,15 +141,17 @@ import VueEasyLightbox from 'vue-easy-lightbox' // work
   // https://v3.cn.vuejs.org/guide/migration/global-api.html#%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%85%A8%E5%B1%80-api-createapp
   var app = Vue.createApp({
     el: '#app',
-    data: {
-      visible: false,
-      index: 0, // default: 0
-      imgs: [
-        'https://via.placeholder.com/450.png/',
-        'https://via.placeholder.com/300.png/',
-        'https://via.placeholder.com/150.png/',
-        { src: 'https://via.placeholder.com/450.png/', title: 'this is title' }
-      ]
+    data() {
+      return {
+        visible: false,
+        index: 0, // default: 0
+        imgs: [
+          'https://via.placeholder.com/450.png/',
+          'https://via.placeholder.com/300.png/',
+          'https://via.placeholder.com/150.png/',
+          { src: 'https://via.placeholder.com/450.png/', title: 'this is title' }
+        ]
+      }
     },
     methods: {
       showImg(index) {
