@@ -26,12 +26,11 @@ $ yarn add vue-easy-lightbox@next
 <script src="https://unpkg.com/vue@next"></script>
 <script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
 <script>
-
-  var app = Vue.createApp({
-    el: '#app'
-    // ... 其他选项
+  const app = Vue.createApp({
+    // ... 根组件选项
   })
   app.use(VueEasyLightbox) // 全局变量
+  app.mount('#app')
 </script>
 ```
 
@@ -119,7 +118,7 @@ import VueEasyLightbox from 'vue-easy-lightbox' // work
 
 ```html
 <div id="app">
-  <div class="">
+  <div>
     <div
       v-for="(src, index) in imgs"
       :key="index"
@@ -143,8 +142,7 @@ import VueEasyLightbox from 'vue-easy-lightbox' // work
 <script>
   // 注意: Vue.js 3.0中不再提供Vue的全局共享实例，请为单个VueApp实例注册组件.
   // https://v3.cn.vuejs.org/guide/migration/global-api.html#%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%85%A8%E5%B1%80-api-createapp
-  var app = Vue.createApp({
-    el: '#app',
+  const app = Vue.createApp({
     data() {
       return {
         visible: false,
@@ -172,7 +170,7 @@ import VueEasyLightbox from 'vue-easy-lightbox' // work
   // 或使用组件注册的方式
   app.component(VueEasyLightbox.default.name, VueEasyLightbox.default)
 
-  app.mount('#root')
+  app.mount('#app')
 </script>
 ```
 
@@ -187,10 +185,10 @@ import Vue from 'vue'
 import VueEasyLightbox from 'vue-easy-lightbox'
 
 const app = Vue.createApp({
-  ...
+  // ... 根组件选项
 })
 app.use(VueEasyLightbox)
-app.mount('#root')
+app.mount('#app')
 ```
 
 #### 2. 以组件形式使用

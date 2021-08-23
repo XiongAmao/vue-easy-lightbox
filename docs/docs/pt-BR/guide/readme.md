@@ -24,12 +24,11 @@ Adicione a tag `script` em seu navegador e use a variável global `VueEasyLightb
 <script src="https://unpkg.com/vue@next"></script>
 <script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
 <script>
-
-  var app = Vue.createApp({
-    el: '#app'
-    // ... mais opções
+  const app = Vue.createApp({
+    // ... Opções de componentes de raiz
   })
   app.use(VueEasyLightbox) // variável global
+  app.mount('#app')
 </script>
 ```
 
@@ -120,7 +119,7 @@ import VueEasyLightbox from 'vue-easy-lightbox' // work
 
 ```html
 <div id="app">
-  <div class="">
+  <div >
     <div
       v-for="(src, index) in imgs"
       :key="index"
@@ -144,8 +143,7 @@ import VueEasyLightbox from 'vue-easy-lightbox' // work
 <script>
   // Nota: O Vue.js 3 não fornece mais uma instância global do Vue, registre o componente a cada instância VueApp.
   // https://v3.vuejs.org/guide/migration/global-api.html#a-new-global-api-createapp
-  var app = Vue.createApp({
-    el: '#app',
+  const app = Vue.createApp({
     data() {
       return {
         visible: false,
@@ -173,7 +171,7 @@ import VueEasyLightbox from 'vue-easy-lightbox' // work
   // ou
   app.component(VueEasyLightbox.default.name, VueEasyLightbox.default)
 
-  app.mount('#root')
+  app.mount('#app')
 </script>
 ```
 
@@ -192,7 +190,7 @@ const app = Vue.createApp({
   ...
 })
 app.use(VueEasyLightbox)
-app.mount('#root')
+app.mount('#app')
 ```
 
 #### 2. Uso do componente

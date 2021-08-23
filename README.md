@@ -32,6 +32,13 @@ Include the CDN link in the html file.
 ```html
 <script src="https://unpkg.com/vue@next"></script>
 <script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
+<script>
+  const app = Vue.createApp({
+    // ... root component options
+  })
+  app.use(VueEasyLightbox) // global variable
+  app.mount('#app')
+</script>
 ```
 
 ### Different Builds
@@ -121,7 +128,7 @@ example:
 ```html
 <!-- in html -->
 <div id="app">
-  <div class="">
+  <div>
     <div
       v-for="(src, index) in imgs"
       :key="index"
@@ -144,8 +151,7 @@ example:
 <script>
   // Note: The Global Vue Constructor is no longer available in Vue 3.0.
   // https://v3.vuejs.org/guide/migration/global-api.html#a-new-global-api-createapp
-  var app = Vue.createApp({
-    el: '#app',
+  const app = Vue.createApp({
     data() {
       return {
         visible: false,
@@ -173,7 +179,7 @@ example:
   // or
   app.component(VueEasyLightbox.name, VueEasyLightbox)
 
-  app.mount('#root')
+  app.mount('#app')
 </script>
 ```
 
@@ -190,7 +196,7 @@ const app = Vue.createApp({
   ...
 })
 app.use(VueEasyLightbox)
-app.mount('#root')
+app.mount('#app')
 ```
 
 #### Usage of Component
