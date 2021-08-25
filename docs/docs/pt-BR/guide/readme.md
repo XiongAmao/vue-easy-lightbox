@@ -121,12 +121,12 @@ import VueEasyLightbox from 'vue-easy-lightbox' // work
 <div id="app">
   <div >
     <div
-      v-for="(src, index) in imgs"
+      v-for="(img, index) in imgs"
       :key="index"
       class="pic"
       @click="() => showImg(index)"
     >
-      <img :src="src" />
+      <img :src="typeof img === 'string' ? img : img.src" />
     </div>
   </div>
   <vue-easy-lightbox
