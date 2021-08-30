@@ -272,7 +272,7 @@ export default {
     <button @click="next">下一张</button>
   </template>
 
-  <template v-slot:next-btn="{ close }">
+  <template v-slot:close-btn="{ close }">
     <button @click="close">关闭</button>
   </template>
 

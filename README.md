@@ -283,7 +283,7 @@ app.mount('#app')
     <button @click="next">show the next</button>
   </template>
 
-  <template v-slot:next-btn="{ close }">
+  <template v-slot:close-btn="{ close }">
     <button @click="close">close lightbox</button>
   </template>
 
