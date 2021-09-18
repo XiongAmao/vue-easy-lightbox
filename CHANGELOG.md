@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.4] (18 Sept. 2021)
+
+- Fix: Firefox Dragging issues #81
+
 ## [1.2.3] (17 August 2021)
 
 - Feat: Make vue-devtool display named components.
