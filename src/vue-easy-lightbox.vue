@@ -44,6 +44,7 @@
             @touchmove="handleTouchMove($event)"
             @touchend="handleTouchEnd($event)"
             @load="handleRealImgLoad"
+            @dragstart="handleDragStart($event)"
           />
         </div>
       </transition>
@@ -338,6 +339,9 @@
       this.isDraging = false
       this.isGesturing = false
       this.isTicking = false
+    }
+    handleDragStart(e: DragEvent) {
+      e.preventDefault()
     }
 
     // key press events handler
