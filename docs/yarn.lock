@@ -7548,10 +7548,10 @@ vm-browserify@^1.0.1:
   resolved "https://registry.npm.taobao.org/vm-browserify/download/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
 
-vue-easy-lightbox@0.15.2:
-  version "0.15.2"
-  resolved "https://registry.yarnpkg.com/vue-easy-lightbox/-/vue-easy-lightbox-0.15.2.tgz#0e917b07dff94b2a219a348c689cdefd8400dc91"
-  integrity sha512-wRKHifDdHAl9dxNqQauBAmYnEWtW25gP9ieDb604l8YLsEuzb9vedje8a3D8tcYAmCziZIm1fIxErYQO7uyvrA==
+vue-easy-lightbox@0.16.2:
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/vue-easy-lightbox/-/vue-easy-lightbox-0.16.2.tgz#4390c5ac2aaaa60300d1f51969eaeedd21dd8f88"
+  integrity sha512-pkfLBk9dZ9T+fk6bRgehDpIvaS81hOgDqsGpVEDgw8cGtO9FLfAT8hakaqNQOgMTCwrnkQcdfLTLqnad2rq46w==
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
