@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.16.2] (18 Sept. 2021)
+
+- Fix: Firefox Dragging issues #81
+
 ## [0.16.1] (15 June 2021)
 
 - Fix: Detect `window` incorrect on server side.
