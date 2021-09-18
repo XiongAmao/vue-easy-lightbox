@@ -429,6 +429,9 @@ export default defineComponent({
             onTouchmove={onTouchMove}
             onTouchend={onTouchEnd}
             onLoad={onImgLoad}
+            onDragstart={(e) => {
+              e.preventDefault()
+            }}
           />
         </div>
       )
