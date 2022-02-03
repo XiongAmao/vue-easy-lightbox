@@ -353,6 +353,12 @@ export default {
       <td>50</td>
       <td>指定swipe距离，单位为px</td>
     </tr>
+    <tr>
+      <td>rtl</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>指定RTL布局</td>
+    </tr>
   </tbody>
 </table>
 

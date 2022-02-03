@@ -366,6 +366,12 @@ Props
       <td>50</td>
       <td>Specify the number of pixel you have to swipe.</td>
     </tr>
+    <tr>
+      <td>rtl</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>support RTL (right to left) languages</td>
+    </tr>
   </tbody>
 </table>
 

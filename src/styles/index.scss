@@ -107,3 +107,32 @@
     }
   }
 }
+
+// rtl enhance
+.#{$prefix-cls}-modal.is-rtl {
+  .#{$prefix-cls}-btns-wrapper {
+    .btn__next {
+      left: 12px;
+      right: initial;
+    }
+    .btn__prev {
+      right: 12px;
+      left: initial;
+    }
+
+    @media (max-width: 750px) {
+      .btn__next {
+        left: 4px;
+        right: initial;
+      }
+      .btn__prev {
+        right: 4px;
+        left: initial;
+      }
+    }
+  }
+
+  .#{$prefix-cls}-img-title {
+    direction: rtl;
+  }
+}

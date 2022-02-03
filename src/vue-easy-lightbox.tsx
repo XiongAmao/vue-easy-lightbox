@@ -80,6 +80,10 @@ export default defineComponent({
     loop: {
       type: Boolean,
       default: false
+    },
+    rtl: {
+      type: Boolean,
+      default: false
     }
   },
   emits: [
@@ -287,10 +291,10 @@ export default defineComponent({
         closeDialog()
       }
       if (evt.key === 'ArrowLeft') {
-        onPrev()
+        props.rtl ? onNext() : onPrev()
       }
       if (evt.key === 'ArrowRight') {
-        onNext()
+        props.rtl ? onPrev() : onNext()
       }
     }
 
@@ -471,10 +475,11 @@ export default defineComponent({
           class={`btn__prev ${isDisabled ? 'disable' : ''}`}
           onClick={onPrev}
         >
-          <SvgIcon type="prev" />
+          {props.rtl ? <SvgIcon type="next" /> : <SvgIcon type="prev" />}
         </div>
       )
     }
+
     const renderNextBtn = () => {
       if (slots['next-btn']) {
         return slots['next-btn']({
@@ -492,10 +497,11 @@ export default defineComponent({
           class={`btn__next ${isDisabled ? 'disable' : ''}`}
           onClick={onNext}
         >
-          <SvgIcon type="next" />
+          {props.rtl ? <SvgIcon type="prev" /> : <SvgIcon type="next" />}
         </div>
       )
     }
+
     const renderCloseBtn = () => {
       return slots['close-btn'] ? (
         slots['close-btn']({
@@ -557,7 +563,7 @@ export default defineComponent({
       return (
         <div
           onTouchmove={preventDefault}
-          class={[`${prefixCls}-img-modal`, `${prefixCls}-modal`]}
+          class={[`${prefixCls}-modal`, props.rtl ? 'is-rtl' : '']}
           onClick={withModifiers(closeDialog, ['self'])}
         >
           <Transition name={`${prefixCls}-fade`} mode="out-in">

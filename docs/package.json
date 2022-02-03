@@ -8,7 +8,7 @@
     "build": "vuepress build docs"
   },
   "devDependencies": {
-    "vuepress": "^1.8.2"
+    "vuepress": "^1.9.7"
   },
   "dependencies": {
     "vue-easy-lightbox": "0.16.2"
