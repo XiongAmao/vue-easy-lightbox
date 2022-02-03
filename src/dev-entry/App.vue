@@ -76,7 +76,7 @@
             <h1>vue-easy-lightbox</h1>
             <div class="gallery">{imgs}</div>
             <VueEasyLightbox
-              dir="rtl"
+              rtl
               scrollDisabled
               moveDisabled
               visible={this.visible}

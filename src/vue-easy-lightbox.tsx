@@ -81,9 +81,9 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    dir: {
-      type: String,
-      default: ''
+    rtl: {
+      type: Boolean,
+      default: false
     }
   },
   emits: [
@@ -143,13 +143,6 @@ export default defineComponent({
 
     const imgTitle = computed(() => {
       return imgList.value[imgIndex.value]?.title
-    })
-
-    const isRTLRef = computed(() => {
-      if (isString(props.dir)) {
-        return props.dir.toLowerCase() === 'rtl'
-      }
-      return false
     })
 
     const currCursor = () => {
@@ -298,10 +291,10 @@ export default defineComponent({
         closeDialog()
       }
       if (evt.key === 'ArrowLeft') {
-        isRTLRef.value ? onNext() : onPrev()
+        props.rtl ? onNext() : onPrev()
       }
       if (evt.key === 'ArrowRight') {
-        isRTLRef.value ? onPrev() : onNext()
+        props.rtl ? onPrev() : onNext()
       }
     }
 
@@ -482,7 +475,7 @@ export default defineComponent({
           class={`btn__prev ${isDisabled ? 'disable' : ''}`}
           onClick={onPrev}
         >
-          {isRTLRef.value ? <SvgIcon type="next" /> : <SvgIcon type="prev" />}
+          {props.rtl ? <SvgIcon type="next" /> : <SvgIcon type="prev" />}
         </div>
       )
     }
@@ -504,7 +497,7 @@ export default defineComponent({
           class={`btn__next ${isDisabled ? 'disable' : ''}`}
           onClick={onNext}
         >
-          {isRTLRef.value ? <SvgIcon type="prev" /> : <SvgIcon type="next" />}
+          {props.rtl ? <SvgIcon type="prev" /> : <SvgIcon type="next" />}
         </div>
       )
     }
@@ -570,7 +563,7 @@ export default defineComponent({
       return (
         <div
           onTouchmove={preventDefault}
-          class={[`${prefixCls}-modal`, isRTLRef.value ? 'is-rtl' : '']}
+          class={[`${prefixCls}-modal`, props.rtl ? 'is-rtl' : '']}
           onClick={withModifiers(closeDialog, ['self'])}
         >
           <Transition name={`${prefixCls}-fade`} mode="out-in">
