@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.0] (3 Feb. 2022)
+
+- Feat: Support RTL (right to left) languages.
+
 ## [1.2.4] (18 Sept. 2021)
 
 - Fix: Firefox Dragging issues #81
