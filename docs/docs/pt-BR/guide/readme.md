@@ -358,6 +358,12 @@ Referência: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
       <td>50</td>
       <td>Especifique o número de píxeis que tem de `swipe`.</td>
     </tr>
+    <tr>
+      <td>rtl</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>suporta os idiomas RTL (da direita para a esquerda)</td>
+    </tr>
   </tbody>
 </table>
 
