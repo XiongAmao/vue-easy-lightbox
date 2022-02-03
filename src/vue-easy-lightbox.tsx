@@ -80,6 +80,10 @@ export default defineComponent({
     loop: {
       type: Boolean,
       default: false
+    },
+    dir: {
+      type: String,
+      default: ''
     }
   },
   emits: [
@@ -139,6 +143,13 @@ export default defineComponent({
 
     const imgTitle = computed(() => {
       return imgList.value[imgIndex.value]?.title
+    })
+
+    const isRTLRef = computed(() => {
+      if (isString(props.dir)) {
+        return props.dir.toLowerCase() === 'rtl'
+      }
+      return false
     })
 
     const currCursor = () => {
@@ -287,10 +298,10 @@ export default defineComponent({
         closeDialog()
       }
       if (evt.key === 'ArrowLeft') {
-        onPrev()
+        isRTLRef.value ? onNext() : onPrev()
       }
       if (evt.key === 'ArrowRight') {
-        onNext()
+        isRTLRef.value ? onPrev() : onNext()
       }
     }
 
@@ -471,10 +482,11 @@ export default defineComponent({
           class={`btn__prev ${isDisabled ? 'disable' : ''}`}
           onClick={onPrev}
         >
-          <SvgIcon type="prev" />
+          {isRTLRef.value ? <SvgIcon type="next" /> : <SvgIcon type="prev" />}
         </div>
       )
     }
+
     const renderNextBtn = () => {
       if (slots['next-btn']) {
         return slots['next-btn']({
@@ -492,10 +504,11 @@ export default defineComponent({
           class={`btn__next ${isDisabled ? 'disable' : ''}`}
           onClick={onNext}
         >
-          <SvgIcon type="next" />
+          {isRTLRef.value ? <SvgIcon type="prev" /> : <SvgIcon type="next" />}
         </div>
       )
     }
+
     const renderCloseBtn = () => {
       return slots['close-btn'] ? (
         slots['close-btn']({
@@ -557,7 +570,7 @@ export default defineComponent({
       return (
         <div
           onTouchmove={preventDefault}
-          class={[`${prefixCls}-img-modal`, `${prefixCls}-modal`]}
+          class={[`${prefixCls}-modal`, isRTLRef.value ? 'is-rtl' : '']}
           onClick={withModifiers(closeDialog, ['self'])}
         >
           <Transition name={`${prefixCls}-fade`} mode="out-in">
