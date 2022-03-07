@@ -117,7 +117,8 @@ export default defineComponent({
       loadError: false,
       loading: false,
       dragging: false,
-      gesturing: false
+      gesturing: false,
+      wheeling: false
     })
 
     const imgList = computed(() => {
@@ -234,20 +235,30 @@ export default defineComponent({
     }
 
     // actions for changing img
+    const defaultScale = 0.15
+    const zoom = (newScale: number) => {
+      if (Math.abs(1 - newScale) < 0.05) {
+        newScale = 1
+      } else if (Math.abs(imgState.maxScale - newScale) < 0.05) {
+        newScale = imgState.maxScale
+      }
+      imgWrapperState.lastScale = imgWrapperState.scale
+      imgWrapperState.scale = newScale
+    }
+
     const zoomIn = () => {
-      console.log(imgState.maxScale)
-      const newScale = imgWrapperState.scale + 0.2
+      const newScale = imgWrapperState.scale + defaultScale
       if (newScale < imgState.maxScale * 3) {
-        imgWrapperState.lastScale = imgWrapperState.scale
-        imgWrapperState.scale = newScale
+        zoom(newScale)
       }
     }
 
     const zoomOut = () => {
-      const newScale = imgWrapperState.scale - 0.2
+      const newScale =
+        imgWrapperState.scale -
+        (imgWrapperState.scale < 0.7 ? 0.1 : defaultScale)
       if (newScale > 0.1) {
-        imgWrapperState.lastScale = imgWrapperState.scale
-        imgWrapperState.scale = newScale
+        zoom(newScale)
       }
     }
 
@@ -292,6 +303,30 @@ export default defineComponent({
         imgWrapperState.scale = imgState.maxScale
       } else {
         imgWrapperState.scale = imgWrapperState.lastScale
+      }
+    }
+
+    const onWheel = (e: WheelEvent) => {
+      if (
+        status.loadError ||
+        status.gesturing ||
+        status.loading ||
+        status.dragging ||
+        status.wheeling
+      ) {
+        return
+      }
+
+      status.wheeling = true
+
+      setTimeout(() => {
+        status.wheeling = false
+      }, 100)
+
+      if (e.deltaY < 0) {
+        zoomIn()
+      } else {
+        zoomOut()
       }
     }
 
@@ -581,6 +616,7 @@ export default defineComponent({
           onTouchmove={preventDefault}
           class={[`${prefixCls}-modal`, props.rtl ? 'is-rtl' : '']}
           onClick={withModifiers(closeDialog, ['self'])}
+          onWheel={onWheel}
         >
           <Transition name={`${prefixCls}-fade`} mode="out-in">
             {renderWrapper()}
