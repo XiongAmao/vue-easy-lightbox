@@ -6,6 +6,7 @@ export interface IImgState {
 
 export interface IImgWrapperState {
   scale: number
+  lastScale: number
   rotateDeg: number
   top: number
   left: number

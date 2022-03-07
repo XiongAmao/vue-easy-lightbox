@@ -19,6 +19,7 @@
             title: "There is img's description",
             src: 'https://i.loli.net/2018/11/10/5be6852ce6965.jpeg'
           },
+          'https://via.placeholder.com/300',
           'https://i.loli.net/2018/11/10/5be6852dec46e.jpeg',
           'https://i.loli.net/2018/11/10/5be6852e1366d.jpeg',
           'https://i.loli.net/2018/11/10/5be6852e33f19.jpeg',
@@ -76,9 +77,7 @@
             <h1>vue-easy-lightbox</h1>
             <div class="gallery">{imgs}</div>
             <VueEasyLightbox
-              rtl
               scrollDisabled
-              moveDisabled
               visible={this.visible}
               index={this.index}
               imgs={this.imgs}
