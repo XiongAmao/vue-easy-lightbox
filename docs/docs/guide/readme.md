@@ -332,7 +332,7 @@ Reference: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
     <tr>
       <td>scrollDisabled (scroll-disabled)</td>
       <td>Boolean</td>
-      <td>false</td>
+      <td>true</td>
       <td>Pass true to disable scrolling when modal is visible.</td>
     </tr>
     <tr>

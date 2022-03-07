@@ -326,7 +326,7 @@ export default {
     <tr>
       <td>scrollDisabled (scroll-disabled)</td>
       <td>Boolean</td>
-      <td>false</td>
+      <td>true</td>
       <td>传true时，禁用背景滚动</td>
     </tr>
     <tr>

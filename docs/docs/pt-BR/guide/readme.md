@@ -331,19 +331,19 @@ Referência: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
     <tr>
       <td>scrollDisabled (scroll-disabled)</td>
       <td>Boolean</td>
-      <td>false</td>
+      <td>true</td>
       <td>Passe verdadeiro para desactivar a rolagem quando o modal é visível.</td>
     </tr>
     <tr>
       <td>escDisabled (esc-disabled)</td>
       <td>Boolean</td>
-      <td>falso</td>
+      <td>false</td>
       <td>Por padrão, pressione a tecla `esc` para fechar o Modal durante a apresentação.</td>
     </tr>
     <tr>
       <td>moveDisabled (move-disabled)</td>
       <td>Boolean</td>
-      <td>falso</td>
+      <td>false</td>
       <td>Passe verdadeiro para desativar o movimento da imagem e permitir `swipe`.</td>
     </tr>
     <tr>
