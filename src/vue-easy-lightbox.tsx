@@ -102,6 +102,7 @@ export default defineComponent({
 
     const imgWrapperState = reactive<IImgWrapperState>({
       scale: 1,
+      lastScale: 1,
       rotateDeg: 0,
       top: 0,
       left: 0,
@@ -171,6 +172,7 @@ export default defineComponent({
 
     const initImg = () => {
       imgWrapperState.scale = 1
+      imgWrapperState.lastScale = 1
       imgWrapperState.rotateDeg = 0
       imgWrapperState.top = 0
       imgWrapperState.left = 0
@@ -233,8 +235,10 @@ export default defineComponent({
 
     // actions for changing img
     const zoomIn = () => {
+      console.log(imgState.maxScale)
       const newScale = imgWrapperState.scale + 0.2
       if (newScale < imgState.maxScale * 3) {
+        imgWrapperState.lastScale = imgWrapperState.scale
         imgWrapperState.scale = newScale
       }
     }
@@ -242,6 +246,7 @@ export default defineComponent({
     const zoomOut = () => {
       const newScale = imgWrapperState.scale - 0.2
       if (newScale > 0.1) {
+        imgWrapperState.lastScale = imgWrapperState.scale
         imgWrapperState.scale = newScale
       }
     }
@@ -280,6 +285,15 @@ export default defineComponent({
       status,
       canMove
     )
+
+    const onDblclick = () => {
+      if (imgWrapperState.scale !== imgState.maxScale) {
+        imgWrapperState.lastScale = imgWrapperState.scale
+        imgWrapperState.scale = imgState.maxScale
+      } else {
+        imgWrapperState.scale = imgWrapperState.lastScale
+      }
+    }
 
     // key press events handler
     const onKeyPress = (e: Event) => {
@@ -414,6 +428,7 @@ export default defineComponent({
         <ImgOnError key="img-on-error" />
       )
     }
+
     const renderImgWrapper = () => {
       return (
         <div
@@ -433,6 +448,7 @@ export default defineComponent({
             onTouchmove={onTouchMove}
             onTouchend={onTouchEnd}
             onLoad={onImgLoad}
+            onDblclick={onDblclick}
             onDragstart={(e) => {
               e.preventDefault()
             }}
