@@ -5,6 +5,7 @@
       ref="modal"
       :class="[`${prefixCls}-img-modal`, `${prefixCls}-modal`]"
       @click.self="closeDialog"
+      @wheel="onWheel"
     >
       <transition
         :name="`${prefixCls}-fade`"
@@ -45,6 +46,7 @@
             @touchend="handleTouchEnd($event)"
             @load="handleRealImgLoad"
             @dragstart="handleDragStart($event)"
+            @dblclick="handleDblClick($event)"
           />
         </div>
       </transition>
@@ -180,9 +182,11 @@
     @Prop({ type: Boolean, default: false }) readonly moveDisabled!: boolean
     @Prop({ type: Boolean, default: false }) readonly titleDisabled!: boolean
     @Prop({ type: Boolean, default: false }) readonly loop!: boolean
+    @Prop({ type: Boolean, default: true }) readonly scrollDisabled!: boolean
 
     prefixCls = prefixCls
     scale = 1
+    lastScale = 1
     rotateDeg = 0
     imgIndex = 0
     top = 0
@@ -194,6 +198,8 @@
     loadError = false
     isTicking = false
     isGesturing = false
+    wheeling = false
+    lastBodyStyleOverflowY = ''
     imgBaseInfo = {
       width: 0,
       height: 0,
@@ -343,6 +349,29 @@
     handleDragStart(e: DragEvent) {
       e.preventDefault()
     }
+    onWheel(e: WheelEvent) {
+      if (
+        this.loadError ||
+        this.loading ||
+        this.isDraging ||
+        this.isGesturing ||
+        this.wheeling
+      ) {
+        return
+      }
+
+      this.wheeling = true
+
+      setTimeout(() => {
+        this.wheeling = false
+      }, 80)
+
+      if (e.deltaY < 0) {
+        this.zoomIn()
+      } else {
+        this.zoomOut()
+      }
+    }
 
     // key press events handler
     handleKeyPress(e: KeyboardEvent) {
@@ -392,16 +421,25 @@
     }
 
     // action handler
+    zoom(newScale: number) {
+      if (Math.abs(1 - newScale) < 0.05) {
+        newScale = 1
+      } else if (Math.abs(this.imgBaseInfo.maxScale - newScale) < 0.05) {
+        newScale = this.imgBaseInfo.maxScale
+      }
+      this.lastScale = this.scale
+      this.scale = newScale
+    }
     zoomIn() {
-      const newScale = this.scale + 0.2
+      const newScale = this.scale + 0.12
       if (newScale < this.imgBaseInfo.maxScale * 3) {
-        this.scale = newScale
+        this.zoom(newScale)
       }
     }
     zoomOut() {
-      const newScale = this.scale - 0.2
+      const newScale = this.scale - (this.scale < 0.7 ? 0.1 : 0.12)
       if (newScale > 0.1) {
-        this.scale = newScale
+        this.zoom(newScale)
       }
     }
     rotateLeft() {
@@ -409,6 +447,14 @@
     }
     rotateRight() {
       this.rotateDeg += 90
+    }
+    handleDblClick() {
+      if (this.scale !== this.imgBaseInfo.maxScale) {
+        this.lastScale = this.scale
+        this.scale = this.imgBaseInfo.maxScale
+      } else {
+        this.scale = this.lastScale
+      }
     }
     resize() {
       this.scale = 1
@@ -498,6 +544,18 @@
         this.index >= length ? length - 1 : this.index < 0 ? 0 : this.index
     }
 
+    // scrolling
+    disableScrolling() {
+      if (!document) return
+      this.lastBodyStyleOverflowY = document.body.style.overflowY
+      document.body.style.overflowY = 'hidden'
+    }
+
+   enableScrolling() {
+      if (!document) return
+      document.body.style.overflowY = this.lastBodyStyleOverflowY
+    }
+
     // watch
     @Watch('visible', { immediate: true })
     onVisibleChanged(visible: boolean) {
@@ -507,7 +565,14 @@
           on(this.$refs.modal as Element, 'touchmove', (e: Event) => {
             e.preventDefault()
           })
+          if (this.scrollDisabled) {
+            this.disableScrolling()
+          }
         })
+      } else {
+        if (this.scrollDisabled) {
+          this.enableScrolling()
+        }
       }
     }
 
@@ -567,7 +632,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50% -50%);
-    transition: 0.3s ease-in-out;
+    transition: 0.3s linear;
     will-change: transform opacity;
   }
 
