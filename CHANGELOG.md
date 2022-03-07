@@ -1,5 +1,11 @@
 # Changelog
 
+# [1.4.1] (7 March 2022)
+
+- Feat: Reduced zoom in/out ratio.
+- Feat: Zooming by mouse wheel is available only when `scrollDisabled` is `true`.
+- Breaking Change: `scrollDisabled` now defaults to `true`.
+
 ## [1.4.0] (7 March 2022)
 
 - Feat: Support zoom by mouse wheel.

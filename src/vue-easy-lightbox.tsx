@@ -55,7 +55,7 @@ export default defineComponent({
     },
     scrollDisabled: {
       type: Boolean,
-      default: false
+      default: true
     },
     escDisabled: {
       type: Boolean,
@@ -235,7 +235,7 @@ export default defineComponent({
     }
 
     // actions for changing img
-    const defaultScale = 0.15
+    const defaultScale = 0.12
     const zoom = (newScale: number) => {
       if (Math.abs(1 - newScale) < 0.05) {
         newScale = 1
@@ -312,7 +312,8 @@ export default defineComponent({
         status.gesturing ||
         status.loading ||
         status.dragging ||
-        status.wheeling
+        status.wheeling ||
+        !props.scrollDisabled
       ) {
         return
       }
@@ -321,7 +322,7 @@ export default defineComponent({
 
       setTimeout(() => {
         status.wheeling = false
-      }, 100)
+      }, 80)
 
       if (e.deltaY < 0) {
         zoomIn()
