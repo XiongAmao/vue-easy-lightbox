@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.0] (7 March 2022)
+
+- Feat: Support zoom by mouse wheel.
+- Feat: Support double click to enlarge img.
+
 ## [1.3.0] (3 Feb. 2022)
 
 - Feat: Support RTL (right to left) languages.
