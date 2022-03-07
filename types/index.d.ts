@@ -36,6 +36,12 @@ export declare class VueEasyLightbox extends Vue {
    */
   moveDisabled?: boolean
 
+  /**
+   * Disable scrolling when modal is visible.
+   * @default true
+   */
+  scrollDisabled?: boolean
+
   /** Install component into Vue */
   static install (vue: typeof Vue): void
 }

@@ -8,7 +8,9 @@
 
 English | [中文文档](https://github.com/XiongAmao/vue-easy-lightbox/blob/vue2.x/README-CN.md)
 
-> `vue-easy-lightbox@0.x` only supports Vue.js 2, Vue.js 3 version please check [here](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README.md).
+>  `vue-easylightbox@1.x`(Vue.js 3) is now the new default version, check [here](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README.md).
+
+>  `vue-easy-lightbox@0.x` only supports Vue.js 2.
 
 ## Installation
 

@@ -355,7 +355,8 @@
         this.loading ||
         this.isDraging ||
         this.isGesturing ||
-        this.wheeling
+        this.wheeling ||
+        !this.scrollDisabled
       ) {
         return
       }

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.17.0] (7 March 2022)
+
+- Feat: Add `scrollDisabled`(default: `true`) prop to disable scrolling when modal is visible.
+- Feat: Support zoom by mouse wheel, only available when `scrollDisabled` is `true`.
+- Feat: Support double click to enlarge img.
+
 ## [0.16.2] (18 Sept. 2021)
 
 - Fix: Firefox Dragging issues #81

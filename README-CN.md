@@ -9,7 +9,9 @@
 简体中文 | [English](https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x)
 
 
-> `vue-easy-lightbox@0.x` 仅支持Vue.js 2版本, Vue.js 3 版本请点击 [这里](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README.md) 查看。
+>  `vue-easylightbox@1.x`(Vue.js 3) 现在是正式版本, 点[这里](https://github.com/XiongAmao/vue-easy-lightbox/blob/master/README.md)查看.
+
+> `vue-easy-lightbox@0.x` 仅支持Vue.js 2版本。
 
 ## 安装
 
