@@ -9,5 +9,5 @@ footer: Licença MIT | Copyright © 2018-presente XiongAmao
 ## Exemplo
 
 <ClientOnly>
-  <homepage-demo/>
+  <HomepageDemo />
 </ClientOnly>

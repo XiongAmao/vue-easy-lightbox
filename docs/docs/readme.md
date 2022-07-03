@@ -9,5 +9,5 @@ footer: MIT Licensed | Copyright © 2018-present XiongAmao
 ## Demo
 
 <ClientOnly>
-  <homepage-demo/>
+  <HomepageDemo />
 </ClientOnly>

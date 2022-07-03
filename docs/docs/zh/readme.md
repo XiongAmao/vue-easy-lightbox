@@ -9,5 +9,5 @@ footer: MIT Licensed | Copyright © 2018-present XiongAmao
 ## 简单例子
 
 <ClientOnly>
-  <homepage-demo/>
+  <HomepageDemo />
 </ClientOnly>
