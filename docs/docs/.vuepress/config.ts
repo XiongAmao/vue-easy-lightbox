@@ -1,20 +1,27 @@
+const {
+  registerComponentsPlugin
+} = require('@vuepress/plugin-register-components')
+const { defaultTheme } = require('@vuepress/theme-default')
+const { path } = require('@vuepress/utils')
+
 module.exports = {
   base: '/vue-easy-lightbox/',
   title: 'vue-easy-lightbox',
   description: '',
   port: 8089,
-  theme: '@vuepress/theme-default',
-  themeConfig: {
-    repo: 'XiongAmao/vue-easy-lightbox',
-    search: false,
-    sidebarDepth: 2,
-    sidebar: 'auto',
+  plugins: [
+    registerComponentsPlugin({
+      componentsDir: path.resolve(__dirname, './components')
+    })
+  ],
+  theme: defaultTheme({
+    repo: 'https://github.com/XiongAmao/vue-easy-lightbox',
     locales: {
       '/': {
-        label: 'English',
-        selectText: 'Languages',
-        ariaLabel: 'Select language',
-        nav: [
+        selectLanguageText: 'Language',
+        selectLanguageAriaLabel: 'Select language',
+        selectLanguageName: 'English',
+        navbar: [
           {
             text: 'Guide',
             link: '/guide/'
@@ -26,10 +33,10 @@ module.exports = {
         ]
       },
       '/zh/': {
-        label: '简体中文',
-        selectText: '选择语言',
-        ariaLabel: '选择语言',
-        nav: [
+        selectLanguageText: '选择语言',
+        selectLanguageAriaLabel: '选择语言',
+        selectLanguageName: '简体中文',
+        navbar: [
           {
             text: '指南',
             link: '/zh/guide/'
@@ -41,10 +48,13 @@ module.exports = {
         ]
       },
       '/pt-BR/': {
+        selectLanguageText: 'Idiomas',
+        selectLanguageAriaLabel: 'Selecione o idioma',
+        selectLanguageName: 'Português',
         label: 'Português',
         selectText: 'Idiomas',
         ariaLabel: 'Selecione o idioma',
-        nav: [
+        navbar: [
           {
             text: 'Guia',
             link: '/pt-BR/guide/'
@@ -55,8 +65,11 @@ module.exports = {
           }
         ]
       }
+    },
+    themePlugins: {
+      mediumZoom: false
     }
-  },
+  }),
   locales: {
     '/': {
       lang: 'en-US',
@@ -65,7 +78,7 @@ module.exports = {
         'A Vue.js 3.0 image lightbox component with Zoom / Drag / Rotate / Switch .'
     },
     '/zh/': {
-      lang: 'zh-CN',
+      lang: '中文',
       title: 'vue-easy-lightbox',
       description:
         '基于Vue.js 3.0 与 TypeScript 构建的图片阅览插件。 支持旋转、放大、拖拽图片等功能。'
