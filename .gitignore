@@ -70,3 +70,6 @@ demos/**/dist
 .vscode
 /types/
 docs/docs/.vuepress/dist
+docs/docs/.vuepress/.temp
+docs/docs/.vuepress/.cache
+

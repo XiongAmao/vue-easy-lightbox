@@ -1,7 +1,9 @@
 ---
 home: true
-actionText: Iniciando ->
-actionLink: /pt-BR/guide/index.html
+actions:
+  - text: Iniciando →
+    link: /pt-BR/guide/index.html
+    type: primary
 footer: Licença MIT | Copyright © 2018-presente XiongAmao
 ---
 
@@ -9,5 +11,5 @@ footer: Licença MIT | Copyright © 2018-presente XiongAmao
 ## Exemplo
 
 <ClientOnly>
-  <homepage-demo/>
+  <HomepageDemo />
 </ClientOnly>

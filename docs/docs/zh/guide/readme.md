@@ -339,7 +339,7 @@ export default {
       <td>moveDisabled (move-disabled)</td>
       <td>Boolean</td>
       <td>false</td>
-      <<>传true时，禁用拖动图片功能，并启用手势swipe功能</>
+      <td>传true时，禁用拖动图片功能，并启用手势swipe功能</td>
     </tr>
     <tr>
       <td>teleport</td>

@@ -8,9 +8,10 @@
     "build": "vuepress build docs"
   },
   "devDependencies": {
-    "vuepress": "^1.9.7"
+    "@vuepress/plugin-register-components": "^2.0.0-beta.48",
+    "vuepress": "^2.0.0-beta.48"
   },
   "dependencies": {
-    "vue-easy-lightbox": "0.16.2"
+    "vue-easy-lightbox": "^1.4.1"
   }
 }
