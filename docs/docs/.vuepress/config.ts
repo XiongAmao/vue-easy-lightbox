@@ -7,7 +7,6 @@ const { path } = require('@vuepress/utils')
 module.exports = {
   base: '/vue-easy-lightbox/',
   title: 'vue-easy-lightbox',
-  description: '',
   port: 8089,
   plugins: [
     registerComponentsPlugin({
@@ -27,7 +26,7 @@ module.exports = {
             link: '/guide/'
           },
           {
-            text: 'v0.x',
+            text: 'v0.x (Vue2)',
             link: 'https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x'
           }
         ]
@@ -42,7 +41,7 @@ module.exports = {
             link: '/zh/guide/'
           },
           {
-            text: 'v0.x',
+            text: 'v0.x (Vue2)',
             link: 'https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x'
           }
         ]
@@ -51,16 +50,13 @@ module.exports = {
         selectLanguageText: 'Idiomas',
         selectLanguageAriaLabel: 'Selecione o idioma',
         selectLanguageName: 'Português',
-        label: 'Português',
-        selectText: 'Idiomas',
-        ariaLabel: 'Selecione o idioma',
         navbar: [
           {
             text: 'Guia',
             link: '/pt-BR/guide/'
           },
           {
-            text: 'v0.x',
+            text: 'v0.x (Vue2)',
             link: 'https://github.com/XiongAmao/vue-easy-lightbox/tree/vue2.x'
           }
         ]

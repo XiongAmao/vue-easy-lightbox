@@ -1,7 +1,9 @@
 ---
 home: true
-actionText: 快速上手 ->
-actionLink: /zh/guide/index.html
+actions:
+  - text: 快速上手 →
+    link: /zh/guide/index.html
+    type: primary
 footer: MIT Licensed | Copyright © 2018-present XiongAmao
 ---
 
