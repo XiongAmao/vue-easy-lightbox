@@ -299,6 +299,18 @@ Props
       <td>false</td>
       <td>传true时，禁用拖动图片功能</td>
     </tr>
+    <tr>
+      <td>scrollDisabled (scroll-disabled)</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>传true时，禁用背景滚动</td>
+    </tr>
+    <tr>
+      <td>maskClosable (mask-closable)</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>控制点击蒙板关闭预览.</td>
+    </tr>
   </tbody>
 </table>
 

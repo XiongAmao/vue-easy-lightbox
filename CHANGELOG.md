@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.18.0] (5 July 2022)
+
+- Feat: Enable or disable click mask to close `vue-easy-lightbox`.
+
 ## [0.17.0] (7 March 2022)
 
 - Feat: Add `scrollDisabled`(default: `true`) prop to disable scrolling when modal is visible.

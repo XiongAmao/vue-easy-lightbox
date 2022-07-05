@@ -302,6 +302,18 @@ Props
       <td>false</td>
       <td>Pass true to disable image movement.</td>
     </tr>
+    <tr>
+      <td>scrollDisabled (scroll-disabled)</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>Pass true to disable scrolling when modal is visible.</td>
+    </tr>
+    <tr>
+      <td>maskClosable (mask-closable)</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>Enable or disable click mask to close vue-easy-lightbox.</td>
+    </tr>
   </tbody>
 </table>
 
