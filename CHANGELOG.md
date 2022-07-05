@@ -1,5 +1,9 @@
 # Changelog
 
+# [1.5.0] (5 July 2022)
+
+- Feat: Enable or disable click mask to close `vue-easy-lightbox`.
+
 # [1.4.1] (7 March 2022)
 
 - Feat: Reduced zoom in/out ratio.

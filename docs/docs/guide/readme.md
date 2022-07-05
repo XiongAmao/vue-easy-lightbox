@@ -348,6 +348,12 @@ Reference: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
       <td>Pass true to disable image movement and enable swipe.</td>
     </tr>
     <tr>
+      <td>maskClosable (mask-closable)</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>Enable or disable click mask to close vue-easy-lightbox.</td>
+    </tr>
+    <tr>
       <td>teleport</td>
       <td>string | Element</td>
       <td>-</td>

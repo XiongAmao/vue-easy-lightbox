@@ -342,6 +342,12 @@ export default {
       <td>传true时，禁用拖动图片功能，并启用手势swipe功能</td>
     </tr>
     <tr>
+      <td>maskClosable (mask-closable)</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>控制点击蒙板关闭预览.</td>
+    </tr>
+    <tr>
       <td>teleport</td>
       <td>string | Element</td>
       <td>-</td>

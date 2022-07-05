@@ -69,6 +69,10 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    maskClosable: {
+      type: Boolean,
+      default: true,
+    },
     teleport: {
       type: [String, Object] as PropType<TeleportProps['to']>,
       default: null
@@ -348,6 +352,12 @@ export default defineComponent({
       }
     }
 
+    const onMaskClick = (e: Event) => {
+      if (props.maskClosable) {
+        closeDialog()
+      }
+    }
+
     // handle loading process
     const onImgLoad = () => {
       setImgSize()
@@ -616,7 +626,7 @@ export default defineComponent({
         <div
           onTouchmove={preventDefault}
           class={[`${prefixCls}-modal`, props.rtl ? 'is-rtl' : '']}
-          onClick={withModifiers(closeDialog, ['self'])}
+          onClick={withModifiers(onMaskClick, ['self'])}
           onWheel={onWheel}
         >
           <Transition name={`${prefixCls}-fade`} mode="out-in">

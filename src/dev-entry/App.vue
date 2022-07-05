@@ -85,6 +85,7 @@
               onOnIndexChange={this.log}
               onOnPrev={this.log}
               onOnError={this.log}
+              maskClosable={false}
             ></VueEasyLightbox>
           </div>
         </div>

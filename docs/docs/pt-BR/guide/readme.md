@@ -347,6 +347,12 @@ Referência: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
       <td>Passe verdadeiro para desativar o movimento da imagem e permitir `swipe`.</td>
     </tr>
     <tr>
+      <td>maskClosable (mask-closable)</td>
+      <td>Boolean</td>
+      <td>true</td>
+      <td>Habilite ou desabilite a máscara de clique para fechar a `vue-easy-lightbox`.</td>
+    </tr>
+    <tr>
       <td>teleport</td>
       <td>string | Element</td>
       <td>-</td>
