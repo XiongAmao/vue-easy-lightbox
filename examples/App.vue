@@ -21,6 +21,7 @@
         :index="index"
         :imgs="imgs"
         :moveDisabled="false"
+        :maskClosable="false"
         @hide="handleHide"
         @on-index-change="handleIndexChange"
       />

@@ -4,7 +4,7 @@
       v-if="visible"
       ref="modal"
       :class="[`${prefixCls}-img-modal`, `${prefixCls}-modal`]"
-      @click.self="closeDialog"
+      @click.self="onMaskClick"
       @wheel="onWheel"
     >
       <transition
@@ -183,6 +183,7 @@
     @Prop({ type: Boolean, default: false }) readonly titleDisabled!: boolean
     @Prop({ type: Boolean, default: false }) readonly loop!: boolean
     @Prop({ type: Boolean, default: true }) readonly scrollDisabled!: boolean
+    @Prop({ type: Boolean, default: true }) readonly maskClosable!: boolean
 
     prefixCls = prefixCls
     scale = 1
@@ -516,6 +517,12 @@
 
     closeDialog() {
       this.$emit('hide')
+    }
+
+    onMaskClick() {
+      if (this.maskClosable) {
+        this.$emit('hide')
+      }
     }
 
     // reset
