@@ -68,11 +68,11 @@ export default defineComponent({
 <style scoped lang="scss">
 .homepage-demo {
   :deep(img.vel-img) {
-    // max-width: 80vw;
+    max-width: 80vw;
 
-    // @media screen and (max-width: 750px) {
-    //   max-width: 85vw;
-    // }
+    @media screen and (max-width: 750px) {
+      max-width: 85vw;
+    }
   }
   .gallery {
     display: flex;
