@@ -44,7 +44,6 @@ export default defineComponent({
       'https://i.loli.net/2018/11/10/5be6852dec46e.jpeg'
     ]
 
-
     const onShowClick = (index) => {
       imgIndexRef.value = index
       visibleRef.value = true
@@ -68,6 +67,13 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .homepage-demo {
+  :deep(img.vel-img) {
+    // max-width: 80vw;
+
+    // @media screen and (max-width: 750px) {
+    //   max-width: 85vw;
+    // }
+  }
   .gallery {
     display: flex;
     align-items: center;
