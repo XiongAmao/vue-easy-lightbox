@@ -27,6 +27,7 @@ export interface IStatus {
 export interface Img {
   src?: string
   title?: string
+  alt?: string
 }
 
 export type PropsImgs = Img | string | (Img | string)[]

@@ -71,7 +71,7 @@ export default defineComponent({
     },
     maskClosable: {
       type: Boolean,
-      default: true,
+      default: true
     },
     teleport: {
       type: [String, Object] as PropType<TeleportProps['to']>,
@@ -147,8 +147,11 @@ export default defineComponent({
       return src
     })
 
-    const imgTitle = computed(() => {
+    const currentImgTitle = computed(() => {
       return imgList.value[imgIndex.value]?.title
+    })
+    const currentImgAlt = computed(() => {
+      return imgList.value[imgIndex.value]?.alt
     })
 
     const currCursor = () => {
@@ -352,7 +355,7 @@ export default defineComponent({
       }
     }
 
-    const onMaskClick = (e: Event) => {
+    const onMaskClick = () => {
       if (props.maskClosable) {
         closeDialog()
       }
@@ -483,6 +486,7 @@ export default defineComponent({
           key="img-wrapper"
         >
           <img
+            alt={currentImgAlt.value}
             ref={imgRef}
             draggable="false"
             class={`${prefixCls}-img`}
@@ -534,6 +538,8 @@ export default defineComponent({
 
       return (
         <div
+          role="button"
+          aria-label="previous image button"
           class={`btn__prev ${isDisabled ? 'disable' : ''}`}
           onClick={onPrev}
         >
@@ -556,6 +562,8 @@ export default defineComponent({
 
       return (
         <div
+          role="button"
+          aria-label="next image button"
           class={`btn__next ${isDisabled ? 'disable' : ''}`}
           onClick={onNext}
         >
@@ -570,7 +578,12 @@ export default defineComponent({
           close: closeDialog
         })
       ) : (
-        <div class={`btn__close`} onClick={closeDialog}>
+        <div
+          role="button"
+          aria-label="close image preview button"
+          class={`btn__close`}
+          onClick={closeDialog}
+        >
           <SvgIcon type="close" />
         </div>
       )
@@ -606,7 +619,7 @@ export default defineComponent({
     }
     const renderImgTitle = () => {
       if (
-        !imgTitle.value ||
+        !currentImgTitle.value ||
         props.titleDisabled ||
         status.loading ||
         status.loadError
@@ -614,7 +627,11 @@ export default defineComponent({
         return
       }
 
-      return slots.title ? slots.title() : <ImgTitle>{imgTitle.value}</ImgTitle>
+      return slots.title ? (
+        slots.title()
+      ) : (
+        <ImgTitle>{currentImgTitle.value}</ImgTitle>
+      )
     }
 
     const renderModal = () => {
