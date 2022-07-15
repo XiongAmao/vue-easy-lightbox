@@ -35,31 +35,28 @@ $ yarn add vue-easy-lightbox@next
 ```
 
 ### 不同构建版本的区别
-`ES5` 构建是`Babel`编译后的版本。如果你不需要支持`ES5`或更低版本的环境，可以使用非`ES5`的构建，它们提供了更小的文件。
+
+由于 `Vue 3.x` 使用 `ES2015` ([docs faq](https://staging-cn.vuejs.org/about/faq.html#what-browsers-does-vue-support)), 不再需要构建`ES5`版本，`1.6.0`版本开始不再提供`ES5`构建包.
 
 <table>
   <thead>
     <tr>
-      <th></th>
-      <th>ES5(default in package.json)</th>
-      <th>ES6</th>
+      <th>Module</th>
+      <th>Filename</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>UMD(for browsers)</td>
-      <td>vue-easy-lightbox.es5.umd.min.js</td>
       <td>vue-easy-lightbox.umd.min.js</td>
     </tr>
     <tr>
       <td>CommonJS</td>
-      <td>vue-easy-lightbox.es5.common.min.js (pkg.main)</td>
-      <td>vue-easy-lightbox.common.min.js</td>
+      <td>vue-easy-lightbox.common.min.js (pkg.main)</td>
     </tr>
     <tr>
       <td>ES Module(for bundlers)</td>
-      <td>vue-easy-lightbox.es5.esm.min.js (pkg.module)</td>
-      <td>vue-easy-lightbox.esm.min.js</td>
+      <td>vue-easy-lightbox.esm.min.js (pkg.module)</td>
     </tr>
   </tbody>
 </table>
@@ -71,7 +68,7 @@ $ yarn add vue-easy-lightbox@next
 
 ```js
 // in this path vue-easy-lightbox/dist/external-css/*.js
-import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'
+import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
 
 // 单独引入组件样式
 import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
@@ -81,13 +78,13 @@ import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
 
 如果你使用TypeScript，并遇到了以下报错：
 
-> `Could not find the declaration file for module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'`
+> `Could not find the declaration file for module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'`
 
 这里有两种办法解决这个问题
 
 方法 1: 项目本地添加 `d.ts`，补充模块信息:
 ```ts
-declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.common.min' {
+declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min' {
   import VueEasyLightbox from 'vue-easy-lightbox'
   export default VueEasyLightbox
 }
@@ -102,7 +99,7 @@ module.exports = {
   //...
   resolve: {
     alias: {
-      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.common.min.js',
+      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min.js',
     },
   },
 };

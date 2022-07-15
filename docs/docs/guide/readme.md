@@ -35,31 +35,28 @@ Add `script` in your browser and use the global variable `VueEasyLightbox`.
 
 ### Different Builds
 
-`ES5` build is converted by `Babel`. If you don't need to support an es5 environment, you can choose a non`ES5` build with smaller size.
+Since `Vue 3.x` uses `ES2015` ([docs faq](https://vuejs.org/about/faq.html#what-browsers-does-vue-support)), there is no need to build `ES5` bundle, and `ES5` build is removed from version `1.6.0`.
+
 
 <table>
   <thead>
     <tr>
-      <th></th>
-      <th>ES5(default in package.json)</th>
-      <th>ES6</th>
+      <th>Module</th>
+      <th>Filename</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>UMD(for browsers)</td>
-      <td>vue-easy-lightbox.es5.umd.min.js</td>
       <td>vue-easy-lightbox.umd.min.js</td>
     </tr>
     <tr>
       <td>CommonJS</td>
-      <td>vue-easy-lightbox.es5.common.min.js (pkg.main)</td>
-      <td>vue-easy-lightbox.common.min.js</td>
+      <td>vue-easy-lightbox.common.min.js (pkg.main)</td>
     </tr>
     <tr>
       <td>ES Module(for bundlers)</td>
-      <td>vue-easy-lightbox.es5.esm.min.js (pkg.module)</td>
-      <td>vue-easy-lightbox.esm.min.js</td>
+      <td>vue-easy-lightbox.esm.min.js (pkg.module)</td>
     </tr>
   </tbody>
 </table>
@@ -71,7 +68,7 @@ By default, CSS is included in `dist/*.min.js`. In some special cases you may wa
 
 ```js
 // in this path vue-easy-lightbox/dist/external-css/*.js
-import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'
+import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
 
 // you need to import css yourself
 import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
@@ -81,13 +78,13 @@ import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
 
 If your project is TypeScript project and you get this error message:
 
-> `Could not find the declaration file for module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'`
+> `Could not find the declaration file for module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'`
 
 Here are two ways to solve it.
 
 Way 1: add `d.ts` locally:
 ```ts
-declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.common.min' {
+declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min' {
   import VueEasyLightbox from 'vue-easy-lightbox'
   export default VueEasyLightbox
 }
@@ -102,7 +99,7 @@ module.exports = {
   //...
   resolve: {
     alias: {
-      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.common.min.js',
+      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min.js',
     },
   },
 };
