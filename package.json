@@ -18,7 +18,7 @@
     "build": "pnpm run clean && pnpm run build:bundle && pnpm run build:type",
     "build:bundle": "rollup -c build-scripts/rollup.config.js",
     "build:type": "tsc --emitDeclarationOnly && node build-scripts/gen-types.js",
-    "build:docs": "cd docs && yarn build",
+    "build:docs": "cd docs && pnpm build",
     "deploy:docs": "bash bin/deploy-docs.sh",
     "lint": "eslint --fix --ext .ts,.vue,.js,.tsx ./src",
     "prepare": "husky install",
