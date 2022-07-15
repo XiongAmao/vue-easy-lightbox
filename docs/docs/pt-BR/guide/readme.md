@@ -60,7 +60,10 @@ Como o `Vue 3.x` utiliza `ES2015`, não há necessidade de construir o pacote `E
   </tbody>
 </table>
 
-### External CSS Build `^1.2.3`
+### External CSS Build
+
+> Added in: `v1.2.3`
+
 
 By default, CSS is included in `dist/*.min.js`. In some special cases you may want to import CSS individually to avoid some problems ([CSP Violation](https://github.com/XiongAmao/vue-easy-lightbox/issues/75)). You can import builds without CSS and individual `.css` file from `dist/external-css/`.
 
@@ -110,65 +113,59 @@ import VueEasyLightbox from 'vue-easy-lightbox' // work
 
 ## Uso
 
-### Incluindo direto com `<script/>`
+### Using `UMD` in browser
 
 ```html
-<div id="app">
-  <div >
-    <div
-      v-for="(img, index) in imgs"
-      :key="index"
-      class="pic"
-      @click="() => showImg(index)"
-    >
-      <img :src="typeof img === 'string' ? img : img.src" />
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="">
+        <div v-for="(src, index) in imgs" :key="index" class="pic" @click="() => showImg(index)">
+          <img :src="src" />
+        </div>
+      </div>
+      <vue-easy-lightbox :visible="visibleRef" :imgs="imgs" :index="indexRef" @hide="onHide"></vue-easy-lightbox>
     </div>
-  </div>
-  <vue-easy-lightbox
-    :visible="visible"
-    :imgs="imgs"
-    :index="index"
-    @hide="handleHide"
-  ></vue-easy-lightbox>
-</div>
-
-<script src="https://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
-<!-- umd bundle -->
-<script>
-  // Nota: O Vue.js 3 não fornece mais uma instância global do Vue, registre o componente a cada instância VueApp.
-  // https://v3.vuejs.org/guide/migration/global-api.html#a-new-global-api-createapp
-  const app = Vue.createApp({
-    data() {
-      return {
-        visible: false,
-        index: 0, // default: 0
-        imgs: [
-          'https://via.placeholder.com/450.png/',
-          'https://via.placeholder.com/300.png/',
-          'https://via.placeholder.com/150.png/',
-          { src: 'https://via.placeholder.com/450.png/', title: 'this is title' }
-        ]
-      }
-    },
-    methods: {
-      showImg(index) {
-        this.index = index
-        this.visible = true
-      },
-      handleHide() {
-        this.visible = false
-      }
-    }
-  })
-  // Registrando VueEasyLightbox para seu VueApp.
-  app.use(VueEasyLightbox)
-  // ou
-  app.component(VueEasyLightbox.default.name, VueEasyLightbox.default)
-
-  app.mount('#app')
-</script>
+    <script>
+      const { ref } = Vue
+      const app = Vue.createApp({
+        setup() {
+          const visibleRef = ref(false)
+          const indexRef = ref(0)
+          const imgs = [
+            'https://via.placeholder.com/450.png/',
+            'https://via.placeholder.com/300.png/',
+            'https://via.placeholder.com/150.png/',
+            { src: 'https://via.placeholder.com/450.png/', title: 'this is title' }
+          ]
+          const showImg = (index) => {
+            indexRef.value = index
+            visibleRef.value = true
+          }
+          const onHide = () => visibleRef.value = false
+          return {
+            visibleRef,
+            indexRef,
+            imgs,
+            showImg,
+            onHide
+          }
+        }
+      })
+      // Registering VueEasyLightbox for your VueApp.
+      app.use(VueEasyLightbox)
+      app.mount('#app')
+    </script>
+  </body>
+</html>
 ```
+
 
 ### Componente de arquivo único `.vue`
 
@@ -182,7 +179,7 @@ import Vue from 'vue'
 import VueEasyLightbox from 'vue-easy-lightbox'
 
 const app = Vue.createApp({
-  ...
+  // ... root component options
 })
 app.use(VueEasyLightbox)
 app.mount('#app')
@@ -193,68 +190,73 @@ app.mount('#app')
 ```html
 <template>
   <div>
-    <button @click="showSingle">Mostrar uma única imagem.</button>
-    <button @click="showMultiple">Mostrar um grupo de imagens.</button>
+    <button @click="showSingle">Show single picture.</button>
+    <button @click="showMultiple">Show a group of pictures.</button>
 
-    <!-- Todas as props & eventos -->
     <vue-easy-lightbox
-      escDisabled
-      moveDisabled
-      :visible="visible"
-      :imgs="imgs"
-      :index="index"
-      @hide="handleHide"
+      :visible="visibleRef"
+      :imgs="imgsRef"
+      :index="indexRef"
+      @hide="onHide"
     ></vue-easy-lightbox>
   </div>
 </template>
 
 <script>
-  // Se o VueApp já estiver registrado com VueEasyLightbox, não há necessidade de registrá-lo aqui.
-  import VueEasyLightbox from 'vue-easy-lightbox'
+// If VueApp is already registered with VueEasyLightbox, there is no need to register it here.
+import VueEasyLightbox from 'vue-easy-lightbox'
+import { ref, defineComponent } from 'vue'
 
-  export default {
-    components: {
-      VueEasyLightbox
-    },
-    data() {
-      return {
-        imgs: '', // Url Img , string ou Array de strings
-        visible: false,
-        index: 0 // padrão: 0
-      }
-    },
-    methods: {
-      showSingle() {
-        this.imgs = 'http://via.placeholder.com/350x150'
-        // ou
-        this.imgs = {
-          title: 'este é um placeholder',
-          src: 'http://via.placeholder.com/350x150'
-        }
-        this.show()
-      },
-      showMultiple() {
-        this.imgs = [
-          'http://via.placeholder.com/350x150',
-          'http://via.placeholder.com/350x150'
-        ]
-        // ou
-        this.imgs = [
-          { title: 'título img', src: 'http://via.placeholder.com/350x150' },
-          'http://via.placeholder.com/350x150'
-        ]
-        // permiti a mistura
-        this.index = 1 // index da imgList
-        this.show()
-      },
-      show() {
-        this.visible = true
-      },
-      handleHide() {
-        this.visible = false
-      }
+export default defineComponent({
+  components: {
+    VueEasyLightbox
+  },
+  setup() {
+    const visibleRef = ref(false)
+    const indexRef = ref(0) // default 0
+    const imgsRef = ref([])
+    // Img Url , string or Array of string
+    // ImgObj { src: '', title: '', alt: '' }
+    // 'src' is required
+    // allow mixing
+
+    const onShow = () => {
+      visibleRef.value = true
+    }
+    const showSingle = () => {
+      imgsRef.value = 'http://via.placeholder.com/350x150'
+      // or
+      // imgsRef.value  = {
+      //   title: 'this is a placeholder',
+      //   src: 'http://via.placeholder.com/350x150'
+      // }
+      onShow()
+    }
+    const showMultiple = () => {
+      imgsRef.value = [
+        'http://via.placeholder.com/350x150',
+        'http://via.placeholder.com/350x150'
+      ]
+      // or
+      // imgsRef.value = [
+      //   { title: 'test img', src: 'http://via.placeholder.com/350x150' },
+      //   'http://via.placeholder.com/350x150'
+      // ]
+      indexRef.value = 0 // index of imgList
+      onShow()
+    }
+    const onHide = () => (visibleRef.value = false)
+
+    return {
+      visibleRef,
+      indexRef,
+      imgsRef,
+      showSingle,
+      showMultiple,
+      onHide
     }
   }
+})
 </script>
 ```
 
@@ -283,7 +285,7 @@ app.mount('#app')
 </vue-easy-lightbox>
 ```
 
-Referência: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
+Referência: [Slots-Vue.js](https://vuejs.org/guide/components/slots.html)
 
 ## Opções
 
@@ -307,9 +309,9 @@ Referência: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
     </tr>
     <tr>
       <td>imgs</td>
-      <td>String/String[]/ImgObject:{ src: string, title: string }/ImgObject[]</td>
+      <td>String/String[]/ImgObject:{ src: string, title?: string, alt?: string }/ImgObject[]</td>
       <td>requerido</td>
-      <td>Src das imagens / array do src / ImgObject:{ src, title } / array do ImgObject / array do ImgObject.</td>
+      <td>Src das imagens / array do src / ImgObject:{ src, title?, alt? } / array do ImgObject / array do ImgObject.</td>
     </tr>
     <tr>
       <td>index</td>
@@ -368,7 +370,7 @@ Referência: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
   </tbody>
 </table>
 
-Referência: [Teleport](https://v3.cn.vuejs.org/guide/teleport.html)
+Referência: [Teleport](https://vuejs.org/guide/built-ins/teleport.html)
 
 ### Event
 
