@@ -32,7 +32,7 @@ import {
   preventDefault
 } from './utils/index'
 import { useImage, useMouse, useTouch } from './utils/hooks'
-import { Img, IImgWrapperState, PropsImgs, IndexChangeActions } from './types'
+import { Img, IImgWrapperState, PropsImgs } from './types'
 
 function isImg(arg: Img): arg is Img {
   return isObject(arg) && isString(arg.src)
@@ -90,15 +90,17 @@ export default defineComponent({
       default: false
     }
   },
-  emits: [
-    'hide',
-    'on-error',
-    'on-prev',
-    'on-next',
-    'on-prev-click',
-    'on-next-click',
-    'on-index-change'
-  ],
+  emits: {
+    hide: () => true,
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    'on-error': (e: Event) => true,
+    'on-prev': (oldIndex: number, newIndex: number) => true,
+    'on-next': (oldIndex: number, newIndex: number) => true,
+    'on-prev-click': (oldIndex: number, newIndex: number) => true,
+    'on-next-click': (oldIndex: number, newIndex: number) => true,
+    'on-index-change': (oldIndex: number, newIndex: number) => true
+    /* eslint-enable @typescript-eslint/no-unused-vars */
+  },
   setup(props, { emit, slots }) {
     const { imgRef, imgState, setImgSize } = useImage()
     const imgIndex = ref(0)
@@ -190,7 +192,10 @@ export default defineComponent({
     }
 
     // switching imgs manually
-    const changeIndex = (newIndex: number, actions?: IndexChangeActions) => {
+    const changeIndex = (
+      newIndex: number,
+      emitsCallback?: (oldIdx: number, newIdx: number) => void
+    ) => {
       const oldIndex = imgIndex.value
 
       initImg()
@@ -207,14 +212,8 @@ export default defineComponent({
       // No emit event when hidden or same index
       if (!props.visible || oldIndex === newIndex) return
 
-      if (actions) {
-        if (isArray(actions)) {
-          actions.forEach((action) => {
-            emit(action, oldIndex, newIndex)
-          })
-        } else {
-          emit(actions, oldIndex, newIndex)
-        }
+      if (emitsCallback) {
+        emitsCallback(oldIndex, newIndex)
       }
       emit('on-index-change', oldIndex, newIndex)
     }
@@ -227,7 +226,10 @@ export default defineComponent({
 
       if (!props.loop && newIndex > imgList.value.length - 1) return
 
-      changeIndex(newIndex, ['on-next', 'on-next-click'])
+      changeIndex(newIndex, (oldIdx, newIdx) => {
+        emit('on-next', oldIdx, newIdx)
+        emit('on-next-click', oldIdx, newIdx)
+      })
     }
 
     const onPrev = () => {
@@ -238,7 +240,10 @@ export default defineComponent({
         if (!props.loop) return
         newIndex = imgList.value.length - 1
       }
-      changeIndex(newIndex, ['on-prev', 'on-prev-click'])
+      changeIndex(newIndex, (oldIdx, newIdx) => {
+        emit('on-prev', oldIdx, newIdx)
+        emit('on-prev-click', oldIdx, newIdx)
+      })
     }
 
     // actions for changing img
