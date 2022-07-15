@@ -33,19 +33,36 @@ export const Toolbar = defineComponent({
     return () => {
       return (
         <div class={`${prefixCls}-toolbar`}>
-          <div class="toolbar-btn toolbar-btn__zoomin" onClick={props.zoomIn}>
+          <div
+            role="button"
+            aria-label='zoom in button'
+            class="toolbar-btn toolbar-btn__zoomin"
+            onClick={props.zoomIn}
+          >
             <SvgIcon type="zoomin" />
           </div>
 
-          <div class="toolbar-btn toolbar-btn__zoomout" onClick={props.zoomOut}>
+          <div
+            role="button"
+            aria-label='zoom out button'
+            class="toolbar-btn toolbar-btn__zoomout"
+            onClick={props.zoomOut}
+          >
             <SvgIcon type="zoomout" />
           </div>
 
-          <div class="toolbar-btn toolbar-btn__resize" onClick={props.resize}>
+          <div
+            role="button"
+            aria-label='resize image button'
+            class="toolbar-btn toolbar-btn__resize"
+            onClick={props.resize}
+          >
             <SvgIcon type="resize" />
           </div>
 
           <div
+            role="button"
+            aria-label='image rotate left button'
             class="toolbar-btn toolbar-btn__rotate"
             onClick={props.rotateLeft}
           >
@@ -53,6 +70,8 @@ export const Toolbar = defineComponent({
           </div>
 
           <div
+            role="button"
+            aria-label='image rotate right button'
             class="toolbar-btn toolbar-btn__rotate"
             onClick={props.rotateRight}
           >

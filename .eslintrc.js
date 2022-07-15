@@ -6,13 +6,14 @@ module.exports = {
     es6: true
   },
   extends: [
-    'plugin:vue/vue3-strongly-recommended',
     'eslint:recommended',
-    '@vue/typescript/recommended'
+    'plugin:vue/vue3-strongly-recommended',
+    '@vue/eslint-config-typescript/recommended'
   ],
   parserOptions: {
+    parser: '@typescript-eslint/parser',
     sourceType: 'module',
-    ecmaVersion: 2020,
+    ecmaVersion: 'latest',
     ecmaFeatures: {
       jsx: true
     }
@@ -50,6 +51,7 @@ module.exports = {
     'vue/name-property-casing': 'off',
     'vue/attribute-hyphenation': ['error', 'never'],
     'vue/singleline-html-element-content-newline': 'off',
+    'vue/multi-word-component-names': 'off',
     'lines-between-class-members': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off'
   }

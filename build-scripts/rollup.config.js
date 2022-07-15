@@ -17,16 +17,10 @@ const libraryName = 'vue-easy-lightbox'
 const entryPath = 'src/index.ts'
 
 const builds = [
-  `es5.esm.min.js`,
   `esm.min.js`,
-  `es5.common.min.js`,
   `common.min.js`,
-  `es5.umd.min.js`,
   `umd.min.js`,
 
-  'es5.esm.min.external-css.js',
-  'es5.umd.min.external-css.js',
-  'es5.common.min.external-css.js',
   'esm.min.external-css.js',
   'umd.min.external-css.js',
   'common.min.external-css.js'

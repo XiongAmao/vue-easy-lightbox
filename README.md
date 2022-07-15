@@ -27,7 +27,7 @@ $ yarn add vue-easy-lightbox@next
 
 ### Direct Download
 
-Include the CDN link in the html file.
+Include the CDN link in HTML.
 
 ```html
 <script src="https://unpkg.com/vue@next"></script>
@@ -43,43 +43,42 @@ Include the CDN link in the html file.
 
 ### Different Builds
 
-`ES5` build is converted by `Babel`. If you don't need to support an es5 environment, you can choose a non`ES5` build with smaller size.
+Since `Vue 3.x` uses `ES2015` ([docs faq](https://vuejs.org/about/faq.html#what-browsers-does-vue-support)), there is no need to build `ES5` bundle, and `ES5` build is removed from version `1.6.0`.
+
 
 <table>
   <thead>
     <tr>
-      <th></th>
-      <th>ES5(default in package.json)</th>
-      <th>ES6</th>
+      <th>Module</th>
+      <th>Filename</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>UMD(for browsers)</td>
-      <td>vue-easy-lightbox.es5.umd.min.js</td>
       <td>vue-easy-lightbox.umd.min.js</td>
     </tr>
     <tr>
       <td>CommonJS</td>
-      <td>vue-easy-lightbox.es5.common.min.js (pkg.main)</td>
-      <td>vue-easy-lightbox.common.min.js</td>
+      <td>vue-easy-lightbox.common.min.js (pkg.main)</td>
     </tr>
     <tr>
       <td>ES Module(for bundlers)</td>
-      <td>vue-easy-lightbox.es5.esm.min.js (pkg.module)</td>
-      <td>vue-easy-lightbox.esm.min.js</td>
+      <td>vue-easy-lightbox.esm.min.js (pkg.module)</td>
     </tr>
   </tbody>
 </table>
 
 
-### External CSS Build `^1.2.3`
+### External CSS Build
+
+> Added in: `v1.2.3`
 
 By default, CSS is included in `dist/*.min.js`. In some special cases you may want to import CSS individually to avoid some problems ([CSP Violation](https://github.com/XiongAmao/vue-easy-lightbox/issues/75)). You can import builds without CSS and individual `.css` file from `dist/external-css/`.
 
 ```js
 // in this path vue-easy-lightbox/dist/external-css/*.js
-import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'
+import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
 
 // you need to import css yourself
 import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
@@ -89,13 +88,13 @@ import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
 
 If your project is TypeScript project and you get this error message:
 
-> `Could not find the declaration file for module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'`
+> `Could not find the declaration file for module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'`
 
 Here are two ways to solve it.
 
 Way 1: add `d.ts` locally:
 ```ts
-declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.common.min' {
+declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min' {
   import VueEasyLightbox from 'vue-easy-lightbox'
   export default VueEasyLightbox
 }
@@ -110,7 +109,7 @@ module.exports = {
   //...
   resolve: {
     alias: {
-      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.common.min.js',
+      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min.js',
     },
   },
 };
@@ -121,85 +120,73 @@ import VueEasyLightbox from 'vue-easy-lightbox' // work
 
 ## Usage
 
-### Direct `<script>` Include
-
-example:
+### Using `UMD` in browser
 
 ```html
-<!-- in html -->
-<div id="app">
-  <div>
-    <div
-      v-for="(img, index) in imgs"
-      :key="index"
-      class="pic"
-      @click="() => showImg(index)"
-    >
-      <img :src="typeof img === 'string' ? img : img.src" />
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="">
+        <div v-for="(src, index) in imgs" :key="index" class="pic" @click="() => showImg(index)">
+          <img :src="src" />
+        </div>
+      </div>
+      <vue-easy-lightbox :visible="visibleRef" :imgs="imgs" :index="indexRef" @hide="onHide"></vue-easy-lightbox>
     </div>
-  </div>
-  <vue-easy-lightbox
-    :visible="visible"
-    :imgs="imgs"
-    :index="index"
-    @hide="handleHide"
-  ></vue-easy-lightbox>
-</div>
-
-<script src="https://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
-<script>
-  // Note: The Global Vue Constructor is no longer available in Vue 3.0.
-  // https://v3.vuejs.org/guide/migration/global-api.html#a-new-global-api-createapp
-  const app = Vue.createApp({
-    data() {
-      return {
-        visible: false,
-        index: 0, // default: 0
-        imgs: [
-          'https://via.placeholder.com/450.png/',
-          'https://via.placeholder.com/300.png/',
-          'https://via.placeholder.com/150.png/',
-          { src: 'https://via.placeholder.com/450.png/', title: 'this is title' }
-        ]
-      }
-    },
-    methods: {
-      showImg(index) {
-        this.index = index
-        this.visible = true
-      },
-      handleHide() {
-        this.visible = false
-      }
-    }
-  })
-  // Registering VueEasyLightbox for your VueApp.
-  app.use(VueEasyLightbox)
-  // or
-  app.component(VueEasyLightbox.name, VueEasyLightbox)
-
-  app.mount('#app')
-</script>
+    <script>
+      const { ref } = Vue
+      const app = Vue.createApp({
+        setup() {
+          const visibleRef = ref(false)
+          const indexRef = ref(0)
+          const imgs = [
+            'https://via.placeholder.com/450.png/',
+            'https://via.placeholder.com/300.png/',
+            'https://via.placeholder.com/150.png/',
+            { src: 'https://via.placeholder.com/450.png/', title: 'this is title' }
+          ]
+          const showImg = (index) => {
+            indexRef.value = index
+            visibleRef.value = true
+          }
+          const onHide = () => visibleRef.value = false
+          return {
+            visibleRef,
+            indexRef,
+            imgs,
+            showImg,
+            onHide
+          }
+        }
+      })
+      // Registering VueEasyLightbox for your VueApp.
+      app.use(VueEasyLightbox)
+      app.mount('#app')
+    </script>
+  </body>
+</html>
 ```
 
 ### Register VueApp component
-
-The Global Vue Constructor is no longer available in `Vue.js` 3.0. You need to register the `vue-easy-lightbox` for each `VueApp` you use.
-https://v3.vuejs.org/guide/migration/global-api.html#a-new-global-api-createapp
 
 ```javascript
 import Vue from 'vue'
 import VueEasyLightbox from 'vue-easy-lightbox'
 
 const app = Vue.createApp({
-  ...
+  // ... app options
 })
 app.use(VueEasyLightbox)
 app.mount('#app')
 ```
 
-#### Usage of Component
+### Basic Usage in SFC
 
 ```html
 <template>
@@ -207,67 +194,70 @@ app.mount('#app')
     <button @click="showSingle">Show single picture.</button>
     <button @click="showMultiple">Show a group of pictures.</button>
 
-    <!-- all props & events -->
     <vue-easy-lightbox
-      scrollDisabled
-      escDisabled
-      moveDisabled
-      :visible="visible"
-      :imgs="imgs"
-      :index="index"
-      @hide="handleHide"
+      :visible="visibleRef"
+      :imgs="imgsRef"
+      :index="indexRef"
+      @hide="onHide"
     ></vue-easy-lightbox>
   </div>
 </template>
 
 <script>
-  // If VueApp is already registered with VueEasyLightbox, there is no need to register it here.
-  import VueEasyLightbox from 'vue-easy-lightbox'
+// If VueApp is already registered with VueEasyLightbox, there is no need to register it here.
+import VueEasyLightbox from 'vue-easy-lightbox'
+import { ref, defineComponent } from 'vue'
 
-  export default {
-    components: {
-      VueEasyLightbox
-    },
-    data() {
-      return {
-        imgs: '', // Img Url , string or Array of string
-        visible: false,
-        index: 0 // default: 0
-      }
-    },
-    methods: {
-      showSingle() {
-        this.imgs = 'http://via.placeholder.com/350x150'
-        // or
-        this.imgs = {
-          title: 'this is a placeholder',
-          src: 'http://via.placeholder.com/350x150'
-        }
-        this.show()
-      },
-      showMultiple() {
-        this.imgs = [
-          'http://via.placeholder.com/350x150',
-          'http://via.placeholder.com/350x150'
-        ]
-        // or
-        this.imgs = [
-          { title: 'test img', src: 'http://via.placeholder.com/350x150' },
-          'http://via.placeholder.com/350x150'
-        ]
-        // allow mixing
+export default defineComponent({
+  components: {
+    VueEasyLightbox
+  },
+  setup() {
+    const visibleRef = ref(false)
+    const indexRef = ref(0) // default 0
+    const imgsRef = ref([])
+    // Img Url , string or Array of string
+    // ImgObj { src: '', title: '', alt: '' }
+    // 'src' is required
+    // allow mixing
 
-        this.index = 1 // index of imgList
-        this.show()
-      },
-      show() {
-        this.visible = true
-      },
-      handleHide() {
-        this.visible = false
-      }
+    const onShow = () => {
+      visibleRef.value = true
+    }
+    const showSingle = () => {
+      imgsRef.value = 'http://via.placeholder.com/350x150'
+      // or
+      // imgsRef.value  = {
+      //   title: 'this is a placeholder',
+      //   src: 'http://via.placeholder.com/350x150'
+      // }
+      onShow()
+    }
+    const showMultiple = () => {
+      imgsRef.value = [
+        'http://via.placeholder.com/350x150',
+        'http://via.placeholder.com/350x150'
+      ]
+      // or
+      // imgsRef.value = [
+      //   { title: 'test img', src: 'http://via.placeholder.com/350x150' },
+      //   'http://via.placeholder.com/350x150'
+      // ]
+      indexRef.value = 0 // index of imgList
+      onShow()
+    }
+    const onHide = () => (visibleRef.value = false)
+
+    return {
+      visibleRef,
+      indexRef,
+      imgsRef,
+      showSingle,
+      showMultiple,
+      onHide
     }
   }
+})
 </script>
 ```
 
@@ -296,7 +286,7 @@ app.mount('#app')
 </vue-easy-lightbox>
 ```
 
-Reference: [Slots-Vue.js](https://v3.vuejs.org/guide/component-slots.html)
+Reference: [Slots](https://vuejs.org/guide/components/slots.html)
 
 ## Options
 
@@ -320,9 +310,9 @@ Props
     </tr>
     <tr>
       <td>imgs</td>
-      <td>String/String[]/ImgObject:{ src: string, title: string }/ImgObject[]</td>
+      <td>String/String[]/ImgObject:{ src: string, title?: string, alt?: string }/ImgObject[]</td>
       <td>required</td>
-      <td>Image's src / array of src / ImgObject:{ src, title } / array of ImgObject / array of ImgObject.</td>
+      <td>Image's src / array of src / ImgObject:{ src, title?, alt? } / array of ImgObject / array of ImgObject.</td>
     </tr>
     <tr>
       <td>index</td>

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.0] (15 July 2022)
+
+- Breaking Change: `ES5` bundles is removed.
+- Feat: Add some A11y attrs.
+- Feat(type): Add emits type declaration.
+
 ## [1.5.0] (5 July 2022)
 
 - Feat: Enable or disable click mask to close `vue-easy-lightbox`.

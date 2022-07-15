@@ -35,43 +35,42 @@ $ yarn add vue-easy-lightbox@next
 ```
 
 ### 不同构建版本的区别
-`ES5` 构建是`Babel`编译后的版本。如果你不需要支持`ES5`或更低版本的环境，可以使用非`ES5`的构建，它们提供了更小的文件。
+
+由于 `Vue 3.x` 使用 `ES2015` ([docs faq](https://staging-cn.vuejs.org/about/faq.html#what-browsers-does-vue-support)), 不再需要构建`ES5`版本，`1.6.0`版本开始不再提供`ES5`构建包.
 
 <table>
   <thead>
     <tr>
-      <th></th>
-      <th>ES5(default in package.json)</th>
-      <th>ES6</th>
+      <th>Module</th>
+      <th>Filename</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>UMD(for browsers)</td>
-      <td>vue-easy-lightbox.es5.umd.min.js</td>
       <td>vue-easy-lightbox.umd.min.js</td>
     </tr>
     <tr>
       <td>CommonJS</td>
-      <td>vue-easy-lightbox.es5.common.min.js (pkg.main)</td>
-      <td>vue-easy-lightbox.common.min.js</td>
+      <td>vue-easy-lightbox.common.min.js (pkg.main)</td>
     </tr>
     <tr>
       <td>ES Module(for bundlers)</td>
-      <td>vue-easy-lightbox.es5.esm.min.js (pkg.module)</td>
-      <td>vue-easy-lightbox.esm.min.js</td>
+      <td>vue-easy-lightbox.esm.min.js (pkg.module)</td>
     </tr>
   </tbody>
 </table>
 
 
-### 单独导入CSS文件 `^1.2.3`
+### 单独导入CSS文件
+
+> Added in: `1.2.3`
 
 默认情况下， CSS被包含在了  `dist/*.min.js`. 在一些特殊情况，你可能需要单独引入CSS文件来避免一些问题 ([CSP Violation](https://github.com/XiongAmao/vue-easy-lightbox/issues/75)). 你可以从`dist/external-css/`导入不包含CSS的构建文件和单独的样式文件.
 
 ```js
 // in this path vue-easy-lightbox/dist/external-css/*.js
-import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'
+import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
 
 // 单独引入组件样式
 import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
@@ -81,13 +80,13 @@ import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
 
 如果你使用TypeScript，并遇到了以下报错：
 
-> `Could not find the declaration file for module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.esm.min.js'`
+> `Could not find the declaration file for module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'`
 
 这里有两种办法解决这个问题
 
 方法 1: 项目本地添加 `d.ts`，补充模块信息:
 ```ts
-declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.common.min' {
+declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min' {
   import VueEasyLightbox from 'vue-easy-lightbox'
   export default VueEasyLightbox
 }
@@ -102,7 +101,7 @@ module.exports = {
   //...
   resolve: {
     alias: {
-      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.es5.common.min.js',
+      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min.js',
     },
   },
 };
@@ -114,71 +113,62 @@ import VueEasyLightbox from 'vue-easy-lightbox' // work
 
 ## 使用方式
 
-### 使用 `<script/>` 标签引入
+### HTML中使用 `UMD` 包导入
 
 ```html
-<div id="app">
-  <div>
-    <div
-      v-for="(img, index) in imgs"
-      :key="index"
-      class="pic"
-      @click="() => showImg(index)"
-    >
-      <img :src="typeof img === 'string' ? img : img.src" />
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="">
+        <div v-for="(src, index) in imgs" :key="index" class="pic" @click="() => showImg(index)">
+          <img :src="src" />
+        </div>
+      </div>
+      <vue-easy-lightbox :visible="visibleRef" :imgs="imgs" :index="indexRef" @hide="onHide"></vue-easy-lightbox>
     </div>
-  </div>
-  <vue-easy-lightbox
-    :visible="visible"
-    :imgs="imgs"
-    :index="index"
-    @hide="handleHide"
-  ></vue-easy-lightbox>
-</div>
-
-<script src="https://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/vue-easy-lightbox@next/dist/vue-easy-lightbox.umd.min.js"></script>
-<!-- umd bundle -->
-<script>
-  // 注意: Vue.js 3.0中不再提供Vue的全局共享实例，请为单个VueApp实例注册组件.
-  // https://v3.cn.vuejs.org/guide/migration/global-api.html#%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%85%A8%E5%B1%80-api-createapp
-  const app = Vue.createApp({
-    data() {
-      return {
-        visible: false,
-        index: 0, // default: 0
-        imgs: [
-          'https://via.placeholder.com/450.png/',
-          'https://via.placeholder.com/300.png/',
-          'https://via.placeholder.com/150.png/',
-          { src: 'https://via.placeholder.com/450.png/', title: 'this is title' }
-        ]
-      }
-    },
-    methods: {
-      showImg(index) {
-        this.index = index
-        this.visible = true
-      },
-      handleHide() {
-        this.visible = false
-      }
-    }
-  })
-  // 通过插件方式注册
-  app.use(VueEasyLightbox)
-  // 或使用组件注册的方式
-  app.component(VueEasyLightbox.default.name, VueEasyLightbox.default)
-
-  app.mount('#app')
-</script>
+    <script>
+      const { ref } = Vue
+      const app = Vue.createApp({
+        setup() {
+          const visibleRef = ref(false)
+          const indexRef = ref(0)
+          const imgs = [
+            'https://via.placeholder.com/450.png/',
+            'https://via.placeholder.com/300.png/',
+            'https://via.placeholder.com/150.png/',
+            { src: 'https://via.placeholder.com/450.png/', title: 'this is title' }
+          ]
+          const showImg = (index) => {
+            indexRef.value = index
+            visibleRef.value = true
+          }
+          const onHide = () => visibleRef.value = false
+          return {
+            visibleRef,
+            indexRef,
+            imgs,
+            showImg,
+            onHide
+          }
+        }
+      })
+      // Registering VueEasyLightbox for your VueApp.
+      app.use(VueEasyLightbox)
+      app.mount('#app')
+    </script>
+  </body>
+</html>
 ```
 
-### `.vue` 单文件组件
+### 单文件组件用法
 
 #### 1. 注册VueApp组件
-Vue.js 3.0中不再提供Vue的全局共享实例，请为单个VueApp实例注册组件.
-[createApp](https://v3.cn.vuejs.org/guide/migration/global-api.html#%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%85%A8%E5%B1%80-api-createapp)
 
 ```javascript
 import Vue from 'vue'
@@ -187,11 +177,12 @@ import VueEasyLightbox from 'vue-easy-lightbox'
 const app = Vue.createApp({
   // ... 根组件选项
 })
+// app中以插件方式全局注册
 app.use(VueEasyLightbox)
 app.mount('#app')
 ```
 
-#### 2. 以组件形式使用
+#### 2. 基础用法
 
 ```html
 <template>
@@ -199,14 +190,11 @@ app.mount('#app')
     <button @click="showSingle">Show single picture.</button>
     <button @click="showMultiple">Show a group of pictures.</button>
 
-    <!-- all props & events -->
     <vue-easy-lightbox
-      escDisabled
-      moveDisabled
-      :visible="visible"
-      :imgs="imgs"
-      :index="index"
-      @hide="handleHide"
+      :visible="visibleRef"
+      :imgs="imgsRef"
+      :index="indexRef"
+      @hide="onHide"
     ></vue-easy-lightbox>
   </div>
 </template>
@@ -214,45 +202,58 @@ app.mount('#app')
 <script>
 // 如果VueApp已经注册组件，则这里不需要单独引入
 import VueEasyLightbox from 'vue-easy-lightbox'
+import { ref, defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   components: {
     VueEasyLightbox
   },
-  data() {
-    return {
-      imgs: '',  // Img Url , string or Array
-      visible: false,
-      index: 0   // default: 0
+  setup() {
+    const visibleRef = ref(false)
+    const indexRef = ref(0) // default 0
+    const imgsRef = ref([])
+    // Img Url , string or Array of string
+    // ImgObj { src: '', title: '', alt: '' }
+    // 'src' 是必须值
+    // 允许混合
+
+    const onShow = () => {
+      visibleRef.value = true
     }
-  },
-  methods: {
-    showSingle() {
-      this.imgs = 'http://via.placeholder.com/350x150'
-      // 或者传递一个图片配置对象
-      this.imgs = { title: 'this is a placeholder', src: 'http://via.placeholder.com/350x150' }
-      this.show()
-    },
-    showMultiple() {
-      this.imgs = ['http://via.placeholder.com/350x150', 'http://via.placeholder.com/350x150']
-      // 或者传递一组图片配置对象
-      this.imgs = [
-        { title: 'test img', src: 'http://via.placeholder.com/350x150' },
+    const showSingle = () => {
+      imgsRef.value = 'http://via.placeholder.com/350x150'
+      // or
+      // imgsRef.value  = {
+      //   title: 'this is a placeholder',
+      //   src: 'http://via.placeholder.com/350x150'
+      // }
+      onShow()
+    }
+    const showMultiple = () => {
+      imgsRef.value = [
+        'http://via.placeholder.com/350x150',
         'http://via.placeholder.com/350x150'
       ]
-      // 允许混合imgs参数
+      // or
+      // imgsRef.value = [
+      //   { title: 'test img', src: 'http://via.placeholder.com/350x150' },
+      //   'http://via.placeholder.com/350x150'
+      // ]
+      indexRef.value = 0 // 图片顺序索引
+      onShow()
+    }
+    const onHide = () => (visibleRef.value = false)
 
-      this.index = 1  // index of imgList
-      this.show()
-    },
-    show() {
-      this.visible = true
-    },
-    handleHide() {
-      this.visible = false
+    return {
+      visibleRef,
+      indexRef,
+      imgsRef,
+      showSingle,
+      showMultiple,
+      onHide
     }
   }
-}
+})
 </script>
 ```
 
@@ -283,7 +284,8 @@ export default {
 </vue-easy-lightbox>
 ```
 
-参考：[插槽 - Vue.js](https://v3.cn.vuejs.org/guide/component-slots.html#%E6%8F%92%E6%A7%BD%E5%86%85%E5%AE%B9)
+参考：[插槽 - Vue.js](https://staging-cn.vuejs.org/guide/components/slots.html)
+
 
 ## 配置项
 
@@ -307,9 +309,9 @@ export default {
     </tr>
     <tr>
       <td>imgs</td>
-      <td>String/String[]/ImgObject:{ src: string, title: string }/ImgObject[]</td>
+      <td>String/String[]/ImgObject:{ src: string, title?: string, alt?: string }/ImgObject[]</td>
       <td>required</td>
-      <td>图片的src字符串或图片对象(地址和标题) { src, title }，传入数组则可以轮播显示</td>
+      <td>图片的src字符串或图片对象(地址和标题) { src, title?, alt? }，传入数组则可以轮播显示</td>
     </tr>
     <tr>
       <td>index</td>
@@ -368,7 +370,7 @@ export default {
   </tbody>
 </table>
 
-参考: [Teleport](https://v3.cn.vuejs.org/guide/teleport.html)
+参考: [Teleport](https://staging-cn.vuejs.org/guide/built-ins/teleport.html)
 
 ### Event
 

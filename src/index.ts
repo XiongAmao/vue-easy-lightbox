@@ -1,5 +1,3 @@
-import './types/tsx.shim'
-
 import './styles/index'
 
 import type { App } from 'vue'

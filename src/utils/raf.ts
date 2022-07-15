@@ -1,6 +1,6 @@
 import { inBrowser } from './index'
 
-const root = (inBrowser ? window : global) as Window
+const root = inBrowser ? window : global
 
 let prev = Date.now()
 

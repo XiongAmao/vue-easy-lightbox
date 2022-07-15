@@ -32,7 +32,7 @@ import {
   preventDefault
 } from './utils/index'
 import { useImage, useMouse, useTouch } from './utils/hooks'
-import { Img, IImgWrapperState, PropsImgs, IndexChangeActions } from './types'
+import { Img, IImgWrapperState, PropsImgs } from './types'
 
 function isImg(arg: Img): arg is Img {
   return isObject(arg) && isString(arg.src)
@@ -71,7 +71,7 @@ export default defineComponent({
     },
     maskClosable: {
       type: Boolean,
-      default: true,
+      default: true
     },
     teleport: {
       type: [String, Object] as PropType<TeleportProps['to']>,
@@ -90,15 +90,17 @@ export default defineComponent({
       default: false
     }
   },
-  emits: [
-    'hide',
-    'on-error',
-    'on-prev',
-    'on-next',
-    'on-prev-click',
-    'on-next-click',
-    'on-index-change'
-  ],
+  emits: {
+    hide: () => true,
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    'on-error': (e: Event) => true,
+    'on-prev': (oldIndex: number, newIndex: number) => true,
+    'on-next': (oldIndex: number, newIndex: number) => true,
+    'on-prev-click': (oldIndex: number, newIndex: number) => true,
+    'on-next-click': (oldIndex: number, newIndex: number) => true,
+    'on-index-change': (oldIndex: number, newIndex: number) => true
+    /* eslint-enable @typescript-eslint/no-unused-vars */
+  },
   setup(props, { emit, slots }) {
     const { imgRef, imgState, setImgSize } = useImage()
     const imgIndex = ref(0)
@@ -147,8 +149,11 @@ export default defineComponent({
       return src
     })
 
-    const imgTitle = computed(() => {
+    const currentImgTitle = computed(() => {
       return imgList.value[imgIndex.value]?.title
+    })
+    const currentImgAlt = computed(() => {
+      return imgList.value[imgIndex.value]?.alt
     })
 
     const currCursor = () => {
@@ -187,7 +192,10 @@ export default defineComponent({
     }
 
     // switching imgs manually
-    const changeIndex = (newIndex: number, actions?: IndexChangeActions) => {
+    const changeIndex = (
+      newIndex: number,
+      emitsCallback?: (oldIdx: number, newIdx: number) => void
+    ) => {
       const oldIndex = imgIndex.value
 
       initImg()
@@ -204,14 +212,8 @@ export default defineComponent({
       // No emit event when hidden or same index
       if (!props.visible || oldIndex === newIndex) return
 
-      if (actions) {
-        if (isArray(actions)) {
-          actions.forEach((action) => {
-            emit(action, oldIndex, newIndex)
-          })
-        } else {
-          emit(actions, oldIndex, newIndex)
-        }
+      if (emitsCallback) {
+        emitsCallback(oldIndex, newIndex)
       }
       emit('on-index-change', oldIndex, newIndex)
     }
@@ -224,7 +226,10 @@ export default defineComponent({
 
       if (!props.loop && newIndex > imgList.value.length - 1) return
 
-      changeIndex(newIndex, ['on-next', 'on-next-click'])
+      changeIndex(newIndex, (oldIdx, newIdx) => {
+        emit('on-next', oldIdx, newIdx)
+        emit('on-next-click', oldIdx, newIdx)
+      })
     }
 
     const onPrev = () => {
@@ -235,7 +240,10 @@ export default defineComponent({
         if (!props.loop) return
         newIndex = imgList.value.length - 1
       }
-      changeIndex(newIndex, ['on-prev', 'on-prev-click'])
+      changeIndex(newIndex, (oldIdx, newIdx) => {
+        emit('on-prev', oldIdx, newIdx)
+        emit('on-prev-click', oldIdx, newIdx)
+      })
     }
 
     // actions for changing img
@@ -352,7 +360,7 @@ export default defineComponent({
       }
     }
 
-    const onMaskClick = (e: Event) => {
+    const onMaskClick = () => {
       if (props.maskClosable) {
         closeDialog()
       }
@@ -483,6 +491,7 @@ export default defineComponent({
           key="img-wrapper"
         >
           <img
+            alt={currentImgAlt.value}
             ref={imgRef}
             draggable="false"
             class={`${prefixCls}-img`}
@@ -534,6 +543,8 @@ export default defineComponent({
 
       return (
         <div
+          role="button"
+          aria-label="previous image button"
           class={`btn__prev ${isDisabled ? 'disable' : ''}`}
           onClick={onPrev}
         >
@@ -556,6 +567,8 @@ export default defineComponent({
 
       return (
         <div
+          role="button"
+          aria-label="next image button"
           class={`btn__next ${isDisabled ? 'disable' : ''}`}
           onClick={onNext}
         >
@@ -570,7 +583,12 @@ export default defineComponent({
           close: closeDialog
         })
       ) : (
-        <div class={`btn__close`} onClick={closeDialog}>
+        <div
+          role="button"
+          aria-label="close image preview button"
+          class={`btn__close`}
+          onClick={closeDialog}
+        >
           <SvgIcon type="close" />
         </div>
       )
@@ -606,7 +624,7 @@ export default defineComponent({
     }
     const renderImgTitle = () => {
       if (
-        !imgTitle.value ||
+        !currentImgTitle.value ||
         props.titleDisabled ||
         status.loading ||
         status.loadError
@@ -614,7 +632,11 @@ export default defineComponent({
         return
       }
 
-      return slots.title ? slots.title() : <ImgTitle>{imgTitle.value}</ImgTitle>
+      return slots.title ? (
+        slots.title()
+      ) : (
+        <ImgTitle>{currentImgTitle.value}</ImgTitle>
+      )
     }
 
     const renderModal = () => {

@@ -1,5 +1,3 @@
-
-
 <script lang="tsx">
   import { defineComponent } from 'vue'
   import VueEasyLightbox from '../index'
@@ -12,7 +10,8 @@
       return {
         imgs: [
           {
-            title: "img's url: https://i.loli.net/2018/11/10/5be6852cdb002.jpeg",
+            title:
+              "img's url: https://i.loli.net/2018/11/10/5be6852cdb002.jpeg",
             src: ' https://i.loli.net/2018/11/10/5be6852cdb002.jpeg'
           },
           {
@@ -40,7 +39,8 @@
       handleHide() {
         this.visible = false
       },
-      handleIndexChange(old: number, newIndex: number) {
+      handleIndexChange() {
+        // old: number, newIndex: number
         // if (newIndex === 5) {
         //   setTimeout(() => {
         //     this.imgs.push('https://i.loli.net/2018/11/10/5be6852e33f19.jpeg')
@@ -62,15 +62,15 @@
           </div>
         )
       })
-      const slots = {
-        'next-btn': (props: { next: () => void }) => {
-          const click = () => {
-            console.log(props)
-            props.next()
-          }
-          return <div onClick={click}>TestNextBtn</div>
-        }
-      }
+      // const slots = {
+      //   'next-btn': (props: { next: () => void }) => {
+      //     const click = () => {
+      //       console.log(props)
+      //       props.next()
+      //     }
+      //     return <div onClick={click}>TestNextBtn</div>
+      //   }
+      // }
       return (
         <div id="app">
           <div class="container">
