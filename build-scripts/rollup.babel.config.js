@@ -1,4 +1,4 @@
-export const createBabelConfig = (isES5 = false) => {
+export const createBabelConfig = () => {
   return {
     babelrc: false,
     babelHelpers: 'runtime',
@@ -23,7 +23,7 @@ export const createBabelConfig = (isES5 = false) => {
       ]
     ],
     targets: {
-      browsers: isES5 ? 'defaults' : 'chrome > 66'
+      browsers: 'last 2 versions, not dead'
     },
     plugins: [
       ['@vue/babel-plugin-jsx'],

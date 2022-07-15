@@ -5,8 +5,8 @@
   "private": false,
   "author": "Zichao Xiong <onycat@live.cn>",
   "license": "MIT",
-  "main": "dist/vue-easy-lightbox.es5.common.min.js",
-  "module": "dist/vue-easy-lightbox.es5.esm.min.js",
+  "main": "dist/vue-easy-lightbox.common.min.js",
+  "module": "dist/vue-easy-lightbox.esm.min.js",
   "types": "types/index.d.ts",
   "browser": {
     "./sfc": "src/vue-easy-lightbox.vue"
