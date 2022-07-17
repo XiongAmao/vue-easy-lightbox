@@ -286,6 +286,64 @@ export default defineComponent({
 
 参考：[插槽 - Vue.js](https://staging-cn.vuejs.org/guide/components/slots.html)
 
+### 组合式函数 Composables
+
+> Added in `v1.7.0`
+
+`useEasyLightbox` 提供了一些简单的方法和state，方便你使用`setup()`。
+这个composable是可选的。你可以自定义自己的状态和方法。
+
+Usage:
+
+```html
+<template>
+  <div>
+    <button @click="show">show</button>
+    <vue-easy-lightbox
+      :visible="visibleRef"
+      :imgs="imgsRef"
+      :index="indexRef"
+      @hide="onHide"
+    />
+  </div>
+</template>
+
+<script>
+import { defineComponent } from 'vue'
+import VueEasyLightbox, { useEasyLightbox } from 'vue-easy-lightbox'
+
+export default defineComponent({
+  components: {
+    VueEasyLightbox
+  },
+  setup() {
+    const {
+      // methods
+      show, onHide, changeIndex,
+      // refs
+      visibleRef, indexRef, imgsRef
+    } = useEasyLightbox({
+      // src / src[]
+      imgs: [
+        'http://via.placeholder.com/250x150',
+        'http://via.placeholder.com/300x150',
+        'http://via.placeholder.com/350x150'
+      ],
+      // initial index
+      initIndex: 0
+    })
+
+    return {
+      visibleRef,
+      indexRef,
+      imgsRef,
+      show,
+      onHide
+    }
+  }
+})
+</script>
+```
 
 ## 配置项
 
