@@ -1,9 +1,11 @@
-import type { PropsImgs } from 'src/types'
 import { ref } from 'vue'
+import type { PropsImgs } from '../types'
 
 export interface UseEasyLightboxOptions {
   /**
-   * Image's src / array of src / ImgObject:{ src, title?, alt? } / array of ImgObject / array of ImgObject.
+   * image src/ImgObj or list of images src/ImgObj
+   * imgObj: { src: string, title?: string, alt?: string }
+   * @default ''
    */
   imgs: PropsImgs
   /**
