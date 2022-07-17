@@ -3,6 +3,8 @@ import './styles/index'
 import type { App } from 'vue'
 import _VueEasyLightbox from './vue-easy-lightbox'
 
+export * from './composables'
+
 export type WithInstall<T> = T & {
   install(app: App): void
 }
