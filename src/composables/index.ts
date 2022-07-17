@@ -21,14 +21,14 @@ export const useEasyLightbox = (options: UseEasyLightboxOptions) => {
   const visibleRef = ref(false)
 
   const show = (index = indexRef.value) => {
-    setIndex(index)
+    changeIndex(index)
     visibleRef.value = true
   }
-  const setIndex = (index = indexRef.value) => {
+  const changeIndex = (index = indexRef.value) => {
     indexRef.value = index
   }
   const onHide = () => {
-    visibleRef.value = true
+    visibleRef.value = false
   }
 
   return {
@@ -37,6 +37,6 @@ export const useEasyLightbox = (options: UseEasyLightboxOptions) => {
     visibleRef,
     show,
     onHide,
-    setIndex
+    changeIndex
   }
 }
