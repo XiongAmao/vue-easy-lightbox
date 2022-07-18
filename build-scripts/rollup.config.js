@@ -79,6 +79,7 @@ const configs = builds.map((buildType) => {
     external: ['vue']
   }
   if (config.output.format === 'umd') {
+    config.input = 'src/index.umd.ts'
     config.output.name = Case.pascal(libraryName)
     config.output.globals = { vue: 'Vue' }
     config.output.exports = 'default'

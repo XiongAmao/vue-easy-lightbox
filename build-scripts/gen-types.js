@@ -6,3 +6,4 @@ const resolveTypesPath = (...paths) => path.resolve(__dirname, '../types', ...pa
 
 // remove useless types
 fs.rm(resolveTypesPath('./dev-entry'), { recursive: true })
+fs.rm(resolveTypesPath('./index.umd.d.ts'))

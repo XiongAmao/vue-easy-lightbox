@@ -286,6 +286,95 @@ export default defineComponent({
 
 Reference: [Slots-Vue.js](https://vuejs.org/guide/components/slots.html)
 
+### Composables
+
+> Added in `v1.7.0`
+
+`useEasyLightbox()` provides some simple methods and states to help you use `setup()`.
+It is optional. You can customize your state.
+
+Usage:
+
+```html
+<template>
+  <div>
+    <button @click="show">show</button>
+    <vue-easy-lightbox
+      :visible="visibleRef"
+      :imgs="imgsRef"
+      :index="indexRef"
+      @hide="onHide"
+    />
+  </div>
+</template>
+
+<script>
+import { defineComponent } from 'vue'
+import VueEasyLightbox, { useEasyLightbox } from 'vue-easy-lightbox'
+
+export default defineComponent({
+  components: {
+    VueEasyLightbox
+  },
+  setup() {
+    const {
+      // methods
+      show, onHide, changeIndex,
+      // refs
+      visibleRef, indexRef, imgsRef
+    } = useEasyLightbox({
+      // src / src[]
+      imgs: [
+        'http://via.placeholder.com/250x150',
+        'http://via.placeholder.com/300x150',
+        'http://via.placeholder.com/350x150'
+      ],
+      // initial index
+      initIndex: 0
+    })
+
+    return {
+      visibleRef,
+      indexRef,
+      imgsRef,
+      show,
+      onHide
+    }
+  }
+})
+</script>
+```
+
+#### Type declaration
+
+```ts
+export interface Img {
+  src?: string
+  title?: string
+  alt?: string
+}
+export interface UseEasyLightboxOptions {
+  /**
+   * image src/Img or list of images src/Img
+   * @default ''
+   */
+  imgs: Img | string | (Img | string)[];
+  /**
+   * initial index of imgList
+   * @default 0
+   */
+  initIndex?: number;
+}
+export declare const useEasyLightbox: (options: UseEasyLightboxOptions) => {
+  imgsRef: Ref<Img | string | (Img | string)[]>;
+  indexRef: Ref<number | undefined>;
+  visibleRef: Ref<boolean>;
+  show: (index?: number | undefined) => void;
+  onHide: () => void;
+  changeIndex: (index?: number | undefined) => void;
+};
+```
+
 ## Options
 
 ### Props
