@@ -345,6 +345,36 @@ export default defineComponent({
 </script>
 ```
 
+#### Type declaration
+
+```ts
+export interface Img {
+  src?: string
+  title?: string
+  alt?: string
+}
+export interface UseEasyLightboxOptions {
+  /**
+   * image src/Img or list of images src/Img
+   * @default ''
+   */
+  imgs: Img | string | (Img | string)[];
+  /**
+   * initial index of imgList
+   * @default 0
+   */
+  initIndex?: number;
+}
+export declare const useEasyLightbox: (options: UseEasyLightboxOptions) => {
+  imgsRef: Ref<Img | string | (Img | string)[]>;
+  indexRef: Ref<number | undefined>;
+  visibleRef: Ref<boolean>;
+  show: (index?: number | undefined) => void;
+  onHide: () => void;
+  changeIndex: (index?: number | undefined) => void;
+};
+```
+
 ## Options
 
 ### Props
