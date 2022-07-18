@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.7.0] (18 July 2022)
+
+- Feat: Add composable `useEasyLightbox()` for `setup()`.
+
 ## [1.6.0] (15 July 2022)
 
 - Breaking Change: `ES5` bundles is removed.
