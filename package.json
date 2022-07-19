@@ -98,5 +98,6 @@
     "src",
     "types",
     "readme-cn.md"
-  ]
+  ],
+  "packageManager": "pnpm@7.4.0"
 }
