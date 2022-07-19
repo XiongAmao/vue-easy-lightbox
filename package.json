@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/XiongAmao/vue-easy-lightbox/issues"
   },
-  "homepage": "https://github.com/XiongAmao/vue-easy-lightbox#readme",
+  "homepage": "https://xiongamao.github.io/vue-easy-lightbox",
   "peerDependencies": {
     "vue": "^3.0.0"
   },
@@ -84,12 +84,8 @@
     "vite": "^3.0.0",
     "vue": "^3.2.37"
   },
-  "vetur": {
-    "tags": "vetur/tags.json",
-    "attributes": "vetur/attributes.json"
-  },
   "engines": {
-    "node": ">=10.13.0"
+    "node": ">=14.18.3"
   },
   "lint-staged": {
     "src/**/*.{vue,js,ts,tsx}": [
@@ -101,7 +97,6 @@
     "dist",
     "src",
     "types",
-    "vetur",
     "readme-cn.md"
   ]
 }
