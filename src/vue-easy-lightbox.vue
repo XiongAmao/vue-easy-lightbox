@@ -46,7 +46,7 @@
             @touchend="handleTouchEnd($event)"
             @load="handleRealImgLoad"
             @dragstart="handleDragStart($event)"
-            @dblclick="handleDblClick($event)"
+            @dblclick="handleDblClick"
           />
         </div>
       </transition>
