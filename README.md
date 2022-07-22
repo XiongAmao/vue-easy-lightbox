@@ -64,6 +64,21 @@ Include the CDN link in the html file, I It will register `vue-easy-lightbox` co
 </table>
 
 
+### External CSS Build
+
+> Added in: `v0.19.0`
+
+By default, CSS is included in `dist/*.min.js`. In some special cases you may want to import CSS individually to avoid some problems ([CSP Violation](https://github.com/XiongAmao/vue-easy-lightbox/issues/75)). You can import builds without CSS and individual `.css` file from `dist/external-css/`.
+
+```js
+// in this path vue-easy-lightbox/dist/external-css/*.js
+import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
+
+// you need to import css yourself
+import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
+```
+
+
 ## Usage
 
 

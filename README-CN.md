@@ -63,6 +63,20 @@ $ yarn add vue-easy-lightbox@vue2
   </tbody>
 </table>
 
+### 单独导入CSS文件
+
+> Added in: `v0.19.0`
+
+默认情况下， CSS被包含在了  `dist/*.min.js`. 在一些特殊情况，你可能需要单独引入CSS文件来避免一些问题 ([CSP Violation](https://github.com/XiongAmao/vue-easy-lightbox/issues/75)). 你可以从`dist/external-css/`导入不包含CSS的构建文件和单独的样式文件.
+
+```js
+// in this path vue-easy-lightbox/dist/external-css/*.js
+import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
+
+// 单独引入组件样式
+import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
+```
+
 
 ## 使用方式
 

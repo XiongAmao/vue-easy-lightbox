@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.19.0] (22 July 2022)
+
+_ Feat: Add external CSS build.
+
 ## [0.18.0] (5 July 2022)
 
 - Feat: Enable or disable click mask to close `vue-easy-lightbox`.
