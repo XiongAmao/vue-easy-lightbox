@@ -23,7 +23,7 @@
     "lint": "eslint --fix --ext .ts,.vue,.js,.tsx ./src",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
-    "test:dev": "vitest"
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
@@ -59,6 +59,7 @@
     "@vue/babel-preset-app": "^5.0.8",
     "@vue/compiler-sfc": "^3.2.37",
     "@vue/eslint-config-typescript": "^11.0.0",
+    "@vue/test-utils": "2.0.0-rc.18",
     "autoprefixer": "^10.4.7",
     "case": "^1.6.3",
     "core-js": "^3.23.4",
