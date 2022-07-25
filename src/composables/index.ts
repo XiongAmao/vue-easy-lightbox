@@ -15,8 +15,10 @@ export interface UseEasyLightboxOptions {
   initIndex?: number
 }
 
-export const useEasyLightbox = (options: UseEasyLightboxOptions) => {
-  const { imgs = '', initIndex } = options
+export const useEasyLightbox = (
+  options: UseEasyLightboxOptions = { imgs: '' }
+) => {
+  const { imgs = '', initIndex = 0 } = options
 
   const imgsRef = ref(imgs)
   const indexRef = ref(initIndex)
