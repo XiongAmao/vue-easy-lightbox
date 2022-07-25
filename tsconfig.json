@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es2017",
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
@@ -14,7 +14,7 @@
     "baseUrl": ".",
     "typeRoots": ["src/types"],
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-    "types": ["node"],
+    "types": ["node", "vitest/globals"],
     "declaration": true,
     "declarationDir": "./types"
   },
