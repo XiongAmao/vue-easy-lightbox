@@ -8,7 +8,10 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    environment: 'happy-dom'
+    environment: 'happy-dom',
+    transformMode: {
+      web: [/\.[jt]sx$/]
+    }
   },
   plugins: [vue(), vueJsx()]
 })
