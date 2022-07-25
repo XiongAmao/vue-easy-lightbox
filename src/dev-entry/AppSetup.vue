@@ -47,7 +47,7 @@ export default defineComponent({
     }
 
     const showSingle = () => {
-      imgsRef.value = 'http://via.placeholder.com/350x150'
+      imgsRef.value = 'http://it-does-not-matter.png/'
       show()
     }
     const showMultiple = () => {
