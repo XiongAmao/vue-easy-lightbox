@@ -11,6 +11,7 @@
       :imgs="imgsRef"
       :index="indexRef"
       @hide="onHide"
+      @on-index-change="onIndexChange"
     ></vue-easy-lightbox>
   </div>
 </template>
@@ -59,6 +60,10 @@ export default defineComponent({
       show()
     }
 
+    const onIndexChange = (old: number, newN: number) => {
+      console.log(old, newN)
+    }
+
     return {
       visibleRef,
       indexRef,
@@ -67,7 +72,8 @@ export default defineComponent({
       showMultiple,
       onHide,
       test,
-      test2
+      test2,
+      onIndexChange
     }
   }
 })
