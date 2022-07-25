@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import VueEasyLightbox from '../src/index'
 
 describe('entry', () => {
@@ -11,18 +11,10 @@ describe('entry', () => {
 describe('<vue-easy-lightbox />', () => {
   const imgSrc = 'http://nothing.jpg/'
 
-  beforeEach(() => {
-    vi.useFakeTimers()
-  })
-
-  afterEach(() => {
-    vi.useRealTimers()
-  })
-
   async function getInstance() {
     const wrapper = await mount(VueEasyLightbox, {
       props: {
-        src: imgSrc,
+        imgs: imgSrc,
         visible: false
       }
     })
@@ -41,21 +33,41 @@ describe('<vue-easy-lightbox />', () => {
     expect(wrapper.find('.vel-modal').exists()).toBe(true)
   })
 
-  test('show error icon when img loading fails', async () => {
+  test('next/prev click emits', async () => {
     const wrapper = await getInstance()
 
     await wrapper.setProps({
+      imgs: [
+        'http://nothing.jpg/',
+        'http://nothing.jpg/',
+        'http://nothing.jpg/'
+      ],
+      index: 1,
       visible: true
     })
 
-    // FIXME: how to test  ??
-    expect(wrapper.find('.vel-img-wrapper').exists()).toBe(true)
+    const nextBtn = wrapper.find('.btn__next')
+    const prevBtn = wrapper.find('.btn__prev')
+    await nextBtn.trigger('click')
+
+    expect(wrapper.emitted()).toHaveProperty('on-next')
+    expect(wrapper.emitted()).toHaveProperty('on-next-click')
+    expect(wrapper.emitted()).toHaveProperty('on-index-change')
+    expect(wrapper.emitted()['on-next'][0]).toEqual([1, 2])
+
+    await prevBtn.trigger('click')
+
+    expect(wrapper.emitted()).toHaveProperty('on-prev')
+    expect(wrapper.emitted()).toHaveProperty('on-prev-click')
+    expect(wrapper.emitted()).toHaveProperty('on-index-change')
+    expect(wrapper.emitted()['on-prev'][0]).toEqual([2, 1])
+    expect(wrapper.emitted()['on-index-change'][1]).toEqual([2, 1])
   })
 
   test(`emit 'hide' on mask click`, async () => {
     const wrapper = await mount(VueEasyLightbox, {
       props: {
-        src: imgSrc,
+        imgs: imgSrc,
         visible: true
       }
     })
@@ -64,4 +76,9 @@ describe('<vue-easy-lightbox />', () => {
 
     expect(wrapper.emitted()).toHaveProperty('hide')
   })
+
+  // TODO: how to test it？
+  // test('on error / loading', () => {
+
+  // })
 })
