@@ -176,7 +176,7 @@ export default defineComponent({
       }
     })
 
-    const closeDialog = () => {
+    const closeModal = () => {
       emit('hide')
     }
 
@@ -350,7 +350,7 @@ export default defineComponent({
       if (!props.visible) return
 
       if (!props.escDisabled && evt.key === 'Escape' && props.visible) {
-        closeDialog()
+        closeModal()
       }
       if (evt.key === 'ArrowLeft') {
         props.rtl ? onNext() : onPrev()
@@ -362,7 +362,7 @@ export default defineComponent({
 
     const onMaskClick = () => {
       if (props.maskClosable) {
-        closeDialog()
+        closeModal()
       }
     }
 
@@ -580,14 +580,14 @@ export default defineComponent({
     const renderCloseBtn = () => {
       return slots['close-btn'] ? (
         slots['close-btn']({
-          close: closeDialog
+          close: closeModal
         })
       ) : (
         <div
           role="button"
           aria-label="close image preview button"
           class={`btn__close`}
-          onClick={closeDialog}
+          onClick={closeModal}
         >
           <SvgIcon type="close" />
         </div>
