@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.7.1] (26 July 2022)
+
+- Fix: The default parameters of `useEasyLightbox()` is missing.
+
 ## [1.7.0] (18 July 2022)
 
 - Feat: Add composable `useEasyLightbox()` for `setup()`.
