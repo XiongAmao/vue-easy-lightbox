@@ -12,31 +12,33 @@ describe('<vue-easy-lightbox />', () => {
   const imgSrc = 'http://nothing.jpg/'
 
   async function getInstance() {
-    const wrapper = await mount(VueEasyLightbox, {
+    const inst = await mount(VueEasyLightbox, {
       props: {
         imgs: imgSrc,
         visible: false
       }
     })
-    return wrapper
+    return inst
   }
 
   test('visible work', async () => {
-    const wrapper = await getInstance()
+    const inst = await getInstance()
 
-    expect(wrapper.find('.vel-modal').exists()).toBe(false)
+    expect(inst.find('.vel-modal').exists()).toBe(false)
 
-    await wrapper.setProps({
+    await inst.setProps({
       visible: true
     })
 
-    expect(wrapper.find('.vel-modal').exists()).toBe(true)
+    expect(inst.find('.vel-modal').exists()).toBe(true)
+
+    inst.unmount()
   })
 
-  test('next/prev click emits', async () => {
-    const wrapper = await getInstance()
+  test('Should handle next/prev click correctly', async () => {
+    const inst = await getInstance()
 
-    await wrapper.setProps({
+    await inst.setProps({
       imgs: [
         'http://nothing.jpg/',
         'http://nothing.jpg/',
@@ -46,39 +48,47 @@ describe('<vue-easy-lightbox />', () => {
       visible: true
     })
 
-    const nextBtn = wrapper.find('.btn__next')
-    const prevBtn = wrapper.find('.btn__prev')
+    const nextBtn = inst.find('.btn__next')
+    const prevBtn = inst.find('.btn__prev')
     await nextBtn.trigger('click')
 
-    expect(wrapper.emitted()).toHaveProperty('on-next')
-    expect(wrapper.emitted()).toHaveProperty('on-next-click')
-    expect(wrapper.emitted()).toHaveProperty('on-index-change')
-    expect(wrapper.emitted()['on-next'][0]).toEqual([1, 2])
+    expect(inst.emitted()).toHaveProperty('on-next')
+    expect(inst.emitted()).toHaveProperty('on-next-click')
+    expect(inst.emitted()).toHaveProperty('on-index-change')
+    expect(inst.emitted()['on-next'][0]).toEqual([1, 2])
 
     await prevBtn.trigger('click')
 
-    expect(wrapper.emitted()).toHaveProperty('on-prev')
-    expect(wrapper.emitted()).toHaveProperty('on-prev-click')
-    expect(wrapper.emitted()).toHaveProperty('on-index-change')
-    expect(wrapper.emitted()['on-prev'][0]).toEqual([2, 1])
-    expect(wrapper.emitted()['on-index-change'][1]).toEqual([2, 1])
+    expect(inst.emitted()).toHaveProperty('on-prev')
+    expect(inst.emitted()).toHaveProperty('on-prev-click')
+    expect(inst.emitted()).toHaveProperty('on-index-change')
+    expect(inst.emitted()['on-prev'][0]).toEqual([2, 1])
+    expect(inst.emitted()['on-index-change'][1]).toEqual([2, 1])
+
+    inst.unmount()
   })
 
-  test(`emit 'hide' on mask click`, async () => {
-    const wrapper = await mount(VueEasyLightbox, {
+  test(`Should emit 'hide' on mask click`, async () => {
+    const inst = await mount(VueEasyLightbox, {
       props: {
         imgs: imgSrc,
         visible: true
       }
     })
-    const maskWrapper = wrapper.find('.vel-modal')
+    const maskWrapper = inst.find('.vel-modal')
     await maskWrapper.trigger('click')
 
-    expect(wrapper.emitted()).toHaveProperty('hide')
+    expect(inst.emitted()).toHaveProperty('hide')
+
+    inst.unmount()
   })
 
-  // TODO: how to test it？
-  // test('on error / loading', () => {
+  /**
+   * TODO: no idea...
+   * seems
+   *
+   * */
 
+  // test('on error / loading', () => {
   // })
 })
