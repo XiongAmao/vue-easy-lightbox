@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.8.0] (12 August 2022)
+
+- Feat: Add `maxZoom` `zoomScale` to specify the zoom level.
+
 ## [1.7.1] (26 July 2022)
 
 - Fix: The default parameters of `useEasyLightbox()` is missing.
