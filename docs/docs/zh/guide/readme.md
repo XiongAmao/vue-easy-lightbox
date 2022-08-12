@@ -450,6 +450,18 @@ export declare const useEasyLightbox: (options: UseEasyLightboxOptions) => {
       <td>指定swipe距离，单位为px</td>
     </tr>
     <tr>
+      <td>zoomScale</td>
+      <td>Number</td>
+      <td>0.12</td>
+      <td>指定缩放步进的比例</td>
+    </tr>
+    <tr>
+      <td>maxZoom</td>
+      <td>Number</td>
+      <td>3</td>
+      <td>指定图片最大缩放比例</td>
+    </tr>
+    <tr>
       <td>rtl</td>
       <td>Boolean</td>
       <td>false</td>

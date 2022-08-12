@@ -450,6 +450,18 @@ export declare const useEasyLightbox: (options: UseEasyLightboxOptions) => {
       <td>Specify the number of pixel you have to swipe.</td>
     </tr>
     <tr>
+      <td>zoomScale</td>
+      <td>Number</td>
+      <td>0.12</td>
+      <td>Specify the step between zoom levels.</td>
+    </tr>
+    <tr>
+      <td>maxZoom</td>
+      <td>Number</td>
+      <td>3</td>
+      <td>Specify the maximum level of zoom scale.</td>
+    </tr>
+    <tr>
       <td>rtl</td>
       <td>Boolean</td>
       <td>false</td>
