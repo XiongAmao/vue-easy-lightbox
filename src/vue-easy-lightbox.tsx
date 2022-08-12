@@ -88,7 +88,15 @@ export default defineComponent({
     rtl: {
       type: Boolean,
       default: false
-    }
+    },
+    zoomScale: {
+      type: Number,
+      default: 0.12
+    },
+    maxZoom: {
+      type: Number,
+      default: 3
+    },
   },
   emits: {
     hide: () => true,
@@ -247,7 +255,6 @@ export default defineComponent({
     }
 
     // actions for changing img
-    const defaultScale = 0.12
     const zoom = (newScale: number) => {
       if (Math.abs(1 - newScale) < 0.05) {
         newScale = 1
@@ -259,8 +266,8 @@ export default defineComponent({
     }
 
     const zoomIn = () => {
-      const newScale = imgWrapperState.scale + defaultScale
-      if (newScale < imgState.maxScale * 3) {
+      const newScale = imgWrapperState.scale + props.zoomScale
+      if (newScale < imgState.maxScale * props.maxZoom) {
         zoom(newScale)
       }
     }
@@ -268,7 +275,7 @@ export default defineComponent({
     const zoomOut = () => {
       const newScale =
         imgWrapperState.scale -
-        (imgWrapperState.scale < 0.7 ? 0.1 : defaultScale)
+        (imgWrapperState.scale < 0.7 ? 0.1 : props.zoomScale)
       if (newScale > 0.1) {
         zoom(newScale)
       }
