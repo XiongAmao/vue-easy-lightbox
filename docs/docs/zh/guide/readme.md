@@ -85,9 +85,11 @@ import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
 这里有两种办法解决这个问题
 
 方法 1: 项目本地添加 `d.ts`，补充模块信息:
+
 ```ts
-declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min' {
+declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js' {
   import VueEasyLightbox from 'vue-easy-lightbox'
+  export * from 'vue-easy-lightbox'
   export default VueEasyLightbox
 }
 ```
@@ -101,7 +103,7 @@ module.exports = {
   //...
   resolve: {
     alias: {
-      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min.js',
+      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js',
     },
   },
 };
@@ -110,6 +112,21 @@ module.exports = {
 import VueEasyLightbox from 'vue-easy-lightbox' // work
 ```
 
+
+或者使用 vitejs: [vitejs alias](https://cn.vitejs.dev/config/shared-options.html#resolve-alias)
+
+```js
+// vite.config.js
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  resolve: {
+    alias: {
+      'vue-easy-lightbox': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
+    }
+  }
+})
+```
 
 ## 使用方式
 

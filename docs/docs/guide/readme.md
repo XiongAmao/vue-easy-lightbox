@@ -84,16 +84,19 @@ If your project is TypeScript project and you get this error message:
 
 Here are two ways to solve it.
 
-Way 1: add `d.ts` locally:
+Way 1: add `d.ts` in your project:
+
 ```ts
-declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min' {
+declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js' {
   import VueEasyLightbox from 'vue-easy-lightbox'
+  export * from 'vue-easy-lightbox'
   export default VueEasyLightbox
 }
 ```
 
 Way 2:
-if you're using webpack:  [webpack alias docs](https://webpack.js.org/configuration/resolve/#resolvealias)
+
+If you're using webpack:  [webpack alias docs](https://webpack.js.org/configuration/resolve/#resolvealias)
 
 ```js
 // wepback.config.js
@@ -101,13 +104,28 @@ module.exports = {
   //...
   resolve: {
     alias: {
-      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min.js',
+      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js',
     },
   },
 };
 
 // in your component
 import VueEasyLightbox from 'vue-easy-lightbox' // work
+```
+
+vitejs: [vitejs alias](https://vitejs.dev/config/shared-options.html#resolve-alias)
+
+```js
+// vite.config.js
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  resolve: {
+    alias: {
+      'vue-easy-lightbox': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
+    }
+  }
+})
 ```
 
 

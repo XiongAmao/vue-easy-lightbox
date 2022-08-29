@@ -1,6 +1,6 @@
 {
   "name": "vue-easy-lightbox",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "A Vue.js 3.0 image lightbox component with Zoom / Drag / Rotate / Switch",
   "keywords": [
     "vue",
@@ -15,8 +15,18 @@
   "module": "dist/vue-easy-lightbox.esm.min.js",
   "types": "types/index.d.ts",
   "exports": {
-    "import": "./dist/vue-easy-lightbox.esm.min.js",
-    "require": "./dist/vue-easy-lightbox.common.min.js"
+    ".": {
+      "import": "./dist/vue-easy-lightbox.esm.min.js",
+      "require": "./dist/vue-easy-lightbox.common.min.js",
+      "browser": "./dist/vue-easy-lightbox.umd.min.js"
+    },
+    "./external-css": {
+      "import": "./dist/external-css/vue-easy-lightbox.esm.min.js",
+      "require": "./dist/external-css/vue-easy-lightbox.common.min.js",
+      "browser": "./dist/external-css/vue-easy-lightbox.umd.min.js"
+    },
+    "./external-css/vue-easy-lightbox.css": "./dist/external-css/vue-easy-lightbox.css",
+    "./*": "./*"
   },
   "type": "module",
   "browser": {
