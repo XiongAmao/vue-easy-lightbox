@@ -5,6 +5,7 @@
     <br />
     <button @click="test">test1</button>
     <button @click="test2">test2</button>
+    <button @click="show">test show</button>
 
     <vue-easy-lightbox
       :visible="visibleRef"
@@ -73,7 +74,8 @@ export default defineComponent({
       onHide,
       test,
       test2,
-      onIndexChange
+      onIndexChange,
+      show
     }
   }
 })

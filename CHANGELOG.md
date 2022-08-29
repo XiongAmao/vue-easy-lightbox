@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.8.1] (29 August 2022)
+
+- Fix(composables): `show()` accept wrong param when use in vue template. #104
+
 ## [1.8.0] (12 August 2022)
 
 - Feat: Add `maxZoom` `zoomScale` to specify the zoom level.
