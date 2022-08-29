@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.8.2] (29 August 2022)
+
+- Fix: Cannot access external css build. #106
+
 ## [1.8.1] (29 August 2022)
 
 - Fix(composables): `show()` accept wrong param when use in vue template. #104
