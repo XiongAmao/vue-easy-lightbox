@@ -369,9 +369,9 @@ export declare const useEasyLightbox: (options: UseEasyLightboxOptions) => {
   imgsRef: Ref<Img | string | (Img | string)[]>;
   indexRef: Ref<number | undefined>;
   visibleRef: Ref<boolean>;
-  show: (index?: number | undefined) => void;
+  show: (index?: Ref<number> | number | Event) => void;
   onHide: () => void;
-  changeIndex: (index?: number | undefined) => void;
+  changeIndex: (index?: number) => void;
 };
 ```
 
