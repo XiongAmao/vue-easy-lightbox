@@ -89,8 +89,9 @@ import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
 
 方法 1: 项目本地添加 `d.ts`，补充模块信息:
 ```ts
-declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min' {
+declare module 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js' {
   import VueEasyLightbox from 'vue-easy-lightbox'
+  export * from 'vue-easy-lightbox'
   export default VueEasyLightbox
 }
 ```
@@ -104,13 +105,28 @@ module.exports = {
   //...
   resolve: {
     alias: {
-      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.common.min.js',
+      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js',
     },
   },
 };
 
 // in your component
 import VueEasyLightbox from 'vue-easy-lightbox' // work
+```
+
+or vitejs: [vitejs alias](https://cn.vitejs.dev/config/shared-options.html#resolve-alias)
+
+```js
+// vite.config.js
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  resolve: {
+    alias: {
+      'vue-easy-lightbox': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
+    }
+  }
+})
 ```
 
 ## 使用方式
@@ -370,9 +386,9 @@ export declare const useEasyLightbox: (options: UseEasyLightboxOptions) => {
   imgsRef: Ref<Img | string | (Img | string)[]>;
   indexRef: Ref<number | undefined>;
   visibleRef: Ref<boolean>;
-  show: (index?: number | undefined) => void;
+  show: (index?: Ref<number> | number | Event) => void;
   onHide: () => void;
-  changeIndex: (index?: number | undefined) => void;
+  changeIndex: (index?: number) => void;
 };
 ```
 
