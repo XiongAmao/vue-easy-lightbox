@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.20.0] (15 Sep. 2022)
+
+- Feat: Add alt text. [#111](https://github.com/XiongAmao/vue-easy-lightbox/pull/111)
+
 ## [0.19.0] (22 July 2022)
 
 _ Feat: Add external CSS build.
