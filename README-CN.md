@@ -285,9 +285,9 @@ Props
     </tr>
     <tr>
       <td>imgs</td>
-      <td>String/String[]/ImgObject:{ src: string, title: string }/ImgObject[]</td>
+      <td>String/String[]/ImgObject:{ src: string, title: string, alt: string }/ImgObject[]</td>
       <td>required</td>
-      <td>图片的src字符串或图片对象(地址和标题) { src, title }，传入数组则可以轮播显示</td>
+      <td>图片的src字符串或图片对象(地址/标题/alt) { src, title, alt }，传入数组则可以轮播显示</td>
     </tr>
     <tr>
       <td>index</td>

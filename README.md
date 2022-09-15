@@ -289,9 +289,9 @@ Props
     </tr>
     <tr>
       <td>imgs</td>
-      <td>String/String[]/ImgObject:{ src: string, title: string }/ImgObject[]</td>
+      <td>String/String[]/ImgObject:{ src: string, title: string, alt: string }/ImgObject[]</td>
       <td>required</td>
-      <td>Image's src / array of src / ImgObject:{ src, title } / array of ImgObject / array of ImgObject.</td>
+      <td>Image's src / array of src / ImgObject:{ src, title, alt } / array of ImgObject / array of ImgObject.</td>
     </tr>
     <tr>
       <td>index</td>
