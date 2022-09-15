@@ -2,7 +2,8 @@ import Vue from 'vue'
 
 export interface ImgObject {
   url: string
-  title: string
+  title?: string
+  alt?: string
 }
 
 export declare class VueEasyLightbox extends Vue {

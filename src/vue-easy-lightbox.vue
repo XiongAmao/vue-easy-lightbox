@@ -37,6 +37,7 @@
             ref="realImg"
             :class="`${prefixCls}-img`"
             :src="visibleImgSrc"
+            :alt="imgAlt"
             draggable="false"
             @mousedown="handleMouseDown($event)"
             @mouseup="handleMouseUp($event)"
@@ -147,6 +148,7 @@
   interface Img {
     src?: string
     title?: string
+    alt?: string
   }
 
   type IndexChangeAction =
@@ -233,6 +235,9 @@
     }
     get imgTitle() {
       return this.imgList[this.imgIndex]?.title
+    }
+    get imgAlt() {
+      return this.imgList[this.imgIndex]?.alt || ''
     }
     get imgTotal() {
       return this.imgList.length || 0

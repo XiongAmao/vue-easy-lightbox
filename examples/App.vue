@@ -10,7 +10,9 @@
           class="pic"
           @click="() => show(idx)"
         >
-          <div v-if="idx === 5">This is error image url.</div>
+          <div v-if="idx === 5">
+            This is error image url.
+          </div>
           <img :src="img.src ? img.src : img" />
         </div>
       </div>
@@ -41,7 +43,8 @@
         imgs: [
           {
             title: "img's url: https://i.loli.net/2018/11/10/5be6852cdb002.jpeg",
-            src: ' https://i.loli.net/2018/11/10/5be6852cdb002.jpeg'
+            src: 'https://i.loli.net/2018/11/10/5be6852cdb002.jpeg',
+            alt: 'Red airplane. You can see an island in the background.'
           },
           {
             title: "There is img's description",
