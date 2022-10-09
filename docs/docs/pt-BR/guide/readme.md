@@ -528,6 +528,11 @@ Referência: [Teleport](https://vuejs.org/guide/built-ins/teleport.html)
       <td>Emite quando o index de imgs é alterado ou quando o utilizador desliza para a direita</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
+    <tr>
+      <td>on-rotate</td>
+      <td>Emit when image rotate</td>
+      <td>deg: number (clockwise angle deg)</td>
+    </tr>
   </tbody>
 </table>
 

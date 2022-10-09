@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.9.0] (9 Sep. 2022)
+
+- Feat： Add `on-rotate` event, which returns the clockwise angle (deg: number) when the event emit.
+
 ## [1.8.2] (29 August 2022)
 
 - Fix: Cannot access external css build. #106
