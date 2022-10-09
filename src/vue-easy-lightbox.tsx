@@ -96,7 +96,7 @@ export default defineComponent({
     maxZoom: {
       type: Number,
       default: 3
-    },
+    }
   },
   emits: {
     hide: () => true,
@@ -106,7 +106,8 @@ export default defineComponent({
     'on-next': (oldIndex: number, newIndex: number) => true,
     'on-prev-click': (oldIndex: number, newIndex: number) => true,
     'on-next-click': (oldIndex: number, newIndex: number) => true,
-    'on-index-change': (oldIndex: number, newIndex: number) => true
+    'on-index-change': (oldIndex: number, newIndex: number) => true,
+    'on-rotate': (deg: number) => true
     /* eslint-enable @typescript-eslint/no-unused-vars */
   },
   setup(props, { emit, slots }) {
@@ -281,12 +282,19 @@ export default defineComponent({
       }
     }
 
+    const emitRotate = () => {
+      const deg = imgWrapperState.rotateDeg % 360
+      emit('on-rotate', Math.abs(deg < 0 ? deg + 360 : deg))
+    }
+
     const rotateLeft = () => {
       imgWrapperState.rotateDeg -= 90
+      emitRotate()
     }
 
     const rotateRight = () => {
       imgWrapperState.rotateDeg += 90
+      emitRotate()
     }
 
     const resize = () => {
@@ -658,7 +666,10 @@ export default defineComponent({
           onClick={withModifiers(onMaskClick, ['self'])}
           onWheel={onWheel}
         >
-          <Transition name={`${prefixCls}-fade`} mode="out-in">
+          <Transition
+            name={`${prefixCls}-fade`}
+            mode="out-in"
+          >
             {renderWrapper()}
           </Transition>
           {renderTestImg()}

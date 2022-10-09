@@ -13,6 +13,7 @@
       :index="indexRef"
       @hide="onHide"
       @on-index-change="onIndexChange"
+      @on-rotate="onRotate"
     ></vue-easy-lightbox>
   </div>
 </template>
@@ -65,6 +66,10 @@ export default defineComponent({
       console.log(old, newN)
     }
 
+    const onRotate = (deg: number) => {
+      console.log(deg)
+    }
+
     return {
       visibleRef,
       indexRef,
@@ -75,7 +80,8 @@ export default defineComponent({
       test,
       test2,
       onIndexChange,
-      show
+      show,
+      onRotate
     }
   }
 })
