@@ -521,6 +521,11 @@ Event
       <td>当图片索引被改变时触发，比如点击或更改传给组件index</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
+    <tr>
+      <td>on-rotate</td>
+      <td>当图片旋转时触发事件</td>
+      <td>deg: number (顺时针角度)</td>
+    </tr>
   </tbody>
 </table>
 

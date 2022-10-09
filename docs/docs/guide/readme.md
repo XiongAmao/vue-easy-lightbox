@@ -526,6 +526,11 @@ Reference: [Teleport](https://vuejs.org/guide/built-ins/teleport.html)
       <td>Emit when imgs's index is changed</td>
       <td>(oldIndex, newIndex)</td>
     </tr>
+    <tr>
+      <td>on-rotate</td>
+      <td>Emit when image rotate</td>
+      <td>deg: number (clockwise angle deg)</td>
+    </tr>
   </tbody>
 </table>
 
