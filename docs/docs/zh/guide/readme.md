@@ -479,6 +479,12 @@ export declare const useEasyLightbox: (options: UseEasyLightboxOptions) => {
       <td>指定图片最大缩放比例</td>
     </tr>
     <tr>
+      <td>minZoom</td>
+      <td>Number</td>
+      <td>0.1</td>
+      <td>指定图片最小缩放比例.</td>
+    </tr>
+    <tr>
       <td>rtl</td>
       <td>Boolean</td>
       <td>false</td>
