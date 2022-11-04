@@ -96,6 +96,10 @@ export default defineComponent({
     maxZoom: {
       type: Number,
       default: 3
+    },
+    minZoom: {
+      type: Number,
+      default: 0.1
     }
   },
   emits: {
@@ -274,10 +278,8 @@ export default defineComponent({
     }
 
     const zoomOut = () => {
-      const newScale =
-        imgWrapperState.scale -
-        (imgWrapperState.scale < 0.7 ? 0.1 : props.zoomScale)
-      if (newScale > 0.1) {
+      const newScale = imgWrapperState.scale - props.zoomScale
+      if (newScale > props.minZoom) {
         zoom(newScale)
       }
     }
