@@ -55,7 +55,7 @@ export default defineComponent({
     }
     const showMultiple = () => {
       imgsRef.value = [
-        'http://via.placeholder.com/350x150',
+        'http://via.placeholder.com/2000x2000',
         'http://via.placeholder.com/350x150'
       ]
       changeIndex()

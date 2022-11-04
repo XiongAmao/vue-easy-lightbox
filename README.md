@@ -483,6 +483,12 @@ Props
       <td>Specify the maximum level of zoom scale.</td>
     </tr>
     <tr>
+      <td>minZoom</td>
+      <td>Number</td>
+      <td>0.1</td>
+      <td>Specify the minimum level of zoom scale.</td>
+    </tr>
+    <tr>
       <td>rtl</td>
       <td>Boolean</td>
       <td>false</td>
