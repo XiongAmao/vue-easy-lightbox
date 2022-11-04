@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.10.0] (4 Nov. 2022)
+
+- Feat: Add `minZoom` to specify the minimum level of zoom scale.
+
 ## [1.9.0] (9 Sep. 2022)
 
 - Feat： Add `on-rotate` event, which returns the clockwise angle (deg: number) when the event emit.
