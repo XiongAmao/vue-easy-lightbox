@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.11.0] (5 Nov. 2022)
+
+- Fix: `overflow-y:hidden` is not removed before unmounting component. [#110](https://github.com/XiongAmao/vue-easy-lightbox/issues/110) [#116](https://github.com/XiongAmao/vue-easy-lightbox/issues/116)
+
 ## [1.10.0] (4 Nov. 2022)
 
 - Feat: Add `minZoom` to specify the minimum level of zoom scale.
