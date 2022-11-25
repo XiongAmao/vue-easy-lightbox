@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.21.0] (25 Nov. 2022)
+
+- Fix: `overflow-y:hidden` is not removed before unmounting component.
+
 ## [0.20.0] (15 Sep. 2022)
 
 - Feat: Add alt text. [#111](https://github.com/XiongAmao/vue-easy-lightbox/pull/111)
