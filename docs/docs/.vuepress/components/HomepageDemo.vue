@@ -22,7 +22,7 @@
 
 <script>
 import { defineComponent, ref, onMounted } from 'vue'
-import VueEasyLightbox from 'vue-easy-lightbox'
+import VueEasyLightbox from '../../../../dist/build.watch.test'
 
 export default defineComponent({
   name: 'HomepageDemo',
