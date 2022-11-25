@@ -1,6 +1,6 @@
 {
   "name": "vue-easy-lightbox",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "A Vue.js 3.0 image lightbox component with Zoom / Drag / Rotate / Switch",
   "keywords": [
     "vue",
@@ -35,6 +35,7 @@
   "scripts": {
     "dev:docs": "cd docs && pnpm dev",
     "dev": "vite",
+    "dev:bd-watch": "rollup -w -c build-scripts/rollup.watch.config.js",
     "clean": "rimraf ./dist && rimraf ./types",
     "build": "pnpm run clean && pnpm run build:bundle && pnpm run build:type",
     "build:bundle": "rollup -c build-scripts/rollup.config.js",

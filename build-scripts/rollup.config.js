@@ -64,7 +64,7 @@ const configs = builds.map((buildType) => {
         preventAssignment: true,
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }),
-      babel(createBabelConfig(/es5/.test(buildType))),
+      babel(createBabelConfig()),
       resolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
         browser: true

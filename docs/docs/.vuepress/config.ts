@@ -1,10 +1,13 @@
-const {
-  registerComponentsPlugin
-} = require('@vuepress/plugin-register-components')
-const { defaultTheme } = require('@vuepress/theme-default')
-const { path } = require('@vuepress/utils')
+import { defineUserConfig, viteBundler } from 'vuepress'
+import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
+import { path } from '@vuepress/utils'
+import { defaultTheme } from '@vuepress/theme-default'
+import { searchForWorkspaceRoot } from 'vite'
+import { resolve } from 'node:path'
 
-module.exports = {
+const rootPath = searchForWorkspaceRoot(process.cwd())
+
+export default defineUserConfig({
   base: '/vue-easy-lightbox/',
   title: 'vue-easy-lightbox',
   port: 8089,
@@ -85,5 +88,14 @@ module.exports = {
       description:
         'Um componente lightbox de visualização de imagens escrito com Vue.js 3 e Typescript, fornecendo funções de rotação, slide de imagens, zoom e redução.'
     }
-  }
-}
+  },
+  bundler: viteBundler({
+    viteOptions: {
+      server: {
+        fs: {
+          allow: [rootPath, resolve(rootPath, '../')]
+        }
+      }
+    }
+  })
+})

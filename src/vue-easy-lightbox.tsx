@@ -479,6 +479,7 @@ export default defineComponent({
     onBeforeUnmount(() => {
       off(document, 'keydown', onKeyPress)
       off(window, 'resize', onWindowResize)
+      enableScrolling()
     })
 
     const renderLoading = () => {
