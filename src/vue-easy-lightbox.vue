@@ -106,7 +106,7 @@
           v-if="imgTitle && !titleDisabled && !loading && !loadError"
           name="title"
         >
-          <img-title>{{ imgTitle }}</img-title>
+          <ImgTitle>{{ imgTitle }}</ImgTitle>
         </slot>
 
         <slot
@@ -605,6 +605,7 @@
     beforeDestroy() {
       off(document, 'keydown', this.handleKeyPress)
       off(window, 'resize', this.handleWindowResize)
+      this.enableScrolling()
     }
   }
 </script>
