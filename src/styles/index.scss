@@ -55,6 +55,8 @@
 
 /* prev/next/close btns */
 .#{$prefix-cls}-btns-wrapper {
+  position: initial;
+
   .btn__prev,
   .btn__next,
   .btn__close {
