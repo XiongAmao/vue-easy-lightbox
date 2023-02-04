@@ -54,7 +54,7 @@ const showMultiple = () => {
   changeIndex()
   show()
 }
-const showImg = () => show()
+// const showImg = () => show()
 
 const onIndexChange = (old: number, newN: number) => {
   console.log(old, newN)

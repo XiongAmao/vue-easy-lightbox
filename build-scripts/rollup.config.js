@@ -1,12 +1,11 @@
 import path from 'path'
-import vue from 'rollup-plugin-vue'
-import commonJs from '@rollup/plugin-commonjs'
+import { defineConfig } from 'rollup'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
 import replace from '@rollup/plugin-replace'
 import postcss from 'rollup-plugin-postcss'
 import autoprefixer from 'autoprefixer'
-import { terser } from 'rollup-plugin-terser'
+import terser from '@rollup/plugin-terser'
 import Case from 'case'
 import { createBabelConfig } from './rollup.babel.config'
 
@@ -39,7 +38,7 @@ const isExternalCSS = (buildText) => {
 
 const configs = builds.map((buildType) => {
   const format = getFormat(buildType)
-  const config = {
+  const config = defineConfig({
     input: entryPath,
     output: {
       file: isExternalCSS(buildType)
@@ -52,7 +51,6 @@ const configs = builds.map((buildType) => {
       format
     },
     plugins: [
-      vue(),
       postcss({
         minimize: true,
         plugins: [autoprefixer()],
@@ -69,7 +67,6 @@ const configs = builds.map((buildType) => {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
         browser: true
       }),
-      commonJs(),
       terser({
         format: {
           comments: false
@@ -77,7 +74,7 @@ const configs = builds.map((buildType) => {
       })
     ],
     external: ['vue']
-  }
+  })
   if (config.output.format === 'umd') {
     config.input = 'src/index.umd.ts'
     config.output.name = Case.pascal(libraryName)
