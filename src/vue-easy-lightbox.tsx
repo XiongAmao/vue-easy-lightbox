@@ -100,6 +100,10 @@ export default defineComponent({
     minZoom: {
       type: Number,
       default: 0.1
+    },
+    rotateDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   emits: {
@@ -637,6 +641,7 @@ export default defineComponent({
           resize={resize}
           rotateLeft={rotateLeft}
           rotateRight={rotateRight}
+          rotateDisabled={props.rotateDisabled}
         />
       )
     }
