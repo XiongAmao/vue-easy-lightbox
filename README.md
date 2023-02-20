@@ -453,6 +453,12 @@ Props
       <td>Pass true to disable image movement and enable swipe.</td>
     </tr>
     <tr>
+      <td>rotateDisabled (rotate-disabled)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Pass true to disable image rotation.</td>
+    </tr>
+    <tr>
       <td>maskClosable (mask-closable)</td>
       <td>Boolean</td>
       <td>true</td>

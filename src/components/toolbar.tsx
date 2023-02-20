@@ -27,6 +27,10 @@ export const Toolbar = defineComponent({
     resize: {
       type: Function as PropType<MouseEventHandler>,
       default: voidFn
+    },
+    rotateDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props) {
@@ -35,7 +39,7 @@ export const Toolbar = defineComponent({
         <div class={`${prefixCls}-toolbar`}>
           <div
             role="button"
-            aria-label='zoom in button'
+            aria-label="zoom in button"
             class="toolbar-btn toolbar-btn__zoomin"
             onClick={props.zoomIn}
           >
@@ -44,7 +48,7 @@ export const Toolbar = defineComponent({
 
           <div
             role="button"
-            aria-label='zoom out button'
+            aria-label="zoom out button"
             class="toolbar-btn toolbar-btn__zoomout"
             onClick={props.zoomOut}
           >
@@ -53,30 +57,33 @@ export const Toolbar = defineComponent({
 
           <div
             role="button"
-            aria-label='resize image button'
+            aria-label="resize image button"
             class="toolbar-btn toolbar-btn__resize"
             onClick={props.resize}
           >
             <SvgIcon type="resize" />
           </div>
+          {!props.rotateDisabled && (
+            <>
+              <div
+                role="button"
+                aria-label="image rotate left button"
+                class="toolbar-btn toolbar-btn__rotate"
+                onClick={props.rotateLeft}
+              >
+                <SvgIcon type="rotate-left" />
+              </div>
 
-          <div
-            role="button"
-            aria-label='image rotate left button'
-            class="toolbar-btn toolbar-btn__rotate"
-            onClick={props.rotateLeft}
-          >
-            <SvgIcon type="rotate-left" />
-          </div>
-
-          <div
-            role="button"
-            aria-label='image rotate right button'
-            class="toolbar-btn toolbar-btn__rotate"
-            onClick={props.rotateRight}
-          >
-            <SvgIcon type="rotate-right" />
-          </div>
+              <div
+                role="button"
+                aria-label="image rotate right button"
+                class="toolbar-btn toolbar-btn__rotate"
+                onClick={props.rotateRight}
+              >
+                <SvgIcon type="rotate-right" />
+              </div>
+            </>
+          )}
         </div>
       )
     }
