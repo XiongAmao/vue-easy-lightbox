@@ -127,6 +127,7 @@
             :rotateLeft="rotateLeft"
             :rotateRight="rotateRight"
             :resize="resize"
+            :rotateDisabled="rotateDisabled"
           />
         </slot>
       </div>
@@ -186,6 +187,7 @@
     @Prop({ type: Boolean, default: false }) readonly loop!: boolean
     @Prop({ type: Boolean, default: true }) readonly scrollDisabled!: boolean
     @Prop({ type: Boolean, default: true }) readonly maskClosable!: boolean
+    @Prop({ type: Boolean, default: false }) readonly rotateDisabled!: boolean
 
     prefixCls = prefixCls
     scale = 1

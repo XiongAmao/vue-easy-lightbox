@@ -19,6 +19,7 @@
 
       <vue-easy-lightbox
         loop
+        :rotateDisabled="true"
         :visible="visible"
         :index="index"
         :imgs="imgs"

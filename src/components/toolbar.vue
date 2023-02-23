@@ -26,6 +26,7 @@
 
     <!-- rotate -->
     <div
+      v-if="!rotateDisabled"
       class="toolbar-btn toolbar-btn__rotate"
       @click="rotateLeft"
     >
@@ -33,6 +34,7 @@
     </div>
 
     <div
+      v-if="!rotateDisabled"
       class="toolbar-btn toolbar-btn__rotate"
       @click="rotateRight"
     >
@@ -72,6 +74,10 @@
       resize: {
         type: Function,
         default: voidFn
+      },
+      rotateDisabled: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
