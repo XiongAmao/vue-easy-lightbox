@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.13.0] (23 Feb. 2023)
+
+- Feat: Add `rotateDisabled` prop to disable the rotation of the image. [#123](https://github.com/XiongAmao/vue-easy-lightbox/issues/123) [#62](https://github.com/XiongAmao/vue-easy-lightbox/issues/62)
+
 ## [1.12.0] (3 Feb. 2023)
 
 - Refactor: using default icon svg with vue component.

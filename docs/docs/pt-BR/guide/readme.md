@@ -452,6 +452,12 @@ export declare const useEasyLightbox: (options: UseEasyLightboxOptions) => {
       <td>Passe verdadeiro para desativar o movimento da imagem e permitir `swipe`.</td>
     </tr>
     <tr>
+      <td>rotateDisabled (rotate-disabled)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Passe verdadeiro para desativar a rotação da imagem.</td>
+    </tr>
+    <tr>
       <td>maskClosable (mask-closable)</td>
       <td>Boolean</td>
       <td>true</td>
