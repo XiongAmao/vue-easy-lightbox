@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.22.0] (23 Feb. 2023)
+
+- Feat: Add `rotateDisabled` prop to disable the rotation of the image. [#62](https://github.com/XiongAmao/vue-easy-lightbox/issues/62)
+
 ## [0.21.0] (25 Nov. 2022)
 
 - Fix: `overflow-y:hidden` is not removed before unmounting component.
