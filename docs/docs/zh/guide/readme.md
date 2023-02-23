@@ -449,6 +449,12 @@ export declare const useEasyLightbox: (options: UseEasyLightboxOptions) => {
       <td>传true时，禁用拖动图片功能，并启用手势swipe功能</td>
     </tr>
     <tr>
+      <td>rotateDisabled (rotate-disabled)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>传true时，禁用图片旋转功能</td>
+    </tr>
+    <tr>
       <td>maskClosable (mask-closable)</td>
       <td>Boolean</td>
       <td>true</td>
