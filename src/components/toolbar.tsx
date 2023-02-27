@@ -31,29 +31,37 @@ export const Toolbar = defineComponent({
     rotateDisabled: {
       type: Boolean,
       default: false
+    },
+    zoomDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props) {
     return () => {
       return (
         <div class={`${prefixCls}-toolbar`}>
-          <div
-            role="button"
-            aria-label="zoom in button"
-            class="toolbar-btn toolbar-btn__zoomin"
-            onClick={props.zoomIn}
-          >
-            <SvgIcon type="zoomin" />
-          </div>
+          {!props.zoomDisabled && (
+            <>
+              <div
+                role="button"
+                aria-label="zoom in button"
+                class="toolbar-btn toolbar-btn__zoomin"
+                onClick={props.zoomIn}
+              >
+                <SvgIcon type="zoomin" />
+              </div>
 
-          <div
-            role="button"
-            aria-label="zoom out button"
-            class="toolbar-btn toolbar-btn__zoomout"
-            onClick={props.zoomOut}
-          >
-            <SvgIcon type="zoomout" />
-          </div>
+              <div
+                role="button"
+                aria-label="zoom out button"
+                class="toolbar-btn toolbar-btn__zoomout"
+                onClick={props.zoomOut}
+              >
+                <SvgIcon type="zoomout" />
+              </div>
+            </>
+          )}
 
           <div
             role="button"

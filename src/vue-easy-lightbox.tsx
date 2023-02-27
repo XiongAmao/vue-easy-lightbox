@@ -104,6 +104,10 @@ export default defineComponent({
     rotateDisabled: {
       type: Boolean,
       default: false
+    },
+    zoomDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   emits: {
@@ -346,7 +350,8 @@ export default defineComponent({
         status.loading ||
         status.dragging ||
         status.wheeling ||
-        !props.scrollDisabled
+        !props.scrollDisabled ||
+        props.zoomDisabled
       ) {
         return
       }
@@ -642,6 +647,7 @@ export default defineComponent({
           rotateLeft={rotateLeft}
           rotateRight={rotateRight}
           rotateDisabled={props.rotateDisabled}
+          zoomDisabled={props.zoomDisabled}
         />
       )
     }
