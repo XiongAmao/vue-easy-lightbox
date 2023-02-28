@@ -128,6 +128,7 @@
             :rotateRight="rotateRight"
             :resize="resize"
             :rotateDisabled="rotateDisabled"
+            :zoomDisabled="zoomDisabled"
           />
         </slot>
       </div>
@@ -188,6 +189,7 @@
     @Prop({ type: Boolean, default: true }) readonly scrollDisabled!: boolean
     @Prop({ type: Boolean, default: true }) readonly maskClosable!: boolean
     @Prop({ type: Boolean, default: false }) readonly rotateDisabled!: boolean
+    @Prop({ type: Boolean, default: false }) readonly zoomDisabled!: boolean
 
     prefixCls = prefixCls
     scale = 1
@@ -364,7 +366,8 @@
         this.isDraging ||
         this.isGesturing ||
         this.wheeling ||
-        !this.scrollDisabled
+        !this.scrollDisabled ||
+        this.zoomDisabled
       ) {
         return
       }

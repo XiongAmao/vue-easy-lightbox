@@ -2,6 +2,7 @@
   <div :class="`${prefixCls}-toolbar`">
     <!-- zoom-in -->
     <div
+      v-if="!zoomDisabled"
       class="toolbar-btn toolbar-btn__zoomin"
       @click="zoomIn"
     >
@@ -10,6 +11,7 @@
 
     <!-- zoom-out -->
     <div
+      v-if="!zoomDisabled"
       class="toolbar-btn toolbar-btn__zoomout"
       @click="zoomOut"
     >
@@ -76,6 +78,10 @@
         default: voidFn
       },
       rotateDisabled: {
+        type: Boolean,
+        default: false
+      },
+      zoomDisabled: {
         type: Boolean,
         default: false
       }

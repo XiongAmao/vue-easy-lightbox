@@ -19,7 +19,7 @@
 
       <vue-easy-lightbox
         loop
-        :rotateDisabled="true"
+        :zoomDisabled="zoomDisabled"
         :visible="visible"
         :index="index"
         :imgs="imgs"
@@ -57,6 +57,7 @@
           // 'https://example.com/asdf.jpeg'
         ],
         visible: false,
+        zoomDisabled: false,
         index: 0 // default
       }
     },
