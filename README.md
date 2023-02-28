@@ -318,6 +318,18 @@ Props
       <td>Pass true to disable image movement.</td>
     </tr>
     <tr>
+      <td>rotateDisabled (rotate-disabled)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Pass true to disable image rotation.</td>
+    </tr>
+    <tr>
+      <td>zoomDisabled (zoom-disabled)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Pass true to disable image zooming.</td>
+    </tr>
+    <tr>
       <td>scrollDisabled (scroll-disabled)</td>
       <td>Boolean</td>
       <td>true</td>
