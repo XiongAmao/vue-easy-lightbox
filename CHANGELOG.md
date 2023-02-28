@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.14.0] (28 Feb. 2023)
+
+- Feat: Add `zoomDisabled` prop to disable image zooming. [#93](https://github.com/XiongAmao/vue-easy-lightbox/issues/93)
+
 ## [1.13.0] (23 Feb. 2023)
 
 - Feat: Add `rotateDisabled` prop to disable the rotation of the image. [#123](https://github.com/XiongAmao/vue-easy-lightbox/issues/123) [#62](https://github.com/XiongAmao/vue-easy-lightbox/issues/62)

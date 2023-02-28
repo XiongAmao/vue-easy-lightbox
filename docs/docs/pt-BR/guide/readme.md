@@ -458,6 +458,12 @@ export declare const useEasyLightbox: (options: UseEasyLightboxOptions) => {
       <td>Passe verdadeiro para desativar a rotação da imagem.</td>
     </tr>
     <tr>
+      <td>zoomDisabled (zoom-disabled)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Passe verdadeiro para desativar o zoom da imagem.</td>
+    </tr>
+    <tr>
       <td>maskClosable (mask-closable)</td>
       <td>Boolean</td>
       <td>true</td>
