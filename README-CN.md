@@ -74,8 +74,13 @@ $ yarn add vue-easy-lightbox@next
 ```js
 // in this path vue-easy-lightbox/dist/external-css/*.js
 import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
+// or
+import VueEasyLightbox from 'vue-easy-lightbox/external-css'
+// it defines in `package.json` `exports`
 
 // 单独引入组件样式
+import 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.css'
+// or
 import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
 ```
 

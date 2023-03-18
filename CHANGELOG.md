@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.15.0] (18 March 2023)
+
+- Feat: Support `types` condition in `package.json` `exports` field. [#127](https://github.com/XiongAmao/vue-easy-lightbox/issues/127)
+
 ## [1.14.0] (28 Feb. 2023)
 
 - Feat: Add `zoomDisabled` prop to disable image zooming. [#93](https://github.com/XiongAmao/vue-easy-lightbox/issues/93)
