@@ -108,6 +108,10 @@ export default defineComponent({
     zoomDisabled: {
       type: Boolean,
       default: false
+    },
+    pinchDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   emits: {
@@ -331,7 +335,8 @@ export default defineComponent({
       imgState,
       imgWrapperState,
       status,
-      canMove
+      canMove,
+      () => !props.pinchDisabled
     )
 
     const onDblclick = () => {
