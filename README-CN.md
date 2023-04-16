@@ -465,6 +465,12 @@ Props
       <td>传true时，禁用图片缩放功能</td>
     </tr>
     <tr>
+      <td>pinchDisabled (pinch-disabled)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>传true时，禁用双指触摸缩放功能</td>
+    </tr>
+    <tr>
       <td>maskClosable (mask-closable)</td>
       <td>Boolean</td>
       <td>true</td>

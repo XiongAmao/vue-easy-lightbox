@@ -91,7 +91,8 @@ export const useTouch = (
   imgState: IImgState,
   wrapperState: IImgWrapperState,
   status: IStatus,
-  canMove: (button?: number) => boolean
+  canMove: (button?: number) => boolean,
+  canPinch: () => boolean
 ) => {
   // touch event handler
   let rafId: number
@@ -99,7 +100,7 @@ export const useTouch = (
 
   const onTouchStart = (e: TouchEvent) => {
     const { touches } = e
-    if (touches.length > 1) {
+    if (touches.length > 1 && canPinch()) {
       status.gesturing = true
       wrapperState.touches = touches
     } else {
@@ -135,7 +136,8 @@ export const useTouch = (
     } else if (
       status.gesturing &&
       wrapperState.touches.length > 1 &&
-      touches.length > 1
+      touches.length > 1 &&
+      canPinch()
     ) {
       rafId = raf(() => {
         const calcScale =

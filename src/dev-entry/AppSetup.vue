@@ -11,6 +11,7 @@
       :visible="visibleRef"
       :imgs="imgsRef"
       :index="indexRef"
+      :pinchDisabled="pinchRef"
       @hide="onHide"
       @on-index-change="onIndexChange"
       @on-rotate="onRotate"
@@ -69,6 +70,7 @@ export default defineComponent({
     const onRotate = (deg: number) => {
       console.log(deg)
     }
+    const pinchRef = ref(true)
 
     return {
       visibleRef,
@@ -81,7 +83,8 @@ export default defineComponent({
       test2,
       onIndexChange,
       show,
-      onRotate
+      onRotate,
+      pinchRef
     }
   }
 })

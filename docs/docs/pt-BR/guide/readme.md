@@ -469,6 +469,12 @@ export declare const useEasyLightbox: (options: UseEasyLightboxOptions) => {
       <td>Passe verdadeiro para desativar o zoom da imagem.</td>
     </tr>
     <tr>
+      <td>pinchDisabled (pinch-disabled)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Pass true to disable pinching.</td>
+    </tr>
+    <tr>
       <td>maskClosable (mask-closable)</td>
       <td>Boolean</td>
       <td>true</td>
