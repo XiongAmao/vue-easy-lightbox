@@ -1,4 +1,7 @@
 # Changelog
+## [1.16.0] (16 Apr. 2023)
+
+- Feat: Add `pinchDisabled` (default: false) prop to disable pinching. [#130](https://github.com/XiongAmao/vue-easy-lightbox/issues/130)
 
 ## [1.15.0] (18 March 2023)
 
