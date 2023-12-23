@@ -112,6 +112,10 @@ export default defineComponent({
     pinchDisabled: {
       type: Boolean,
       default: false
+    },
+    dblclickDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   emits: {
@@ -340,6 +344,7 @@ export default defineComponent({
     )
 
     const onDblclick = () => {
+      if (props.dblclickDisabled) return
       if (imgWrapperState.scale !== imgState.maxScale) {
         imgWrapperState.lastScale = imgWrapperState.scale
         imgWrapperState.scale = imgState.maxScale

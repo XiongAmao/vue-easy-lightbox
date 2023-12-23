@@ -12,6 +12,7 @@
       :imgs="imgsRef"
       :index="indexRef"
       :pinchDisabled="pinchRef"
+      :dblclickDisabled="true"
       @hide="onHide"
       @on-index-change="onIndexChange"
       @on-rotate="onRotate"
