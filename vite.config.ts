@@ -2,7 +2,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import path from 'path'
+import { resolve } from 'path'
 
 export default defineConfig({
   server: {
@@ -10,15 +10,32 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'src': path.resolve(__dirname, './src'),
+      src: resolve(__dirname, './src')
     }
   },
-  test: {
-    globals: true,
-    environment: 'happy-dom',
-    transformMode: {
-      web: [/\.[jt]sx$/]
+  build: {
+    lib: {
+      // entry: resolve(__dirname, 'src/index.umd.ts'),
+      entry: [],
+      name: 'vue-easy-lightbox',
+      formats: ['umd'],
+      fileName: 'vue-easy-lightbox'
+    },
+    rollupOptions: {
+      external: ['vue'],
+      output: {
+        globals: {
+          vue: 'Vue'
+        }
+      }
     }
   },
+  // test: {
+  //   globals: true,
+  //   environment: 'happy-dom',
+  //   transformMode: {
+  //     web: [/\.[jt]sx$/]
+  //   }
+  // },
   plugins: [vue(), vueJsx()]
 })
