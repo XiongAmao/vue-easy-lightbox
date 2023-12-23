@@ -128,7 +128,7 @@ export default defineComponent({
   },
   setup(props, { emit, slots }) {
     const { imgRef, imgState, setImgSize } = useImage()
-    const imgIndex = ref(0)
+    const imgIndex = ref(props.index)
     const lastBodyStyleOverflowY = ref('')
 
     const imgWrapperState = reactive<IImgWrapperState>({
