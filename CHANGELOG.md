@@ -1,4 +1,10 @@
 # Changelog
+
+## [1.17.0] (23 Dec. 2023)
+
+- Feat: Add `dblclickDisabled` prop to disable double click. [#131](https://github.com/XiongAmao/vue-easy-lightbox/issues/142)
+- Feat: Add prop `currentImg: {}` to img title slot.
+
 ## [1.16.0] (16 Apr. 2023)
 
 - Feat: Add `pinchDisabled` (default: false) prop to disable pinching. [#130](https://github.com/XiongAmao/vue-easy-lightbox/issues/130)
