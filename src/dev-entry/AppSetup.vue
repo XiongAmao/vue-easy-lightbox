@@ -12,10 +12,15 @@
       :imgs="imgsRef"
       :index="indexRef"
       :pinchDisabled="pinchRef"
+      :dblclickDisabled="true"
       @hide="onHide"
       @on-index-change="onIndexChange"
       @on-rotate="onRotate"
-    ></vue-easy-lightbox>
+    >
+      <template #title="titleSlotProps">
+        <div class="vel-img-title">{{ titleSlotProps.currentImg?.title }}</div>
+      </template>
+    </vue-easy-lightbox>
   </div>
 </template>
 
@@ -30,7 +35,7 @@ export default defineComponent({
   },
   setup() {
     const imgList = ref([
-      'http://via.placeholder.com/350x150',
+      { src: 'http://via.placeholder.com/350x150', title: 'img1' },
       'http://via.placeholder.com/250x150'
     ])
 
