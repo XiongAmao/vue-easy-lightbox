@@ -112,6 +112,10 @@ export default defineComponent({
     pinchDisabled: {
       type: Boolean,
       default: false
+    },
+    dblclickDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   emits: {
@@ -128,7 +132,7 @@ export default defineComponent({
   },
   setup(props, { emit, slots }) {
     const { imgRef, imgState, setImgSize } = useImage()
-    const imgIndex = ref(0)
+    const imgIndex = ref(props.index)
     const lastBodyStyleOverflowY = ref('')
 
     const imgWrapperState = reactive<IImgWrapperState>({
@@ -169,11 +173,10 @@ export default defineComponent({
       return []
     })
 
+    const currentImg = computed(() => imgList.value[imgIndex.value])
     const currentImgSrc = computed(() => {
-      const src = imgList.value[imgIndex.value]?.src
-      return src
+      return imgList.value[imgIndex.value]?.src
     })
-
     const currentImgTitle = computed(() => {
       return imgList.value[imgIndex.value]?.title
     })
@@ -340,6 +343,7 @@ export default defineComponent({
     )
 
     const onDblclick = () => {
+      if (props.dblclickDisabled) return
       if (imgWrapperState.scale !== imgState.maxScale) {
         imgWrapperState.lastScale = imgWrapperState.scale
         imgWrapperState.scale = imgState.maxScale
@@ -657,20 +661,21 @@ export default defineComponent({
       )
     }
     const renderImgTitle = () => {
-      if (
-        !currentImgTitle.value ||
-        props.titleDisabled ||
-        status.loading ||
-        status.loadError
-      ) {
+      if (props.titleDisabled || status.loading || status.loadError) {
         return
       }
 
-      return slots.title ? (
-        slots.title()
-      ) : (
-        <ImgTitle>{currentImgTitle.value}</ImgTitle>
-      )
+      if (slots.title) {
+        return slots.title({
+          currentImg: currentImg.value
+        })
+      }
+
+      if (currentImgTitle.value) {
+        return <ImgTitle>{currentImgTitle.value}</ImgTitle>
+      }
+
+      return
     }
 
     const renderModal = () => {

@@ -1,6 +1,6 @@
 {
   "name": "vue-easy-lightbox",
-  "version": "1.16.0",
+  "version": "1.17.0",
   "description": "A Vue.js 3.0 image lightbox component with Zoom / Drag / Rotate / Switch",
   "keywords": [
     "vue",

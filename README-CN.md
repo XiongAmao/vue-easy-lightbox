@@ -477,6 +477,12 @@ Props
       <td>控制点击蒙板关闭预览.</td>
     </tr>
     <tr>
+      <td>dblclickDisabled (dblclick-closable)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>控制双击缩放功能.</td>
+    </tr>
+    <tr>
       <td>teleport</td>
       <td>string | Element</td>
       <td>-</td>

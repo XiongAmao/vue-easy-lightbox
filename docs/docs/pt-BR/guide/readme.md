@@ -481,6 +481,12 @@ export declare const useEasyLightbox: (options: UseEasyLightboxOptions) => {
       <td>Habilite ou desabilite a máscara de clique para fechar a `vue-easy-lightbox`.</td>
     </tr>
     <tr>
+      <td>dblclickDisabled (dblclick-closable)</td>
+      <td>Boolean</td>
+      <td>false</td>
+      <td>Enable or disable double-click on img to zoom in/out.</td>
+    </tr>
+    <tr>
       <td>teleport</td>
       <td>string | Element</td>
       <td>-</td>
