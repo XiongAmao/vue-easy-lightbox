@@ -12,7 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "typeRoots": ["src/types"],
+    // "typeRoots": ["src/types"],
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "types": ["node", "vitest/globals"],
     "declaration": true,
