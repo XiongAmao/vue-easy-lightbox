@@ -69,16 +69,14 @@ $ yarn add vue-easy-lightbox@next
 默认情况下， CSS被包含在了  `dist/*.min.js`. 在一些特殊情况，你可能需要单独引入CSS文件来避免一些问题 ([CSP Violation](https://github.com/XiongAmao/vue-easy-lightbox/issues/75)). 你可以从`dist/external-css/`导入不包含CSS的构建文件和单独的样式文件.
 
 ```js
-// in this path vue-easy-lightbox/dist/external-css/*.js
-import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
-// or
 import VueEasyLightbox from 'vue-easy-lightbox/external-css'
-// it defines in `package.json` `exports`
+// or
+import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
 
 // 单独引入组件样式
-import 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.css'
-// or
 import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
+// or
+import 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.css'
 ```
 
 #### TypeScript Checking error:
@@ -127,7 +125,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   resolve: {
     alias: {
-      'vue-easy-lightbox': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
+      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
     }
   }
 })

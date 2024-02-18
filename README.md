@@ -77,16 +77,14 @@ Since `Vue 3.x` uses `ES2015` ([docs faq](https://vuejs.org/about/faq.html#what-
 By default, CSS is included in `dist/*.min.js`. In some special cases you may want to import CSS individually to avoid some problems ([CSP Violation](https://github.com/XiongAmao/vue-easy-lightbox/issues/75)). You can import builds without CSS and individual `.css` file from `dist/external-css/`.
 
 ```js
-// in this path vue-easy-lightbox/dist/external-css/*.js
-import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
-// or
 import VueEasyLightbox from 'vue-easy-lightbox/external-css'
-// it defines in `package.json` `exports`
-
-// you need to import css yourself
-import 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.css'
 // or
+import VueEasyLightbox from 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
+
+// you need to import css
 import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
+// or
+import 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.css'
 ```
 
 #### TypeScript Checking error:
@@ -135,7 +133,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   resolve: {
     alias: {
-      'vue-easy-lightbox': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
+      'vue-easy-lightbox$': 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.esm.min.js'
     }
   }
 })
