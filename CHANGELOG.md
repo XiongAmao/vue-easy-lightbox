@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.18.0] (18 Feb. 2024)
+
+- Fix: Nuxt3 build warning [#145](https://github.com/XiongAmao/vue-easy-lightbox/issues/145)
+
 ## [1.17.0] (23 Dec. 2023)
 
 - Feat: Add `dblclickDisabled` prop to disable double click. [#131](https://github.com/XiongAmao/vue-easy-lightbox/issues/142)
