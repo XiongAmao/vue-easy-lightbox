@@ -37,7 +37,7 @@
   },
   "scripts": {
     "dev:docs": "cd docs && pnpm dev",
-    "dev": "vite",
+    "dev": "vite --host",
     "dev:bd-watch": "rollup -w -c build-scripts/rollup.watch.config.js",
     "clean": "rimraf ./dist && rimraf ./types",
     "build": "pnpm run clean && pnpm run build:bundle && pnpm run build:type",
