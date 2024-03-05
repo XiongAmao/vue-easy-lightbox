@@ -497,7 +497,9 @@ export default defineComponent({
     onBeforeUnmount(() => {
       off(document, 'keydown', onKeyPress)
       off(window, 'resize', onWindowResize)
-      enableScrolling()
+      if (props.scrollDisabled) {
+        enableScrolling()
+      }
     })
 
     const renderLoading = () => {

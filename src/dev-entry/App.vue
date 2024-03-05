@@ -90,9 +90,9 @@ export default defineComponent({
             index={this.index}
             imgs={this.imgs}
             onHide={this.handleHide}
-            onOnIndexChange={this.log}
-            onOnPrev={this.log}
-            onOnError={this.log}
+            onOn-index-change={this.log}
+            onOn-prev={this.log}
+            onOn-error={this.log}
             maskClosable={false}
           ></VueEasyLightbox>
         </div>
