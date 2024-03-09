@@ -90,9 +90,9 @@ export default defineComponent({
             index={this.index}
             imgs={this.imgs}
             onHide={this.handleHide}
-            onOnIndexChange={this.log}
-            onOnPrev={this.log}
-            onOnError={this.log}
+            onOn-index-change={this.log}
+            onOn-prev={this.log}
+            onOn-error={this.log}
             maskClosable={false}
           ></VueEasyLightbox>
         </div>
@@ -126,7 +126,9 @@ h1 {
   cursor: pointer;
 }
 .pic:hover img {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0);
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0);
   transform: scale(1.01);
 }
 img {

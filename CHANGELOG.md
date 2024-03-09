@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.19.0] (5 Mar. 2024)
+
+- Fix: Unexpected body overflow unlock [#147](https://github.com/XiongAmao/vue-easy-lightbox/issues/147)
+
 ## [1.18.0] (18 Feb. 2024)
 
 - Fix: Nuxt3 build warning [#145](https://github.com/XiongAmao/vue-easy-lightbox/issues/145)
