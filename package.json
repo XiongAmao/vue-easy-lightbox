@@ -38,10 +38,9 @@
   "scripts": {
     "dev:docs": "cd docs && pnpm dev",
     "dev": "vite --host",
-    "dev:bd-watch": "rollup -w -c build-scripts/rollup.watch.config.js",
     "clean": "rimraf ./dist && rimraf ./types",
     "build": "pnpm run clean && pnpm run build:bundle && pnpm run build:type",
-    "build:bundle": "rollup -c build-scripts/rollup.config.js",
+    "build:bundle": "tsx ./vite.config.build.ts",
     "build:type": "tsc --emitDeclarationOnly --project ./tsconfig.build.json",
     "build:docs": "cd docs && pnpm build",
     "deploy:docs": "bash bin/deploy-docs.sh",
@@ -49,8 +48,7 @@
     "prepare": "husky install",
     "pre-commit": "lint-staged",
     "commit": "cz",
-    "test": "vitest",
-    "cc": "vite build"
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
@@ -79,6 +77,7 @@
     "commitizen": "^4.3.0",
     "core-js": "^3.34.0",
     "cz-git": "^1.4.1",
+    "esbuild": "^0.19.3",
     "eslint": "^8.55.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.6.1",
@@ -95,8 +94,10 @@
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
     "sass": "^1.69.5",
+    "tsx": "^4.7.1",
     "typescript": "^5.3.3",
     "vite": "^5.0.7",
+    "vite-plugin-css-injected-by-js": "^3.4.0",
     "vitest": "^1.0.4",
     "vue": "^3.3.11",
     "vue-tsc": "^1.8.25"
@@ -116,7 +117,7 @@
     "types",
     "README-CN.md"
   ],
-  "packageManager": "pnpm@7.4.0",
+  "packageManager": "pnpm@8.15.4",
   "config": {
     "commitizen": {
       "path": "node_modules/cz-git"

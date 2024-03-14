@@ -8,6 +8,6 @@
   },
   "include": [
     "vite.config.ts",
-    "./build-scripts/vite.config.build.ts",
+    "vite.config.build.ts",
   ]
 }
