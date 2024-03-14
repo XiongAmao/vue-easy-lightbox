@@ -7,7 +7,7 @@ export * from './composables'
 
 const VueEasyLightbox = Object.assign(_VueEasyLightbox, {
   install: (app: App) => {
-    app.component(_VueEasyLightbox.name, _VueEasyLightbox)
+    app.component(_VueEasyLightbox.name!, _VueEasyLightbox)
   }
 })
 

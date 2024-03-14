@@ -18,6 +18,7 @@
     "noEmit": true,
     "jsx": "preserve",
     "jsxFactory": "h",
+    "jsxImportSource": "vue",
     "importHelpers": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
@@ -25,7 +26,8 @@
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
-      "vitest/globals"
+      "vitest/globals",
+      "vite/client"
     ],
     "declaration": true,
     "declarationDir": "./types"
