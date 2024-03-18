@@ -72,4 +72,5 @@ demos/**/dist
 docs/docs/.vuepress/dist
 docs/docs/.vuepress/.temp
 docs/docs/.vuepress/.cache
-
+docs/.vitepress/dist
+docs/.vitepress/cache

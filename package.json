@@ -36,14 +36,15 @@
     "./sfc": "src/vue-easy-lightbox.vue"
   },
   "scripts": {
-    "dev:docs": "cd docs && pnpm dev",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "docs:deploy": "bash bin/deploy-docs.sh",
     "dev": "vite --host",
     "clean": "rimraf ./dist && rimraf ./types",
     "build": "pnpm run clean && pnpm run build:bundle && pnpm run build:type",
     "build:bundle": "tsx ./vite.config.build.ts",
     "build:type": "tsc --emitDeclarationOnly --project ./tsconfig.build.json",
-    "build:docs": "cd docs && pnpm build",
-    "deploy:docs": "bash bin/deploy-docs.sh",
     "lint": "eslint --fix --ext .ts,.vue,.js,.tsx ./src",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
@@ -98,6 +99,7 @@
     "typescript": "^5.3.3",
     "vite": "^5.0.7",
     "vite-plugin-css-injected-by-js": "^3.4.0",
+    "vitepress": "1.0.0-rc.45",
     "vitest": "^1.0.4",
     "vue": "^3.3.11",
     "vue-tsc": "^1.8.25"

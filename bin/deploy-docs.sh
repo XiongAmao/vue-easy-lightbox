@@ -4,15 +4,15 @@
 set -e
 
 # build
-yarn build:docs
+pnpm run docs:build
 
 # navigate into the build output directory
-cd docs/docs/.vuepress/dist
+cd docs/.vitepress/dist
 
 git init -b main
 git add -A
 git commit -m 'update gh-pages'
-git push -f git@github.com:XiongAmao/vue-easy-lightbox.git main:gh-pages
+# git push -f git@github.com:XiongAmao/vue-easy-lightbox.git main:gh-pages
 
 cd -
 
