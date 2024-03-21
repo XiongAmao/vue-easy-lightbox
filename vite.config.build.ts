@@ -12,7 +12,7 @@ const libraryName = 'vue-easy-lightbox'
 const entry = resolve(__dirname, './src/index.ts')
 const umdEntry = resolve(__dirname, './src/index.umd.ts')
 const formatNameMap = {
-  cjs: 'commonjs',
+  cjs: 'common',
   es: 'esm',
   umd: 'umd'
 }
@@ -53,7 +53,7 @@ const runBuild = async (isUmd = false, isExternal = false) => {
         name: Case.pascal(libraryName),
         formats: isUmd ? ['umd'] : ['cjs', 'es'],
         fileName: (format) => {
-          return `vue-easy-lightbox.${formatNameMap[format]}.test.min.js`
+          return `vue-easy-lightbox.${formatNameMap[format]}.min.js`
         }
       },
       rollupOptions: {
