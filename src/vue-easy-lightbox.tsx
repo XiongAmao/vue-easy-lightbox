@@ -1,6 +1,8 @@
+import type { TeleportProps, PropType } from 'vue'
+import type { Img, IImgWrapperState, PropsImgs } from './types'
+
 import {
   defineComponent,
-  PropType,
   nextTick,
   computed,
   ref,
@@ -10,7 +12,6 @@ import {
   onBeforeUnmount,
   Transition,
   withModifiers,
-  TeleportProps,
   Teleport
 } from 'vue'
 
@@ -32,7 +33,6 @@ import {
   preventDefault
 } from './utils/index'
 import { useImage, useMouse, useTouch } from './utils/hooks'
-import { Img, IImgWrapperState, PropsImgs } from './types'
 
 function isImg(arg: Img): arg is Img {
   return isObject(arg) && isString(arg.src)

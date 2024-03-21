@@ -6,7 +6,8 @@
     "src/**/*.test.ts",
     "src/dev-entry",
     "src/index.umd.ts",
-    "tests"
+    "tests",
+    "docs"
   ],
   "compilerOptions": {
     "noEmit": false
